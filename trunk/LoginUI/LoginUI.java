@@ -1,5 +1,5 @@
 //Macrosoft - CMPT 275
-//Programmer: Alex Antonio (the leet progger)
+//Programmer: Alex Antonio
 
 import java.awt.Color;
 import java.awt.Container;
