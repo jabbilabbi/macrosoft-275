@@ -43,7 +43,7 @@ public class LoginUI{
 		pane.add(enterPassword);
 		pane.add(pleaseLogin);
 		
-		//Screen positioning
+		//Screen positioning yo
 		Insets insets = pane.getInsets();
         Dimension size = createAccount.getPreferredSize();
         createAccount.setBounds(305 + insets.left, 180 + insets.top,
