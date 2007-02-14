@@ -111,4 +111,20 @@ public class SecurityControl {
 			return -1;
 		}	
 	}
+	
+	// ------------------------------------------------------------------
+	
+	// Get all user names in login database
+	// PRE: None
+	// POST: ArrayList with all usernames in login database is returned
+	public ArrayList<String> getUserNames() {
+		// ArrayList to hold user names
+		ArrayList<String> nameList = new ArrayList<String>();
+		// Loop through user names in login database and add to name list
+		for (int i = 0; i < loginItems.size(); i += 4) {
+			nameList.add(loginItems.get(i));
+		}
+		// Return result
+		return nameList;
+	}
 }
