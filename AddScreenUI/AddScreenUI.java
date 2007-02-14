@@ -10,57 +10,73 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class AddScreenUI implements ActionListener {
+	
+	JComboBox mediaTypeSelected;
 	JButton add;
-
+	JButton backToMain;
+	JTextField titleTextField;
+	JTextField artistTextField;
+	JTextField genreTextField;
+	JTextField descriptionTextField;
+	JLabel mediaText;
+	JLabel addText;
+	JLabel mediaTitle;
+	JLabel mediaArtist;
+	JLabel mediaRating;
+	JLabel mediaGenre;
+	JLabel mediaDescription;
+	
+	
+	
 	public void addComponentsToPane(Container pane) {
 		// Absolute container positioning used
 		pane.setLayout(null);
 
 		// Declaration of pane components
-		JComboBox mediaTypeSelect = new JComboBox(new Object[] { "CD" });
+		mediaTypeSelected = new JComboBox(new Object[] { "CD" });
 
 		add = new JButton("Add");
 		add.addActionListener(this);
 
-		JButton backToMain = new JButton("Back to Main Screen");
+		backToMain = new JButton("Back to Main Screen");
 
-		JTextField titleTextField = new JTextField(20);
+		titleTextField = new JTextField(20);
 
-		JTextField artistTextField = new JTextField(20);
+		artistTextField = new JTextField(20);
 
-		JTextField genreTextField = new JTextField(20);
+		genreTextField = new JTextField(20);
 
-		JTextField DescriptionTextField = new JTextField(20);
+		descriptionTextField = new JTextField(20);
 
-		JLabel mediaText = new JLabel("Choose a media type:");
+		mediaText = new JLabel("Choose a media type:");
 		mediaText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		JLabel addText = new JLabel("Adding media:");
+		addText = new JLabel("Adding media:");
 		addText.setFont(new Font("Helvetica", Font.BOLD, 14));
 
-		JLabel mediaTitle = new JLabel("Enter a title:");
+		mediaTitle = new JLabel("Enter a title:");
 		mediaTitle.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		JLabel mediaArtist = new JLabel("Enter the artist:");
+		mediaArtist = new JLabel("Enter the artist:");
 		mediaArtist.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		JLabel mediaRating = new JLabel("Choose a rating:");
+		mediaRating = new JLabel("Choose a rating:");
 		mediaRating.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		JLabel mediaGenre = new JLabel("Enter a genre:");
+		mediaGenre = new JLabel("Enter a genre:");
 		mediaGenre.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		JLabel mediaDescription = new JLabel("Enter a Description:");
+		mediaDescription = new JLabel("Enter a Description:");
 		mediaDescription.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
 		// Add components to the pane
-		pane.add(mediaTypeSelect);
+		pane.add(mediaTypeSelected);
 		pane.add(backToMain);
 		pane.add(add);
 		pane.add(titleTextField);
 		pane.add(artistTextField);
 		pane.add(genreTextField);
-		pane.add(DescriptionTextField);
+		pane.add(descriptionTextField);
 		pane.add(mediaArtist);
 		pane.add(mediaText);
 		pane.add(mediaTitle);
@@ -76,7 +92,7 @@ public class AddScreenUI implements ActionListener {
 
 		add.setBounds(370 + insets.left, 425 + insets.top, 160, 75);
 
-		mediaTypeSelect.setBounds(175 + insets.left, 128 + insets.top, 100, 20);
+		mediaTypeSelected.setBounds(175 + insets.left, 128 + insets.top, 100, 20);
 
 		titleTextField.setBounds(175 + insets.left, 178 + insets.top, 175, 20);
 
@@ -84,7 +100,7 @@ public class AddScreenUI implements ActionListener {
 
 		genreTextField.setBounds(175 + insets.left, 278 + insets.top, 175, 20);
 
-		DescriptionTextField.setBounds(175 + insets.left, 328 + insets.top,
+		descriptionTextField.setBounds(175 + insets.left, 328 + insets.top,
 				175, 75);
 
 		addText.setBounds(50 + insets.left, 50 + insets.top, 300, 75);
@@ -129,7 +145,24 @@ public class AddScreenUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		if (b == this.add) {
-
+			String fname = "CD.txt";
+			String title;
+			String artist;
+			String genre;
+			String description;
+			String rating;
+			
+			if( fname == "CD.txt"){
+				title = titleTextField.getText();
+				artist = artistTextField.getText();
+				genre = genreTextField.getText();
+				description = descriptionTextField.getText();
+				
+				DatabaseControl dc = new DatabaseControl();
+				dc.appendMediaDatabase(fname, title, artist, genre, description);			
+				
+			}
+			
 		}
 
 	}
