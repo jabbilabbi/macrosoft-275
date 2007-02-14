@@ -160,7 +160,7 @@ public class AddScreenUI implements ActionListener {
 				
 				DatabaseControl dc = new DatabaseControl();
 				dc.appendMediaDatabase(fname, title, artist, genre, description);			
-				
+				//fghjfgh
 			}
 			
 		}
