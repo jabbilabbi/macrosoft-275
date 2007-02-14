@@ -4,7 +4,7 @@
 // Alan Lerner
 // CMPT 275, SFU Surrey
 
-package Project2;
+package BrowseUITest;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
