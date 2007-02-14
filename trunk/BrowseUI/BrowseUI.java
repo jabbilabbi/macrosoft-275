@@ -65,12 +65,12 @@ public class BrowseUI {
         pane.add(combo, c);
         
         //JTABLE
-        String[] columnNames = {"Title", "Artist", "Genre", "Location", "Condition", "Rating", "Date Added"};
+        String[] columnNames = {"Name", "Artist", "Genre", "Description"};
         
         Object[][] data = {
-        		{"Mezzanine", "Masive Attack", "Electronica", "CD Rack", "New", new Integer(5), "09/2005"},
-        		{"Nevermind", "Nirvana", "Rock",  "Car", "Scratched", new Integer(4), "02/2003"},
-        		{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "CD Rack", "New", new Integer(5), "08/1999"}
+        		{"Mezzanine", "Masive Attack", "Electronica", "09/2005"},
+        		{"Nevermind", "Nirvana", "Rock", "02/2003"},
+        		{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "08/1999"}
         };
         final JTable table = new JTable(data, columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(700, 300));	//Sets size of table width,height in pixels
