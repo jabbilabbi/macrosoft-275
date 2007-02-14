@@ -180,16 +180,16 @@ public class CreateAccountUI implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		SecurityControl sdb = new SecurityControl();
+		sdb.loadLoginDatabase("logins.txt");
 		if ((usernameTextBox.getText().length() == 0)
 				|| (passwordTextBox.getPassword().length == 0)
 				|| (passwordConfirmTextBox.getPassword().length == 0)
 				|| (secretQuestionTextBox.getText().length() == 0)
 				|| (secretAnswerTextBox.getText().length() == 0)) {
 			somethingNotEntered.setVisible(true);
-			System.out.println("gay");
-			if (passwordTextBox.getPassword() == passwordConfirmTextBox
+			if (passwordTextBox.getPassword() != passwordConfirmTextBox
 					.getPassword()) {
-				passwordConflict.setVisible(false);
+				passwordConflict.setVisible(true);
 				if (sdb.getUserNames().contains(usernameTextBox.getText()) == false) {
 					usernameTaken.setVisible(false);
 					sdb.appendLoginDatabase("logins.txt", usernameTextBox
@@ -200,7 +200,7 @@ public class CreateAccountUI implements ActionListener {
 					usernameTaken.setVisible(true);
 				}
 			} else {
-				passwordConflict.setVisible(true);
+				passwordConflict.setVisible(false);
 			}
 		} else {
 			somethingNotEntered.setVisible(false);
