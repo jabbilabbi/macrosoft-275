@@ -15,5 +15,7 @@ public class SecurityTest {
 		sc.appendLoginDatabase("logins.txt", "ABC", "123", "what's up", "nothing");
 		
 		System.out.println(sc.loginItems.toString());
+		
+		System.out.println(sc.getUserNames());
 	}
 }
