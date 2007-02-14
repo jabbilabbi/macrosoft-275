@@ -1,7 +1,7 @@
 //SFU CMPT 275
 //Browse UI
 //Alex Androne
-
+package BrowseUITest;
 
 import java.awt.*;
 import javax.swing.JButton;
@@ -65,14 +65,29 @@ public class BrowseUI {
         pane.add(combo, c);
         
         //JTABLE
+        
+        
         String[] columnNames = {"Name", "Artist", "Genre", "Description"};
         
+        DatabaseControl db = new DatabaseControl();
+        db.loadMediaDatabase("New Text Document.txt");
+        
+        Object[][] tableData = new Object[db.getRowsNeeded()][4];
+        for(int i=0 ; i < db.getRowsNeeded() ; i++) {
+        	String[] rowData = db.getLibraryRow(i);
+        	for(int j=0 ; j < 4 ; j++)
+        		tableData[i][j] = rowData[j];
+        }
+        /*
         Object[][] data = {
         		{"Mezzanine", "Masive Attack", "Electronica", "09/2005"},
         		{"Nevermind", "Nirvana", "Rock", "02/2003"},
         		{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "08/1999"}
         };
-        final JTable table = new JTable(data, columnNames);
+        */
+        System.out.println(tableData[0][1]);
+        
+        final JTable table = new JTable(tableData, columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(700, 300));	//Sets size of table width,height in pixels
         c.gridx = 0; 	
         c.gridy = 3;       	
