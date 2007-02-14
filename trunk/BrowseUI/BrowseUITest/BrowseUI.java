@@ -65,13 +65,10 @@ public class BrowseUI {
         pane.add(combo, c);
         
         //JTABLE
-        
-        
-        String[] columnNames = {"Name", "Artist", "Genre", "Description"};
-        
         DatabaseControl db = new DatabaseControl();
         db.loadMediaDatabase("test.txt");
         
+        String[] columnNames = {"Name", "Artist", "Genre", "Description"};
         Object[][] tableData = new Object[db.getRowsNeeded()][4];
         for(int i=0 ; i < db.getRowsNeeded() ; i++) {
         	String[] rowData = db.getLibraryRow(i);
@@ -85,7 +82,6 @@ public class BrowseUI {
         		{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "08/1999"}
         };
         */
-        System.out.println(tableData[0][1]);
         
         final JTable table = new JTable(tableData, columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(700, 300));	//Sets size of table width,height in pixels
