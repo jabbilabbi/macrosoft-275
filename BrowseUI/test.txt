@@ -1,6 +1,4 @@
-CD Name ::: CD Artist ::: CD Genre ::: CD Descriptiona flasdfdalsfadsl
-CD Name ::: CD Artist ::: CD Genre ::: CD Descriptiona flasdfdalsfadsl
-CD Name ::: CD Artist ::: CD Genre ::: CD Descriptiona flasdfdalsfadsl
-CD Name ::: CD Artist ::: CD Genre ::: CD Descriptiona flasdfdalsfadsl
-CD Name ::: CD Artist ::: CD Genre ::: CD Descriptiona flasdfdalsfadsl
+Mezzanine:::Masive Attack:::Electronica:::09/2005
+Nevermind:::Nirvana:::Rock:::02/2003
+Magnetic Fields:::Jean Michel Jarre:::Electronica:::08/1999
 

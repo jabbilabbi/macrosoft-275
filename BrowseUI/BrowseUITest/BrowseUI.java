@@ -70,7 +70,7 @@ public class BrowseUI {
         String[] columnNames = {"Name", "Artist", "Genre", "Description"};
         
         DatabaseControl db = new DatabaseControl();
-        db.loadMediaDatabase("New Text Document.txt");
+        db.loadMediaDatabase("test.txt");
         
         Object[][] tableData = new Object[db.getRowsNeeded()][4];
         for(int i=0 ; i < db.getRowsNeeded() ; i++) {
