@@ -10,16 +10,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class CreateAccountUI {
-
+public class CreateAccountUI implements ActionListener{
+	JButton createAccount;
+	JTextField usernameTextBox;
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be added and displayed
-	public static void addComponentsToPane(Container pane) {
+	public void addComponentsToPane(Container pane) {
 		// Absolute container positioning used
 		pane.setLayout(null);
 
 		// Declaration of pane components
-		JButton createAccount = new JButton("Create Account");
+		createAccount = new JButton("Create Account");
 
 		JTextField usernameTextBox = new JTextField(10);
 
@@ -56,6 +57,14 @@ public class CreateAccountUI {
 		pane.add(enterSecretQuestion);
 		pane.add(enterSecretAnswer);
 		pane.add(enterNewAccount);
+		
+		// Adds action listeners to relevant entities
+		createAccount.addActionListener(this);
+		usernameTextBox.addActionListener(this);
+		passwordTextBox.addActionListener(this);
+		passwordConfirmTextBox.addActionListener(this);
+		secretQuestionTextBox.addActionListener(this);
+		secretAnswerTextBox.addActionListener(this);
 
 		// Gets the insets for the pane on the screen
 		Insets insets = pane.getInsets();
@@ -113,7 +122,7 @@ public class CreateAccountUI {
 	}
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
-	private static void createAndShowGUI() {
+	private void createAndShowGUI() {
 		// Create and set up the window.
 		JFrame frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,11 +136,18 @@ public class CreateAccountUI {
 				+ insets.bottom);
 		frame.setVisible(true);
 	}
+	public void actionPerformed(ActionEvent e) {
+		JButton b = (JButton) e.getSource();
+		if (b == this.createAccount){
+			System.out.println("clicked");
+		}
+	}
 	// Test Method
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				createAndShowGUI();
+				CreateAccountUI ui = new CreateAccountUI();
+				ui.createAndShowGUI();
 			}
 		});
 
