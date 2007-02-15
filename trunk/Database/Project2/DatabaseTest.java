@@ -6,7 +6,7 @@ public class DatabaseTest {
 		
 		DatabaseControl db = new DatabaseControl();
 		
-		db.loadMediaDatabase("test.txt");
+		db.loadMediaDatabase();
 		
 		String mediaType = "Nothing";
 		

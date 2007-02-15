@@ -16,7 +16,17 @@ import java.util.ArrayList;
 public class DatabaseControl {
 
 	// ArrayList to hold media database
-	public ArrayList<String> mediaItems = new ArrayList<String>();
+	private ArrayList<String> mediaItems = new ArrayList<String>();
+	
+	// Storage for media entry database
+	private String fname = "main.txt";
+	
+	// ------------------------------------------------------------------
+	
+	// Constructor
+	public DatabaseControl() {
+		this.loadMediaDatabase();
+	}
 	
 	// ------------------------------------------------------------------
 	
@@ -24,7 +34,7 @@ public class DatabaseControl {
 	// user's media library
 	// PRE: The filename of the media database
 	// POST: The media database is loaded into an ArrayList
-	public void loadMediaDatabase(String fname) {
+	public void loadMediaDatabase() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			// Read first line
@@ -53,7 +63,7 @@ public class DatabaseControl {
 	// Append media database with a new entry
 	// PRE: The filename of the media database, and the information to be added
 	// POST: Media database file is appended, and media database is reloaded
-	public void appendMediaDatabase(String fname, String title, String artist, String genre, String description) {
+	public void appendMediaDatabase(String title, String artist, String genre, String description) {
 		
 	    BufferedWriter bw = null;
 		
@@ -76,7 +86,7 @@ public class DatabaseControl {
 	    
 	    // Clear old ArrayList and reload in order to include appended media entry
 	    mediaItems.clear();
-	    this.loadMediaDatabase(fname);
+	    this.loadMediaDatabase();
 	}
 	
 	// ------------------------------------------------------------------
