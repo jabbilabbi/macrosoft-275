@@ -11,17 +11,23 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 //import java.awt.event.MouseAdapter;//Used for events
 //import java.awt.event.MouseEvent;
 //import java.awt.event.ActionEvent;	
-//import java.awt.event.ActionListener;
 //import java.awt.event.KeyEvent;
 
-public class BrowseUI {
+public class BrowseUI implements ActionListener{
  
     final static boolean RIGHT_TO_LEFT = false;	//GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
 
-    public static void addComponentsToPane(Container pane) {
+    JButton button;
+    
+    //Purpose:
+    //Pre: Valid pane is given as a parameter
+	//Post: All necessary components for the Create Account screen will be added and displayed
+    public void addComponentsToPane(Container pane) {
         if (RIGHT_TO_LEFT) {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
@@ -31,7 +37,7 @@ public class BrowseUI {
         GridBagConstraints c = new GridBagConstraints();
        
         //JBUTTON: Back to Main
-        JButton button = new JButton("Back to Main");
+        button = new JButton("Back to Main");
         c.gridx = 0;		//Lays out component at grid x coordinate 0
         c.gridy = 0;		//Lays out component at grid y coordinate 0
         c.weightx = 0.0;	//0.0-1.0 Determines how much additional space is placed within adjacent columns 
@@ -69,19 +75,20 @@ public class BrowseUI {
         db.loadMediaDatabase("test.txt");
         
         String[] columnNames = {"Name", "Artist", "Genre", "Description"};
-        Object[][] tableData = new Object[db.getRowsNeeded()][4];
-        for(int i=0 ; i < db.getRowsNeeded() ; i++) {
-        	String[] rowData = db.getLibraryRow(i);
-        	for(int j=0 ; j < 4 ; j++)
-        		tableData[i][j] = rowData[j];
-        }
-        /*
-        Object[][] data = {
+        Object[][] tableData = new Object[db.getRowsNeeded()][4];	//Holds table data
+        /*tableData Example
+        Object[][] tableData = {
         		{"Mezzanine", "Masive Attack", "Electronica", "09/2005"},
         		{"Nevermind", "Nirvana", "Rock", "02/2003"},
         		{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "08/1999"}
         };
         */
+        //Assigns data from the database to tableData	
+        for(int i=0 ; i < db.getRowsNeeded() ; i++) {	
+        	String[] rowData = db.getLibraryRow(i);	//Holds a row of data from the database
+        	for(int j=0 ; j<4 ; j++)	//Assigns column data from a row to tableData
+        		tableData[i][j] = rowData[j];
+        }
         
         final JTable table = new JTable(tableData, columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(700, 300));	//Sets size of table width,height in pixels
@@ -98,7 +105,7 @@ public class BrowseUI {
     //Purpose: To display GUI
     //Pre: None
     //Post: Sets up GUI
-    private static void createAndShowGUI() {
+    private void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("Media Works - Browse Library");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,13 +117,25 @@ public class BrowseUI {
         frame.pack();
         frame.setVisible(true);
     }
+    
+    //Purpose: To set action evemt for back to main button
+    //Pre: Valid action event
+    //Post: Sets up action event for back to main button
+    public void actionPerformed(ActionEvent e) {
+		JButton B = new JButton();
+		B = (JButton)e.getSource();
+		if (B == button) {
+			
+		}
+	}
 
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+            	BrowseUI ui=new BrowseUI();
+                ui.createAndShowGUI();
             }
         });
     }
