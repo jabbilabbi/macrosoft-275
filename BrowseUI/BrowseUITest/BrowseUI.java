@@ -90,14 +90,14 @@ public class BrowseUI implements ActionListener{
         		tableData[i][j] = rowData[j];
         }
         
-        final JTable table = new JTable(tableData, columnNames);
-        table.setPreferredScrollableViewportSize(new Dimension(700, 300));	//Sets size of table width,height in pixels
         c.gridx = 0; 	
         c.gridy = 3;       	
         c.gridwidth = 2;   	
         c.weightx = 0.0;	
         c.weighty = 0.0;   	
         c.insets = new Insets(5,10,10,10);
+        JTable table = new JTable(tableData, columnNames);
+        table.setPreferredScrollableViewportSize(new Dimension(700, 300));	//Sets size of table width,height in pixels
         JScrollPane scrollPane = new JScrollPane(table);	//Makes a scroll bar available if windows sized smaller than table size 
         pane.add(scrollPane, c);	//Add the scroll pane to this panel 
     }
