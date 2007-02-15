@@ -184,7 +184,7 @@ public class CreateAccountUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		SecurityControl sdb = new SecurityControl();
-		sdb.loadLoginDatabase("logins.txt");
+		sdb.loadLoginDatabase();
 		
 		if ((usernameTextBox.getText().length() == 0)
 				|| (passwordTextBox.getPassword().length == 0)
@@ -205,7 +205,7 @@ public class CreateAccountUI implements ActionListener {
 				
 				if (sdb.getUserNames().contains(usernameTextBox.getText()) == false) {
 					usernameTaken.setVisible(false);
-					sdb.appendLoginDatabase("logins.txt", usernameTextBox.getText(),
+					sdb.appendLoginDatabase(usernameTextBox.getText(),
 					passwordTextBox.getText(), secretQuestionTextBox.getText(),
 					secretAnswerTextBox.getText());
 				} else {
