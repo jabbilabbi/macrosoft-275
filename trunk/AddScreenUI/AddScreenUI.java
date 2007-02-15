@@ -1,6 +1,5 @@
 //Macrosoft - CMPT 275
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Insets;
 
@@ -10,80 +9,101 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class AddScreenUI implements ActionListener {
-	
-	JComboBox mediaTypeSelected;
-	JButton add;
-	JButton backToMain;
-	JTextField titleTextField;
-	JTextField artistTextField;
-	JTextField genreTextField;
-	JTextField descriptionTextField;
-	JLabel mediaText;
-	JLabel addText;
-	JLabel mediaTitle;
-	JLabel mediaArtist;
-	JLabel mediaRating;
-	JLabel mediaGenre;
-	JLabel mediaDescription;
-	
-	
-	
+
+	private JComboBox mediaTypeSelected;
+
+	private JButton add, backToMain;
+
+	private JTextField textField1,textField2, textField3, textField4; 
+
+	private JLabel mediaText, addText, titleText, artistText, ratingText, genreText, desctiptionText,
+	chooseMediaText, enterTitleText, enterArtistText, enterGenreText;
+
+	private String artist, title, genre, description;
+
+	private Boolean check_add;
+
 	public void addComponentsToPane(Container pane) {
 		// Absolute container positioning used
 		pane.setLayout(null);
 
+		// Variable declaration
+		String[] media_combo_box = { "Choose here", "CD" };
 		// Declaration of pane components
-		mediaTypeSelected = new JComboBox(new Object[] { "CD" });
 
+		//Combo boxes
+		mediaTypeSelected = new JComboBox(media_combo_box);
+		mediaTypeSelected.addActionListener(this);
+
+		//Buttons
 		add = new JButton("Add");
 		add.addActionListener(this);
-
 		backToMain = new JButton("Back to Main Screen");
+		backToMain.addActionListener(this);
 
-		titleTextField = new JTextField(20);
 
-		artistTextField = new JTextField(20);
+		//Text fields
+		textField1 = new JTextField(20);
+		textField1.addActionListener(this);
+		textField2 = new JTextField(20);
+		textField2.addActionListener(this);
+		textField3 = new JTextField(20);
+		textField3.addActionListener(this);
+		textField4 = new JTextField(20);
+		textField4.addActionListener(this);
 
-		genreTextField = new JTextField(20);
-
-		descriptionTextField = new JTextField(20);
-
-		mediaText = new JLabel("Choose a media type:");
+		//Labels
+		mediaText = new JLabel("Select a media type:");
 		mediaText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
 		addText = new JLabel("Adding media:");
 		addText.setFont(new Font("Helvetica", Font.BOLD, 14));
 
-		mediaTitle = new JLabel("Enter a title:");
-		mediaTitle.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		titleText = new JLabel("Enter a title:");
+		titleText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		mediaArtist = new JLabel("Enter the artist:");
-		mediaArtist.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		artistText = new JLabel("Enter the artist:");
+		artistText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		mediaRating = new JLabel("Choose a rating:");
-		mediaRating.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		ratingText = new JLabel("Choose a rating:");
+		ratingText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		mediaGenre = new JLabel("Enter a genre:");
-		mediaGenre.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		genreText = new JLabel("Enter a genre:");
+		genreText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		mediaDescription = new JLabel("Enter a Description:");
-		mediaDescription.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		desctiptionText = new JLabel("Enter a Description:");
+		desctiptionText.setFont(new Font("Helvetica", Font.PLAIN, 12));
+
+		chooseMediaText = new JLabel("Please choose a media type");
+		chooseMediaText.setFont(new Font("Helvetica", Font.PLAIN, 10));
+
+		enterTitleText = new JLabel("Please enter a title");
+		enterTitleText.setFont(new Font("Helvetica", Font.PLAIN, 10));
+
+		enterArtistText = new JLabel("Please enter a artist");
+		enterArtistText.setFont(new Font("Helvetica", Font.PLAIN, 10));
+
+		enterGenreText = new JLabel("Please enter a genre");
+		enterGenreText.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
 		// Add components to the pane
 		pane.add(mediaTypeSelected);
 		pane.add(backToMain);
 		pane.add(add);
-		pane.add(titleTextField);
-		pane.add(artistTextField);
-		pane.add(genreTextField);
-		pane.add(descriptionTextField);
-		pane.add(mediaArtist);
+		pane.add(textField1);
+		pane.add(textField2);
+		pane.add(textField3);
+		pane.add(textField4);
+		pane.add(artistText);
 		pane.add(mediaText);
-		pane.add(mediaTitle);
-		pane.add(mediaRating);
-		pane.add(mediaGenre);
-		pane.add(mediaDescription);
+		pane.add(titleText);
+		pane.add(genreText);
+		pane.add(desctiptionText);
 		pane.add(addText);
+		pane.add(chooseMediaText);
+		pane.add(enterTitleText);
+		pane.add(enterArtistText);
+		pane.add(enterGenreText);
 
 		// Screen positioning
 		Insets insets = pane.getInsets();
@@ -94,26 +114,9 @@ public class AddScreenUI implements ActionListener {
 
 		mediaTypeSelected.setBounds(175 + insets.left, 128 + insets.top, 100, 20);
 
-		titleTextField.setBounds(175 + insets.left, 178 + insets.top, 175, 20);
-
-		artistTextField.setBounds(175 + insets.left, 228 + insets.top, 175, 20);
-
-		genreTextField.setBounds(175 + insets.left, 278 + insets.top, 175, 20);
-
-		descriptionTextField.setBounds(175 + insets.left, 328 + insets.top,
-				175, 75);
-
 		addText.setBounds(50 + insets.left, 50 + insets.top, 300, 75);
 
 		mediaText.setBounds(50 + insets.left, 100 + insets.top, 150, 75);
-
-		mediaTitle.setBounds(50 + insets.left, 150 + insets.top, 150, 75);
-
-		mediaArtist.setBounds(50 + insets.left, 200 + insets.top, 150, 75);
-
-		mediaGenre.setBounds(50 + insets.left, 250 + insets.top, 150, 75);
-
-		mediaDescription.setBounds(50 + insets.left, 300 + insets.top, 150, 75);
 	}
 
 	private void createAndShowGUI() {
@@ -121,17 +124,156 @@ public class AddScreenUI implements ActionListener {
 		JFrame frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Set up the content pane.
+		// Set up the content pane
 		addComponentsToPane(frame.getContentPane());
 
-		// Size and display the window.
+		// Size and display the window
 		Insets insets = frame.getInsets();
 		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
 				+ insets.bottom);
 		frame.setVisible(true);
 		frame.setResizable(false);
+
 	}
 
+	private void setupNone(){
+		
+		chooseMediaText.setBounds(276, 128, 150, 20);
+		chooseMediaText.setVisible(true);
+		
+		textField1.setVisible(false);
+		textField2.setVisible(false);
+		textField3.setVisible(false);
+		textField4.setVisible(false);
+		titleText.setVisible(false);
+		artistText.setVisible(false);
+		genreText.setVisible(false);
+		desctiptionText.setVisible(false);
+		enterTitleText.setVisible(false);
+		enterArtistText.setVisible(false);
+		enterGenreText.setVisible(false);
+	}
+	private void setupCD(){
+		textField1.setBounds(175, 178, 175, 20);
+		textField1.setVisible(true);
+
+		textField2.setBounds(175, 228, 175, 20);
+		textField2.setVisible(true);
+
+		textField3.setBounds(175, 278, 175, 20);
+		textField3.setVisible(true);
+
+		textField4.setBounds(175, 328, 175, 75);
+		textField4.setVisible(true);
+
+		titleText.setBounds(50, 150, 150, 75);
+		titleText.setVisible(true);
+
+		artistText.setBounds(50, 200, 150, 75);
+		artistText.setVisible(true);
+
+		genreText.setBounds(50, 250, 150, 75);
+		genreText.setVisible(true);
+
+		desctiptionText.setBounds(50, 300, 150, 75);
+		desctiptionText.setVisible(true);
+
+		chooseMediaText.setBounds(276, 128, 150, 20);
+		chooseMediaText.setVisible(false);
+
+		enterTitleText.setBounds(350, 178, 150, 20);
+		enterTitleText.setVisible(false);
+
+		enterArtistText.setBounds(350, 228, 150, 20);
+		enterArtistText.setVisible(false);
+
+		enterGenreText.setBounds(350, 278, 150, 20);
+		enterGenreText.setVisible(false);
+
+	}
+	public void checkCD(){
+		if(textField1.getText().length() == 0){
+			enterTitleText.setVisible(true);
+			check_add = false;
+		}else{
+			title = textField1.getText();
+			enterTitleText.setVisible(false);
+		}
+		if(textField2.getText().length() == 0){
+			enterArtistText.setVisible(true);
+			check_add = false;
+		}else{
+			artist = textField2.getText();
+			enterArtistText.setVisible(false);
+		}
+		if(textField3.getText().length() == 0){
+			enterGenreText.setVisible(true);
+			check_add = false;
+		}else{
+			genre = textField3.getText();
+			enterGenreText.setVisible(false);
+		}
+		
+		description = textField4.getText();
+
+	}
+	public void actionPerformed(ActionEvent e) {
+
+		// Variable declaration
+		String fname = "CD.txt";
+		int selected_index = (int)mediaTypeSelected.getSelectedIndex();
+
+		// If the combo box is used these actions occur
+		if(e.toString().contains("comboBox")){
+			JComboBox cb = (JComboBox) e.getSource();
+
+			if (cb == this.mediaTypeSelected){
+
+				switch(selected_index){
+				case 0:
+					setupNone();
+					break;
+				case 1:
+					setupCD();
+					break;
+				default:
+					break;	
+				}
+
+			}				
+
+		}
+		// if a button is pressed these actions occur
+		else if(e.toString().contains("Button")){
+			JButton b = (JButton) e.getSource();
+
+			if(b == this.add){
+				check_add = true;
+				switch(selected_index){
+				case 0:
+					chooseMediaText.setBounds(276, 128, 150, 20);
+					chooseMediaText.setVisible(true);
+					break;
+				case 1:
+					checkCD();
+					break;
+				default:
+					break;	
+				}
+
+				if((check_add) && (selected_index !=0)){
+					DatabaseControl dc = new DatabaseControl();
+					dc.appendMediaDatabase(fname, title, artist, genre, description);
+				}
+			}
+			else if(b == this.backToMain){
+				
+				
+			}
+			
+		}
+	}
+	
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -139,31 +281,6 @@ public class AddScreenUI implements ActionListener {
 				ui.createAndShowGUI();
 			}
 		});
-
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		JButton b = (JButton) e.getSource();
-		if (b == this.add) {
-			String fname = "CD.txt";
-			String title;
-			String artist;
-			String genre;
-			String description;
-			String rating;
-			
-			if( fname == "CD.txt"){
-				title = titleTextField.getText();
-				artist = artistTextField.getText();
-				genre = genreTextField.getText();
-				description = descriptionTextField.getText();
-				
-				DatabaseControl dc = new DatabaseControl();
-				dc.appendMediaDatabase(fname, title, artist, genre, description);			
-				//fghjfgh
-			}
-			
-		}
 
 	}
 
