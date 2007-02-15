@@ -1,5 +1,7 @@
 package Project2;
 
+import SecurityControl;
+
 public class SecurityTest {
 
 	public static void main(String[] args) {
