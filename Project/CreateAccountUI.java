@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreateAccountUI implements ActionListener {
+	
 	JButton createAccount;
 
 	JTextField usernameTextBox;
@@ -33,6 +34,7 @@ public class CreateAccountUI implements ActionListener {
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	public void addComponentsToPane(Container pane) {
+		
 		// Absolute container positioning used
 		pane.setLayout(null);
 
@@ -177,34 +179,40 @@ public class CreateAccountUI implements ActionListener {
 				+ insets.bottom);
 		frame.setVisible(true);
 	}
-
+	
+	
 	public void actionPerformed(ActionEvent e) {
+		
 		SecurityControl sdb = new SecurityControl();
 		sdb.loadLoginDatabase("logins.txt");
+		
 		if ((usernameTextBox.getText().length() == 0)
 				|| (passwordTextBox.getPassword().length == 0)
 				|| (passwordConfirmTextBox.getPassword().length == 0)
 				|| (secretQuestionTextBox.getText().length() == 0)
 				|| (secretAnswerTextBox.getText().length() == 0)) {
 			somethingNotEntered.setVisible(true);
-			if (passwordTextBox.getPassword() != passwordConfirmTextBox
-					.getPassword()) {
+		} else {
+			somethingNotEntered.setVisible(false);
+
+			String password = String.valueOf(passwordTextBox.getPassword());
+			String confirmPassword = String.valueOf(passwordConfirmTextBox.getPassword());
+			if (password.compareTo(confirmPassword) != 0) {
 				passwordConflict.setVisible(true);
+			} else {
+				System.out.println("bleh");
+				passwordConflict.setVisible(false);
+				
 				if (sdb.getUserNames().contains(usernameTextBox.getText()) == false) {
 					usernameTaken.setVisible(false);
-					sdb.appendLoginDatabase("logins.txt", usernameTextBox
-							.getText(), passwordTextBox.getText(),
-							secretQuestionTextBox.getText(),
-							secretAnswerTextBox.getText());
+					sdb.appendLoginDatabase("logins.txt", usernameTextBox.getText(),
+					passwordTextBox.getText(), secretQuestionTextBox.getText(),
+					secretAnswerTextBox.getText());
 				} else {
 					usernameTaken.setVisible(true);
 				}
-			} else {
-				passwordConflict.setVisible(false);
 			}
-		} else {
-			somethingNotEntered.setVisible(false);
-		}
+		}	
 	}
 
 	// Test Method
