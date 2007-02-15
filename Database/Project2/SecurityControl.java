@@ -1,9 +1,3 @@
-// Login database control functions for a personal library program
-// Includes login database creation and addition methods and a password checker
-
-// Alan Lerner
-// CMPT 275, SFU Surrey
-
 package Project2;
 
 import java.io.BufferedReader;
@@ -16,7 +10,20 @@ import java.util.ArrayList;
 public class SecurityControl {
 
 	// ArrayList to hold login database
-	public ArrayList<String> loginItems = new ArrayList<String>();
+	private ArrayList<String> loginItems = new ArrayList<String>();
+	
+	// Store name of current user logged in
+	private String currentUser;
+	
+	// Storage for user account database
+	private String fname = "logins.txt";
+	
+	// ------------------------------------------------------------------
+	
+	// Constructor
+	public SecurityControl() {
+		this.loadLoginDatabase();
+	}
 	
 	// ------------------------------------------------------------------
 	
@@ -24,7 +31,7 @@ public class SecurityControl {
 	// attempts to login
 	// PRE: The filename of the login database
 	// POST: The login database is loaded into an ArrayList
-	public void loadLoginDatabase(String fname) {
+	public void loadLoginDatabase() {
 		try {
 			// Read in login database file
 			BufferedReader in = new BufferedReader(new FileReader(fname));
@@ -55,7 +62,7 @@ public class SecurityControl {
 	// PRE: The user account elements to be appended to the login database
 	// POST: Login database file is appended, and login database is reloaded
 	
-	public void appendLoginDatabase(String fname, String username, String password, String 
+	public void appendLoginDatabase(String username, String password, String 
 			secretQuestion, String secretAnswer) {
 		
 	    BufferedWriter bw = null;
@@ -79,7 +86,7 @@ public class SecurityControl {
 	    
 	    // Clear old ArrayList and reload in order to include the appended account
 	    loginItems.clear();
-	    this.loadLoginDatabase(fname);
+	    this.loadLoginDatabase();
 	}
 	
 	// ------------------------------------------------------------------
@@ -127,4 +134,23 @@ public class SecurityControl {
 		// Return result
 		return nameList;
 	}
+	
+	// ------------------------------------------------------------------
+
+	// Get name of current user logged in
+	public String getCurrentUser() {
+		return currentUser;
+	}
+	
+	// ------------------------------------------------------------------
+
+	// Set current user logged in
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	// ------------------------------------------------------------------
+	
+
+	
 }
