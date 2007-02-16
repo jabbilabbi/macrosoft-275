@@ -87,7 +87,8 @@ public class MainScreenUI implements ActionListener{
 	        //Create and set up the window.
 	        frame= new JFrame("Macrosoft Media Works");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+	        frame.setResizable(false);
+	        
 	        //Set up the content pane.
 	        addComponentsToPane(frame.getContentPane());
 
