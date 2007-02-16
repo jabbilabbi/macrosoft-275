@@ -12,6 +12,8 @@ public class SecurityTest {
 		
 		sc.appendLoginDatabase("ABC", "123", "what's up", "nothing");
 		
+		System.out.println(sc.checkLogin("ABC", "123"));
+		
 //		System.out.println(sc.loginItems.toString());
 		
 		System.out.println(sc.getUserNames());

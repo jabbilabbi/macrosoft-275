@@ -279,14 +279,14 @@ public class AddScreenUI implements ActionListener {
 		}
 	}
 	
-	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				AddScreenUI ui = new AddScreenUI();
-				ui.createAndShowGUI();
-			}
-		});
-
-	}
+//	public static void main(String[] args) {
+//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				AddScreenUI ui = new AddScreenUI();
+//				ui.createAndShowGUI();
+//			}
+//		});
+//
+//	}
 
 }
