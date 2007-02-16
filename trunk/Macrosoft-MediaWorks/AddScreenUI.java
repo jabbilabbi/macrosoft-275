@@ -20,11 +20,15 @@ public class AddScreenUI implements ActionListener {
 
 	private JButton add, backToMain;
 
-	private JTextField textField1, textField2, textField3, textField4;
+	private JTextField textField1, textField2, textField3;
+	
+	private JTextArea descriptionTextArea;
 
 	private JLabel mediaText, addText, titleText, artistText, ratingText,
 			genreText, desctiptionText, chooseMediaText, enterTitleText,
 			enterArtistText, enterGenreText, added;
+	
+	JScrollPane descriptionPane;
 
 	// Initalizes variables
 	private String artist, title, genre, description;
@@ -59,13 +63,17 @@ public class AddScreenUI implements ActionListener {
 
 		// Text fields
 		textField1 = new JTextField(20);
-		textField1.addActionListener(this);
 		textField2 = new JTextField(20);
-		textField2.addActionListener(this);
 		textField3 = new JTextField(20);
-		textField3.addActionListener(this);
-		textField4 = new JTextField(20);
-		textField4.addActionListener(this);
+		
+		descriptionTextArea = new JTextArea(5, 20);
+		descriptionPane = new JScrollPane(descriptionTextArea,
+		                  JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		                  JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		descriptionTextArea.setLineWrap(true);
+		descriptionTextArea.setWrapStyleWord(true);
+
 
 		// Labels
 		mediaText = new JLabel("Select a media type:");
@@ -111,7 +119,6 @@ public class AddScreenUI implements ActionListener {
 		pane.add(textField1);
 		pane.add(textField2);
 		pane.add(textField3);
-		pane.add(textField4);
 		pane.add(artistText);
 		pane.add(mediaText);
 		pane.add(titleText);
@@ -123,7 +130,8 @@ public class AddScreenUI implements ActionListener {
 		pane.add(enterArtistText);
 		pane.add(enterGenreText);
 		pane.add(added);
-
+		pane.add(descriptionPane);
+		
 		// Screen positioning
 		Insets insets = pane.getInsets();
 
@@ -140,6 +148,7 @@ public class AddScreenUI implements ActionListener {
 
 		added.setBounds(450 + insets.left, 350 + insets.top, 300, 75);
 		added.setVisible(false);
+
 	}
 
 	// Purpose: To create and display the 'Create Account' UI
@@ -171,7 +180,7 @@ public class AddScreenUI implements ActionListener {
 		textField1.setVisible(false);
 		textField2.setVisible(false);
 		textField3.setVisible(false);
-		textField4.setVisible(false);
+		descriptionPane.setVisible(false);
 		titleText.setVisible(false);
 		artistText.setVisible(false);
 		genreText.setVisible(false);
@@ -194,8 +203,8 @@ public class AddScreenUI implements ActionListener {
 		textField3.setBounds(175, 278, 175, 20);
 		textField3.setVisible(true);
 
-		textField4.setBounds(175, 328, 175, 75);
-		textField4.setVisible(true);
+		descriptionPane.setBounds(175, 328, 175, 75);
+		descriptionPane.setVisible(true);
 
 		titleText.setBounds(50, 150, 150, 75);
 		titleText.setVisible(true);
@@ -250,7 +259,7 @@ public class AddScreenUI implements ActionListener {
 			enterGenreText.setVisible(false);
 		}
 
-		description = textField4.getText();
+		description = descriptionTextArea.getText();
 
 	}
 
@@ -319,7 +328,7 @@ public class AddScreenUI implements ActionListener {
 					textField1.setText("");
 					textField2.setText("");
 					textField3.setText("");
-					textField4.setText("");
+					descriptionTextArea.setText("");
 				}
 			}
 			// If backToMain button is pressed
