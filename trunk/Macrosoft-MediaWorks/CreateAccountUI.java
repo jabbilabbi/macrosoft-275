@@ -182,7 +182,9 @@ public class CreateAccountUI implements ActionListener {
 				+ insets.bottom);
 		frame.setVisible(true);
 	}
-
+	// Purpose: To syncronize the actions of the user with the functionality of the screen
+	// PRE: Valid action event as param
+	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 
 		SecurityControl sdb = new SecurityControl(); // Creates an instance

@@ -15,32 +15,38 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class LoginUI implements ActionListener {
+	// Declaration of screen objects used later in action listener method
 	private JButton createAccount, login, forgotPassword;
 
 	private JTextField usernameTextBox;
 
 	private JPasswordField passwordTextBox;
-
-	SecurityControl sdb = new SecurityControl();	
 	
 	private JLabel enterUsername, enterPassword, pleaseLogin,
-			enterUserNameText, enterPasswordText, invalidLogin;
+	enterUserNameText, enterPasswordText, invalidLogin;
+
+	SecurityControl sdb = new SecurityControl(); // Creates instance of the login DB	
+	
+	
 
 	private JFrame frame;
-
+	// Purpose: Add all components of the pane into the correct locations and
+	// with correct functions
+	// PRE: Valid pane is given as a parameter
+	// POST: All neceassray components for the Create Account screen will be
+	// added and displayed
 	public void addComponentsToPane(Container pane) {
-		// Absolute container positioning used
-		pane.setLayout(null);
+		pane.setLayout(null); // Absolute container positioning used
 
 		// Declaration of pane components
 		createAccount = new JButton("Create New Account");
 		createAccount.addActionListener(this);
 
 		login = new JButton("Login");
-		login.addActionListener(this);
+		login.addActionListener(this); // Adds Action Listener
 
 		forgotPassword = new JButton("Forgot Password?");
-		forgotPassword.addActionListener(this);
+		forgotPassword.addActionListener(this); // Adds Action Listener
 
 		usernameTextBox = new JTextField(10);
 
@@ -112,74 +118,79 @@ public class LoginUI implements ActionListener {
 				size.width + 50, size.height);
 		invalidLogin.setVisible(false);
 	}
-
+	// Purpose: To create and display the 'Create Account' UI
+	// PRE: None
+	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
-		// Create and set up the window.
+		// Create and set up the window
 		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Set up the content pane.
-		addComponentsToPane(frame.getContentPane());
+		addComponentsToPane(frame.getContentPane()); // Set up the content pane
 
-		// Size and display the window.
+		// Size and display the window
 		Insets insets = frame.getInsets();
 		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
 				+ insets.bottom);
 		frame.setVisible(true);
 	}
-
+	// Purpose: To syncronize the actions of the user with the functionality of the screen
+	// PRE: Valid action event as param
+	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 
-		sdb.loadLoginDatabase();
+		sdb.loadLoginDatabase(); // Loads the Login DB
 
-		CreateAccountUI createAccountUI = new CreateAccountUI();
-		MainScreenUI mainScreenUI = new MainScreenUI();
+		CreateAccountUI createAccountUI = new CreateAccountUI(); // Creates an instance of createAccountUI class
+		MainScreenUI mainScreenUI = new MainScreenUI(); // Creates an instance of the mainscreenUI class
 
-		Boolean fields_complete = true;
+		Boolean fieldsComplete = true;
 
 		String userEntered = String.valueOf(usernameTextBox.getText());
 		String passwordEntered = String.valueOf(passwordTextBox.getPassword());
 		int user_result = sdb.checkLogin(userEntered, passwordEntered);
 
 		JButton b = (JButton) e.getSource();
-
+		// Condition where the button pressed what the Create Account button
 		if (b == this.createAccount) {
 			createAccountUI.createAndShowGUI();
 			frame.setVisible(false);
 		}
+		// Condition where the button pressed what the Login button
 		if (b == this.login) {
-
+			// Checks if username wasn't completed
 			if (usernameTextBox.getText().length() == 0) {
-				fields_complete = false;
-				enterUserNameText.setVisible(true);
+				fieldsComplete = false;
+				enterUserNameText.setVisible(true); // Shows relevant error
 			} else {
-				enterUserNameText.setVisible(false);
+				enterUserNameText.setVisible(false); // Removes relevant error
 			}
+			// Checks if the password wasn't completed
 			if (passwordTextBox.getText().length() == 0) {
-				fields_complete = false;
-				enterPasswordText.setVisible(true);
+				fieldsComplete = false;
+				enterPasswordText.setVisible(true); // Shows relevant error
 			} else {
-				enterPasswordText.setVisible(false);
+				enterPasswordText.setVisible(false); // Removes relevant error
 			}
+			// Condition where the login entry was invalid
+			if ((user_result == 1) && (fieldsComplete == true)) {
+				invalidLogin.setVisible(false); // Removes relevant error
+				String currentUser = String.valueOf(usernameTextBox.getText()); // Stores current user
 
-			if ((user_result == 1) && (fields_complete == true)) {
-				invalidLogin.setVisible(false);
-				String currentUser = String.valueOf(usernameTextBox.getText());
+				sdb.recordCurrentUser(currentUser); // Records current user in DB
 
-				sdb.recordCurrentUser(currentUser);
+				mainScreenUI.createAndShowGUI(); // Displays main screen
+				frame.setVisible(false); // Shuts off current frame
 
-				mainScreenUI.createAndShowGUI();
-				frame.setVisible(false);
-
-			} else if ((user_result != 1) && (fields_complete == true)) {
-				invalidLogin.setVisible(true);
+			} else if ((user_result != 1) && (fieldsComplete == true)) {
+				invalidLogin.setVisible(true); // Shows relevant error
 
 			}
 
 		}
 
 	}
-
+	// Test Method
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
