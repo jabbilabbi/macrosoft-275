@@ -18,14 +18,14 @@ import java.awt.event.*;
 
 public class MainScreenUI implements ActionListener{
 	
-	 // intializes all components needed for the frame
+	 // Intializes all components needed for the frame
 	 private JLabel mainText, chooseText;
 	 private JButton addMedia, browse, createHTML;
 	 
-	 // initializes the frame
+	 // Initializes the frame
 	 private JFrame frame;
 	 
-	 // sets up an instance of SecurityControl
+	 // Sets up an instance of SecurityControl
 	 private SecurityControl sc = new SecurityControl();
 	 
 	// Purpose: Add all components of the pane into the correct locations and with correct functions
@@ -36,10 +36,10 @@ public class MainScreenUI implements ActionListener{
 		
 		sc.deleteCurrentUser();
 		
-		// absolute container positioning used
+		// Absolute container positioning used
 		pane.setLayout(null);
 		
-		// declaration of pane components
+		// Declaration of pane components
 		addMedia = new JButton("Add New Media");
 		addMedia.addActionListener(this);
 		
@@ -56,14 +56,14 @@ public class MainScreenUI implements ActionListener{
 		chooseText = new JLabel("Choose one of the following:");
 		chooseText.setFont(new Font("Helvetica", Font.PLAIN, 16));
 
-		// add components to the pane
+		// Add components to the pane
 		pane.add(mainText);
 		pane.add(addMedia);
 		pane.add(browse);
 		pane.add(createHTML);
 		pane.add(chooseText);
 
-		// screen positioning
+		// Screen positioning
 		Insets insets = pane.getInsets();
         addMedia.setBounds(125 + insets.left, 300 + insets.top,
                 150, 75);
@@ -100,9 +100,9 @@ public class MainScreenUI implements ActionListener{
 
 	    }
 	
-	// PURPOSE:
-	// PRE:
-	// POST:
+	// Purpose: To syncronize the actions of the user with the functionality of the screen
+	// PRE: Valid action event as param
+	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		
@@ -124,7 +124,7 @@ public class MainScreenUI implements ActionListener{
 	}
 
 	// PURPOSE: Test that the Main Screen frame will be created
-	// PRE: None.
+	// PRE: None
 	// POST: Creates a the Main Screen frame	
 	 public static void main(String[] args) {
 
