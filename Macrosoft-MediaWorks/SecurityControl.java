@@ -1,3 +1,7 @@
+// SecurityControl.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Alan Lerner
 
 
 import java.io.BufferedReader;

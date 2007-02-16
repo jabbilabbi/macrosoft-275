@@ -1,5 +1,8 @@
-//Macrosoft - CMPT 275
-//Programmer: Alex Antonio
+// CreateAccountUI.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Alex Antonio
+
 
 import java.awt.Color;
 import java.awt.Container;
