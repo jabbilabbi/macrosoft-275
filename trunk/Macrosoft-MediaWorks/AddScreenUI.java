@@ -1,4 +1,8 @@
-//Macrosoft - CMPT 275
+// AddScreenUI.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Scott Fuoco
+
 
 import java.awt.Container;
 import java.awt.Insets;

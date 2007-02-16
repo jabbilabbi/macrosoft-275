@@ -1,3 +1,4 @@
+// BrowseUI.java
 // SFU CMPT 275 - Software Engineering
 // Macrosoft
 // Programmed by: Alex Androne

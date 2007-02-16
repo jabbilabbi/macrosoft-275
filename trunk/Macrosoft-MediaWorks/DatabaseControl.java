@@ -1,8 +1,10 @@
+// DatabaseControl.java
 // Media database control functions for a personal library program
 // Includes database creation and addition methods and a method to return database entries
 
-// Alan Lerner
-// CMPT 275, SFU Surrey
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Alan Lerner
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

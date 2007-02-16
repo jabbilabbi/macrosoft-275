@@ -1,3 +1,11 @@
+// SecurityTest.java
+// Test class for SecurityControl.java
+
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Alan Lerner
+
+
 public class SecurityTest {
 
 	public static void main(String[] args) {
