@@ -47,7 +47,8 @@ public class LoginUI implements ActionListener {
 
 		forgotPassword = new JButton("Forgot Password?");
 		forgotPassword.addActionListener(this); // Adds Action Listener
-
+		forgotPassword.setVisible(false);
+		
 		usernameTextBox = new JTextField(10);
 
 		passwordTextBox = new JPasswordField(10);
