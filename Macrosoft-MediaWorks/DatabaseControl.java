@@ -23,6 +23,24 @@ public class DatabaseControl {
 	
 	// ------------------------------------------------------------------
 	
+	public void createUserDatabaseFile() {
+		String userDatabaseToCreate = sdb.retrieveCurrentUser() + ".txt";
+		
+		try {
+			BufferedWriter bw = null;
+			// Set up BufferedWriter to be used for appending
+			bw = new BufferedWriter(new FileWriter(userDatabaseToCreate, true));
+			bw.write("");
+			
+			// Clear BufferedWriter after appending is complete
+			bw.flush();
+	    } catch (IOException ioe) {
+	    	//ioe.printStackTrace();
+	    }
+	}
+	
+	// ------------------------------------------------------------------
+	
 	// Update file name based on user name
 	// PRE: None
 	// POST: fname is updated to reflect current user of the program
@@ -64,7 +82,7 @@ public class DatabaseControl {
 			} while (mediaRow != null);
 
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 	}
 	

@@ -17,10 +17,11 @@ public class MainScreenUI implements ActionListener{
 	 JButton addMedia, browse, createHTML;
 	 JFrame frame;
 	 
+	 SecurityControl sc = new SecurityControl();
+	 
 	public void addComponentsToPane(Container pane) {
 		
-		SecurityControl sdb = new SecurityControl();
-		System.out.println(sdb.getCurrentUser());
+		sc.deleteCurrentUser();
 		
 		//Absolute container positioning used
 		pane.setLayout(null);
