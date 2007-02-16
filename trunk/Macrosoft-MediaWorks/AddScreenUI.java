@@ -3,7 +3,6 @@
 // Macrosoft
 // Programmed by: Scott Fuoco
 
-
 import java.awt.Container;
 import java.awt.Insets;
 
@@ -15,46 +14,50 @@ import java.awt.event.*;
 public class AddScreenUI implements ActionListener {
 
 	DatabaseControl dc = new DatabaseControl();
-	
+
 	// initalizes pane components
 	private JComboBox mediaTypeSelected;
-	private JButton add, backToMain;
-	private JTextField textField1,textField2, textField3, textField4; 
-	private JLabel mediaText, addText, titleText, artistText, ratingText, genreText, desctiptionText,
-	chooseMediaText, enterTitleText, enterArtistText, enterGenreText, added;
 
-	// initalizes variables
+	private JButton add, backToMain;
+
+	private JTextField textField1, textField2, textField3, textField4;
+
+	private JLabel mediaText, addText, titleText, artistText, ratingText,
+			genreText, desctiptionText, chooseMediaText, enterTitleText,
+			enterArtistText, enterGenreText, added;
+
+	// Initalizes variables
 	private String artist, title, genre, description;
+
 	private Boolean check_add;
-	
-	// initalizes the frame
+
+	// Initalizes the frame
 	private JFrame frame;
 
-    // Purpose: Add all components of the pane into the correct locations and with correct functions
+	// Purpose: Add all components of the pane into the correct locations and with correct functions
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	public void addComponentsToPane(Container pane) {
-		
-		// absolute container positioning used
+
+		// Absolute container positioning used
 		pane.setLayout(null);
 
-		// variable declaration
+		// Variable declaration
 		String[] media_combo_box = { "Choose here", "CD" };
 		// declaration of pane components
 
-		// combo boxes
+		// Combo boxes
 		mediaTypeSelected = new JComboBox(media_combo_box);
 		mediaTypeSelected.addActionListener(this);
 
-		// buttons
+		// Buttons
 		add = new JButton("Add");
 		add.addActionListener(this);
 		backToMain = new JButton("Back to Main Screen");
 		backToMain.addActionListener(this);
 
-
-		// text fields
+		// Text fields
 		textField1 = new JTextField(20);
 		textField1.addActionListener(this);
 		textField2 = new JTextField(20);
@@ -64,7 +67,7 @@ public class AddScreenUI implements ActionListener {
 		textField4 = new JTextField(20);
 		textField4.addActionListener(this);
 
-		// labels
+		// Labels
 		mediaText = new JLabel("Select a media type:");
 		mediaText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
@@ -100,8 +103,8 @@ public class AddScreenUI implements ActionListener {
 
 		added = new JLabel("Information successfully added");
 		added.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		
-		// add components to the pane
+
+		// Add components to the pane
 		pane.add(mediaTypeSelected);
 		pane.add(backToMain);
 		pane.add(add);
@@ -121,37 +124,38 @@ public class AddScreenUI implements ActionListener {
 		pane.add(enterGenreText);
 		pane.add(added);
 
-		// screen positioning
+		// Screen positioning
 		Insets insets = pane.getInsets();
 
 		backToMain.setBounds(540 + insets.left, 425 + insets.top, 160, 75);
 
 		add.setBounds(370 + insets.left, 425 + insets.top, 160, 75);
 
-		mediaTypeSelected.setBounds(175 + insets.left, 128 + insets.top, 100, 20);
+		mediaTypeSelected.setBounds(175 + insets.left, 128 + insets.top, 100,
+				20);
 
 		addText.setBounds(50 + insets.left, 50 + insets.top, 300, 75);
 
 		mediaText.setBounds(50 + insets.left, 100 + insets.top, 150, 75);
-		
+
 		added.setBounds(450 + insets.left, 350 + insets.top, 300, 75);
 		added.setVisible(false);
 	}
-	
-    // Purpose: To create and display the 'Create Account' UI
+
+	// Purpose: To create and display the 'Create Account' UI
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		dc.createUserDatabaseFile();
-		
-		// create and set up the window.
+
+		// Create and set up the window.
 		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// set up the content pane
+		// Set up the content pane
 		addComponentsToPane(frame.getContentPane());
 
-		// size and display the window
+		// Size and display the window
 		Insets insets = frame.getInsets();
 		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
 				+ insets.bottom);
@@ -163,7 +167,7 @@ public class AddScreenUI implements ActionListener {
 	// PURPOSE: Removes all the text fields from the frame
 	// PRE: None
 	// POST: Removes all the text fields from the frame
-	private void setupNone(){
+	private void setupNone() {
 		textField1.setVisible(false);
 		textField2.setVisible(false);
 		textField3.setVisible(false);
@@ -176,11 +180,11 @@ public class AddScreenUI implements ActionListener {
 		enterArtistText.setVisible(false);
 		enterGenreText.setVisible(false);
 	}
-	
+
 	// PURPOSE: Sets up the screen for CD information
 	// PRE: None
 	// POST: sets the necessary fields up for the user to enter information about a CD
-	private void setupCD(){
+	private void setupCD() {
 		textField1.setBounds(175, 178, 175, 20);
 		textField1.setVisible(true);
 
@@ -218,55 +222,57 @@ public class AddScreenUI implements ActionListener {
 		enterGenreText.setVisible(false);
 
 	}
+
 	// PURPOSE: To check if all the CD fields are complete
 	// PRE: None
 	// POST: Sets the necessary JLabels to visible or not visible to notify the user
 	//		 which fields need to be completed
-	public void checkCD(){
-		if(textField1.getText().length() == 0){
+	public void checkCD() {
+		if (textField1.getText().length() == 0) {
 			enterTitleText.setVisible(true);
 			check_add = false;
-		}else{
+		} else {
 			title = textField1.getText();
 			enterTitleText.setVisible(false);
 		}
-		if(textField2.getText().length() == 0){
+		if (textField2.getText().length() == 0) {
 			enterArtistText.setVisible(true);
 			check_add = false;
-		}else{
+		} else {
 			artist = textField2.getText();
 			enterArtistText.setVisible(false);
 		}
-		if(textField3.getText().length() == 0){
+		if (textField3.getText().length() == 0) {
 			enterGenreText.setVisible(true);
 			check_add = false;
-		}else{
+		} else {
 			genre = textField3.getText();
 			enterGenreText.setVisible(false);
 		}
-		
+
 		description = textField4.getText();
 
 	}
-    // Purpose: To syncronize the actions of the user with the functionality of the screen
-	// PRE: Valid action event as param
-    // POST: Button functionality with proper conditions and actions taken
-	public void actionPerformed(ActionEvent e) {
-		
-		MainScreenUI mainScreenUI = new MainScreenUI();
-		
-		int selected_index = (int)mediaTypeSelected.getSelectedIndex();
 
-		// if the combo box is used these actions occur
-		if(e.toString().contains("comboBox")){
+	// Purpose: To syncronize the actions of the user with the functionality of the screen
+	// PRE: Valid action event as param
+	// POST: Button functionality with proper conditions and actions taken
+	public void actionPerformed(ActionEvent e) {
+
+		MainScreenUI mainScreenUI = new MainScreenUI();
+
+		int selected_index = (int) mediaTypeSelected.getSelectedIndex();
+
+		// If the combo box is used these actions occur
+		if (e.toString().contains("comboBox")) {
 			JComboBox cb = (JComboBox) e.getSource();
 
-			// if mediaTypeSelected is changed these actions occur
-			if (cb == this.mediaTypeSelected){
-		
-				// checks which item is selected in the combo box and sets up the screen
+			// If mediaTypeSelected is changed these actions occur
+			if (cb == this.mediaTypeSelected) {
+
+				// Checks which item is selected in the combo box and sets up the screen
 				// appropriately
-				switch(selected_index){
+				switch (selected_index) {
 				case 0:
 					setupNone();
 					break;
@@ -275,24 +281,24 @@ public class AddScreenUI implements ActionListener {
 					setupCD();
 					break;
 				default:
-					break;	
+					break;
 				}
 
-			}				
+			}
 
 		}
-		
-		// if a button is pressed these actions occur
-		else if(e.toString().contains("Button")){
+
+		// If a button is pressed these actions occur
+		else if (e.toString().contains("Button")) {
 			JButton b = (JButton) e.getSource();
 
-			// if add button is pressed
-			if(b == this.add){
+			// If add button is pressed
+			if (b == this.add) {
 				check_add = true;
-				
-				// checks which item is selected in the combo box and checks to make sure
+
+				// Checks which item is selected in the combo box and checks to make sure
 				// all the fields are filled in
-				switch(selected_index){
+				switch (selected_index) {
 				case 0:
 					chooseMediaText.setBounds(276, 128, 150, 20);
 					chooseMediaText.setVisible(true);
@@ -301,31 +307,33 @@ public class AddScreenUI implements ActionListener {
 					checkCD();
 					break;
 				default:
-					break;	
+					break;
 				}
-				
-				// checks to see if the users name / password are correct
-				if((check_add) && (selected_index !=0)){
-					// adds item to database and clears the text fields
+
+				// Checks to see if the users name / password are correct
+				if ((check_add) && (selected_index != 0)) {
+					// Adds item to database and clears the text fields
 					dc.appendMediaDatabase(title, artist, genre, description);
 					added.setVisible(true);
 					mediaTypeSelected.setSelectedIndex(0);
 					textField1.setText("");
 					textField2.setText("");
 					textField3.setText("");
-					textField4.setText("");				
+					textField4.setText("");
 				}
 			}
-			// if backToMain button is pressed
-			else if(b == this.backToMain){
-				// goes back to main screen
+			// If backToMain button is pressed
+			else if (b == this.backToMain) {
+				// Goes back to main screen
 				mainScreenUI.createAndShowGUI();
-				frame.setVisible(false);				
+				frame.setVisible(false);
 			}
-			
+
 		}
 	}
+
 	
+	// Testing method
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
