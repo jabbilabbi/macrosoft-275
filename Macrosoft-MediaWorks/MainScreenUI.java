@@ -18,7 +18,10 @@ public class MainScreenUI implements ActionListener{
 	 JFrame frame;
 	 
 	public void addComponentsToPane(Container pane) {
-
+		
+		SecurityControl sdb = new SecurityControl();
+		System.out.println(sdb.getCurrentUser());
+		
 		//Absolute container positioning used
 		pane.setLayout(null);
 		//Declaration of pane components
@@ -113,21 +116,21 @@ public class MainScreenUI implements ActionListener{
 		
 	}
 
-	 public static void main(String[] args) {
-
-		 javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-	            public void run() {
-	            	MainScreenUI ui = new MainScreenUI();
-	                ui.createAndShowGUI();
-
-	            }
-
-	        });
-
-
-
-		}
+//	 public static void main(String[] args) {
+//
+//		 javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//
+//	            public void run() {
+//	            	MainScreenUI ui = new MainScreenUI();
+//	                ui.createAndShowGUI();
+//
+//	            }
+//
+//	        });
+//
+//
+//
+//		}
 
 }
 

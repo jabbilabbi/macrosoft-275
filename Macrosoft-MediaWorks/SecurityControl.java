@@ -20,9 +20,41 @@ public class SecurityControl {
 	
 	// ------------------------------------------------------------------
 	
+	public String retrieveCurrentUser() {
+		
+		String userLoggedIn = "";
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader("current.txt"));
+			// Read first line
+			userLoggedIn = in.readLine();
+		} catch (IOException ioe){
+			ioe.printStackTrace();
+		}
+		return userLoggedIn;
+	}
+	
+	// ------------------------------------------------------------------
+	
+	public void recordCurrentUser(String currentUser) {
+		try {
+			BufferedWriter bw = null;
+			// Set up BufferedWriter to be used for appending
+			bw = new BufferedWriter(new FileWriter("current.txt", true));
+			// Append new account data to login database
+			bw.write(currentUser);
+			// Clear BufferedWriter after appending is complete
+			bw.flush();
+	    } catch (IOException ioe) {
+	    	ioe.printStackTrace();
+	    }
+	}
+	
+	// ------------------------------------------------------------------
+	
 	// Constructor
 	public SecurityControl() {
-		this.loadLoginDatabase();
+//		this.loadLoginDatabase();
 	}
 	
 	// ------------------------------------------------------------------
@@ -135,22 +167,22 @@ public class SecurityControl {
 		return nameList;
 	}
 	
-//	// ------------------------------------------------------------------
-//
-//	// Get name of current user logged in
-//	public String getCurrentUser() {
-//		return currentUser;
-//	}
-//	
-//	// ------------------------------------------------------------------
-//
-//	// Set current user logged in
-//	public void setCurrentUser(String currentUser) {
-//		this.currentUser = currentUser;
-//	}
-//	
-//	// ------------------------------------------------------------------
-//	
+	// ------------------------------------------------------------------
+
+	// Get name of current user logged in
+	public String getCurrentUser() {
+		return currentUser;
+	}
+	
+	// ------------------------------------------------------------------
+
+	// Set current user logged in
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	// ------------------------------------------------------------------
+	
 
 	
 }
