@@ -10,6 +10,9 @@ import java.awt.event.*;
 
 public class AddScreenUI implements ActionListener {
 
+	DatabaseControl dc = new DatabaseControl();
+	
+	
 	private JComboBox mediaTypeSelected;
 
 	private JButton add, backToMain;
@@ -122,6 +125,8 @@ public class AddScreenUI implements ActionListener {
 	}
 
 	public void createAndShowGUI() {
+		dc.createUserDatabaseFile();
+		
 		// Create and set up the window.
 		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -220,7 +225,7 @@ public class AddScreenUI implements ActionListener {
 
 	}
 	public void actionPerformed(ActionEvent e) {
-		DatabaseControl dc = new DatabaseControl();
+		
 		MainScreenUI mainScreenUI = new MainScreenUI();
 		
 		int selected_index = (int)mediaTypeSelected.getSelectedIndex();

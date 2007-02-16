@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
 
 public class SecurityControl {
 
@@ -20,6 +21,13 @@ public class SecurityControl {
 	
 	// ------------------------------------------------------------------
 	
+	public void deleteCurrentUser() {
+			File userFile = new File("current.txt");
+			userFile.delete();
+	}
+	
+	// ------------------------------------------------------------------
+	
 	public String retrieveCurrentUser() {
 		
 		String userLoggedIn = "";
@@ -29,7 +37,7 @@ public class SecurityControl {
 			// Read first line
 			userLoggedIn = in.readLine();
 		} catch (IOException ioe){
-			ioe.printStackTrace();
+			//ioe.printStackTrace();
 		}
 		return userLoggedIn;
 	}
@@ -38,6 +46,7 @@ public class SecurityControl {
 	
 	public void recordCurrentUser(String currentUser) {
 		try {
+			deleteCurrentUser();
 			BufferedWriter bw = null;
 			// Set up BufferedWriter to be used for appending
 			bw = new BufferedWriter(new FileWriter("current.txt", true));
@@ -46,7 +55,7 @@ public class SecurityControl {
 			// Clear BufferedWriter after appending is complete
 			bw.flush();
 	    } catch (IOException ioe) {
-	    	ioe.printStackTrace();
+	    	//ioe.printStackTrace();
 	    }
 	}
 	

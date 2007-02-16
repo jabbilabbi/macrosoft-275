@@ -18,8 +18,7 @@ public class LoginUI implements ActionListener {
 
 	private JPasswordField passwordTextBox;
 
-	SecurityControl sdb = new SecurityControl();
-	
+	SecurityControl sdb = new SecurityControl();	
 	
 	private JLabel enterUsername, enterPassword, pleaseLogin,
 			enterUserNameText, enterPasswordText, invalidLogin;
@@ -138,7 +137,6 @@ public class LoginUI implements ActionListener {
 		String userEntered = String.valueOf(usernameTextBox.getText());
 		String passwordEntered = String.valueOf(passwordTextBox.getPassword());
 		int user_result = sdb.checkLogin(userEntered, passwordEntered);
-		System.out.println(user_result);
 
 		JButton b = (JButton) e.getSource();
 
