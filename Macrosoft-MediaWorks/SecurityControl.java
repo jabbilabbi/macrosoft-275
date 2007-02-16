@@ -13,7 +13,7 @@ public class SecurityControl {
 	private ArrayList<String> loginItems = new ArrayList<String>();
 	
 	// Store name of current user logged in
-	private String currentUser;
+	public String currentUser;
 	
 	// Storage for user account database
 	private String fname = "logins.txt";
@@ -135,22 +135,22 @@ public class SecurityControl {
 		return nameList;
 	}
 	
-	// ------------------------------------------------------------------
-
-	// Get name of current user logged in
-	public String getCurrentUser() {
-		return currentUser;
-	}
-	
-	// ------------------------------------------------------------------
-
-	// Set current user logged in
-	public void setCurrentUser(String currentUser) {
-		this.currentUser = currentUser;
-	}
-	
-	// ------------------------------------------------------------------
-	
+//	// ------------------------------------------------------------------
+//
+//	// Get name of current user logged in
+//	public String getCurrentUser() {
+//		return currentUser;
+//	}
+//	
+//	// ------------------------------------------------------------------
+//
+//	// Set current user logged in
+//	public void setCurrentUser(String currentUser) {
+//		this.currentUser = currentUser;
+//	}
+//	
+//	// ------------------------------------------------------------------
+//	
 
 	
 }

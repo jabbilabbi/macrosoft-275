@@ -122,6 +122,8 @@ public class LoginUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		SecurityControl sdb = new SecurityControl();
+
+
 		CreateAccountUI createAccountUI = new CreateAccountUI();
 		MainScreenUI mainScreenUI = new MainScreenUI();
 		
@@ -153,9 +155,10 @@ public class LoginUI implements ActionListener{
 			
 			if((user_result == 0) && (fields_complete == true)){
 				invalidLogin.setVisible(false);
-				String current_user = String.valueOf(usernameTextBox.getText());
+				String currentUser = String.valueOf(usernameTextBox.getText().toString());
 				
-				sdb.setCurrentUser("scott");
+				sdb.currentUser = currentUser;
+				
 				
 				mainScreenUI.createAndShowGUI();
 				frame.setVisible(false);
