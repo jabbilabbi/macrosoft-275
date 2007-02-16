@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class DatabaseControl {
 
 	// ArrayList to hold media database
-	private ArrayList<String> mediaItems = new ArrayList<String>();
+	public ArrayList<String> mediaItems = new ArrayList<String>();
 	
 	// Storage for media entry database
-	private String fname = "main.txt";
+	private String fname = "test.txt";
 	
 	// ------------------------------------------------------------------
 	

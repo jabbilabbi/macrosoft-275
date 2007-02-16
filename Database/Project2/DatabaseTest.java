@@ -6,18 +6,19 @@ public class DatabaseTest {
 		
 		DatabaseControl db = new DatabaseControl();
 		
-		db.loadMediaDatabase();
-		
 		String mediaType = "Nothing";
 		
 		System.out.println("Rows needed: " + db.getRowsNeeded());
 		System.out.println("Rows needed by type " + mediaType + ": " + db.getRowsNeededByType(mediaType));
 		
-		String[] testRow = db.getLibraryRow(0);
+		System.out.println(db.mediaItems.toString());
 		
-		for (int i = 0; i < testRow.length; i++) {
-			System.out.println(testRow[i] + "  ");
-		}
+//		for (int i = 0; i < db.getRowsNeeded(); i++) {
+//			String[] rowTest = db.getLibraryRow(i);
+//			for (int j = 0; j < 4; j++) {
+//				System.out.println(rowTest[j]);
+//			}
+//		}
 		
 //		db.appendLoginDatabase("Hello ::: Nothing ::: Yadda ::: Hooray yay");
 	}
