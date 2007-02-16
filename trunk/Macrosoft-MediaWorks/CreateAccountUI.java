@@ -12,23 +12,17 @@ import java.awt.event.*;
 
 public class CreateAccountUI implements ActionListener {
 	
-	JButton createAccount;
+	private JButton createAccount;
 
-	JTextField usernameTextBox;
+	private JTextField usernameTextBox;
 
-	JPasswordField passwordTextBox;
+	private JPasswordField passwordTextBox, passwordConfirmTextBox;
 
-	JPasswordField passwordConfirmTextBox;
+	private JTextField secretQuestionTextBox, secretAnswerTextBox;
 
-	JTextField secretQuestionTextBox;
+	private JLabel passwordConflict, usernameTaken, somethingNotEntered;
 
-	JTextField secretAnswerTextBox;
-
-	JLabel passwordConflict;
-
-	JLabel usernameTaken;
-
-	JLabel somethingNotEntered;
+	private JFrame frame;
 
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
@@ -165,9 +159,9 @@ public class CreateAccountUI implements ActionListener {
 
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
-	private void createAndShowGUI() {
+	public void createAndShowGUI() {
 		// Create and set up the window.
-		JFrame frame = new JFrame("Macrosoft Media Works");
+		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Set up the content pane.
@@ -185,6 +179,9 @@ public class CreateAccountUI implements ActionListener {
 		
 		SecurityControl sdb = new SecurityControl();
 		sdb.loadLoginDatabase();
+		
+		LoginUI loginUI = new LoginUI();
+
 		
 		if ((usernameTextBox.getText().length() == 0)
 				|| (passwordTextBox.getPassword().length == 0)
@@ -207,6 +204,10 @@ public class CreateAccountUI implements ActionListener {
 					sdb.appendLoginDatabase(usernameTextBox.getText(),
 					passwordTextBox.getText(), secretQuestionTextBox.getText(),
 					secretAnswerTextBox.getText());
+					
+					loginUI.createAndShowGUI();
+					frame.setVisible(false);
+					
 				} else {
 					usernameTaken.setVisible(true);
 				}

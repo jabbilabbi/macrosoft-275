@@ -17,6 +17,7 @@ public class LoginUI implements ActionListener{
 	private JPasswordField passwordTextBox;
 	private JLabel enterUsername, enterPassword, pleaseLogin, enterUserNameText, enterPasswordText,
 	invalidLogin;
+	private JFrame frame;
 
 	public void addComponentsToPane(Container pane) {
 		//Absolute container positioning used
@@ -103,9 +104,9 @@ public class LoginUI implements ActionListener{
 		invalidLogin.setVisible(false);
 	}
 
-	private void createAndShowGUI() {
+	public void createAndShowGUI() {
 		//Create and set up the window.
-		JFrame frame = new JFrame("Macrosoft Media Works");
+		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Set up the content pane.
@@ -121,13 +122,19 @@ public class LoginUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		SecurityControl sdb = new SecurityControl();
-		sdb.loadLoginDatabase();
-
+		CreateAccountUI createAccountUI = new CreateAccountUI();
+		MainScreenUI mainScreenUI = new MainScreenUI();
+		
 		Boolean fields_complete = true;
+		
 		int user_result = sdb.checkLogin(usernameTextBox.getText(), passwordTextBox.getPassword().toString());
 
 		JButton b = (JButton) e.getSource();
-
+		
+		if(b == this.createAccount){
+			createAccountUI.createAndShowGUI();
+			frame.setVisible(false);
+		}
 		if(b == this.login){
 
 			if(usernameTextBox.getText().length() == 0){
@@ -137,15 +144,22 @@ public class LoginUI implements ActionListener{
 			else{
 				enterUserNameText.setVisible(false);
 			}
-			if(usernameTextBox.getText().length() == 0){
+			if(passwordTextBox.getText().length() == 0){
 				fields_complete = false;
 				enterPasswordText.setVisible(true);
 			}else{
 				enterPasswordText.setVisible(false);
 			}
+			
 			if((user_result == 0) && (fields_complete == true)){
 				invalidLogin.setVisible(false);
-				sdb.setCurrentUser(usernameTextBox.getText());
+				String current_user = String.valueOf(usernameTextBox.getText());
+				
+				sdb.setCurrentUser("scott");
+				
+				mainScreenUI.createAndShowGUI();
+				frame.setVisible(false);
+				
 			}
 			else if((user_result != 1) && (fields_complete == true)){
 				invalidLogin.setVisible(true);
