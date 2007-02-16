@@ -27,7 +27,7 @@ public class DatabaseControl {
 	// PRE: None
 	// POST: fname is updated to reflect current user of the program
 	public void updateFileName() {
-			fname = sdb.getCurrentUser() + ".txt";
+			fname = sdb.currentUser+ ".txt";
 	}
 	
 	// ------------------------------------------------------------------

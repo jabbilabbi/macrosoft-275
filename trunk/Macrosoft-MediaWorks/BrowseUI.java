@@ -76,9 +76,7 @@ public class BrowseUI implements ActionListener{
         
         //JTABLE
         DatabaseControl db = new DatabaseControl();
-        db.loadMediaDatabase();
-        
-
+     
         String[] columnNames = {"Name", "Artist", "Genre", "Description"};
         Object[][] tableData = new Object[db.getRowsNeeded()][4];	//Holds table data
         /*tableData Example
