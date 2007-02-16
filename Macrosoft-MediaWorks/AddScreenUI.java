@@ -22,6 +22,8 @@ public class AddScreenUI implements ActionListener {
 	private String artist, title, genre, description;
 
 	private Boolean check_add;
+	
+	private JFrame frame;
 
 	public void addComponentsToPane(Container pane) {
 		// Absolute container positioning used
@@ -119,9 +121,9 @@ public class AddScreenUI implements ActionListener {
 		mediaText.setBounds(50 + insets.left, 100 + insets.top, 150, 75);
 	}
 
-	private void createAndShowGUI() {
+	public void createAndShowGUI() {
 		// Create and set up the window.
-		JFrame frame = new JFrame("Macrosoft Media Works");
+		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Set up the content pane
@@ -218,12 +220,8 @@ public class AddScreenUI implements ActionListener {
 
 	}
 	public void actionPerformed(ActionEvent e) {
-		
-		// gets current user name to add to their personal database
-		SecurityControl sdb = new SecurityControl();
-
-		// file name declaration
-		String fname = sdb.getCurrentUser() + ".txt";
+		DatabaseControl dc = new DatabaseControl();
+		MainScreenUI mainScreenUI = new MainScreenUI();
 		
 		int selected_index = (int)mediaTypeSelected.getSelectedIndex();
 
@@ -266,13 +264,16 @@ public class AddScreenUI implements ActionListener {
 				}
 
 				if((check_add) && (selected_index !=0)){
-					DatabaseControl dc = new DatabaseControl();
-					dc.appendMediaDatabase(fname, title, artist, genre, description);
+					dc.appendMediaDatabase(title, artist, genre, description);
+					textField1.setText("");
+					textField2.setText("");
+					textField3.setText("");
+					textField4.setText("");				
 				}
 			}
 			else if(b == this.backToMain){
-				
-				
+				mainScreenUI.createAndShowGUI();
+				frame.setVisible(false);				
 			}
 			
 		}
