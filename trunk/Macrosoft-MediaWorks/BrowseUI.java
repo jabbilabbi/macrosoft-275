@@ -55,7 +55,7 @@ public class BrowseUI implements ActionListener{
         c.insets = new Insets(5,10,5,10); 
         c.anchor = GridBagConstraints.LINE_END;	// Aligns text to the right (LINE_END)
         label2.setToolTipText("Select category to display media contents by");
-        pane.add(label2, c);
+        //pane.add(label2, c);
         
         // COMBO BOX
         String[] mediaTypes = {"All", "CDs"};	// Items in the combo box
@@ -67,7 +67,7 @@ public class BrowseUI implements ActionListener{
         c.weighty = 0.0;
         c.insets = new Insets(5,10,5,10);  
         c.anchor = GridBagConstraints.LINE_START;
-        pane.add(combo, c);
+        //pane.add(combo, c);
         
         // JTABLE
         DatabaseControl db = new DatabaseControl();
