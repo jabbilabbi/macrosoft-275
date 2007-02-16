@@ -24,9 +24,9 @@ public class AddScreenUI implements ActionListener {
 	
 	private JTextArea descriptionTextArea;
 
-	private JLabel mediaText, addText, titleText, artistText, ratingText,
+	private JLabel mediaText, addText, titleText, artistText,
 			genreText, desctiptionText, chooseMediaText, enterTitleText,
-			enterArtistText, enterGenreText, added;
+			enterArtistText, enterGenreText, addedText;
 	
 	JScrollPane descriptionPane;
 
@@ -88,9 +88,6 @@ public class AddScreenUI implements ActionListener {
 		artistText = new JLabel("Enter the artist:");
 		artistText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
-		ratingText = new JLabel("Choose a rating:");
-		ratingText.setFont(new Font("Helvetica", Font.PLAIN, 12));
-
 		genreText = new JLabel("Enter a genre:");
 		genreText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 
@@ -109,8 +106,17 @@ public class AddScreenUI implements ActionListener {
 		enterGenreText = new JLabel("Please enter a genre");
 		enterGenreText.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
-		added = new JLabel("Information successfully added");
-		added.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		addedText = new JLabel("Information successfully added");
+		addedText.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		addedText.setForeground(Color.red);
+		
+		chooseMediaText.setForeground(Color.red);
+		enterTitleText.setForeground(Color.red);
+		enterArtistText.setForeground(Color.red);
+		enterGenreText.setForeground(Color.red);
+		
+		
+		
 
 		// Add components to the pane
 		pane.add(mediaTypeSelected);
@@ -129,7 +135,7 @@ public class AddScreenUI implements ActionListener {
 		pane.add(enterTitleText);
 		pane.add(enterArtistText);
 		pane.add(enterGenreText);
-		pane.add(added);
+		pane.add(addedText);
 		pane.add(descriptionPane);
 		
 		// Screen positioning
@@ -146,8 +152,8 @@ public class AddScreenUI implements ActionListener {
 
 		mediaText.setBounds(50 + insets.left, 100 + insets.top, 150, 75);
 
-		added.setBounds(450 + insets.left, 350 + insets.top, 300, 75);
-		added.setVisible(false);
+		addedText.setBounds(450 + insets.left, 350 + insets.top, 300, 75);
+		addedText.setVisible(false);
 
 	}
 
@@ -286,7 +292,7 @@ public class AddScreenUI implements ActionListener {
 					setupNone();
 					break;
 				case 1:
-					added.setVisible(false);
+					addedText.setVisible(false);
 					setupCD();
 					break;
 				default:
@@ -323,7 +329,7 @@ public class AddScreenUI implements ActionListener {
 				if ((check_add) && (selected_index != 0)) {
 					// Adds item to database and clears the text fields
 					dc.appendMediaDatabase(title, artist, genre, description);
-					added.setVisible(true);
+					addedText.setVisible(true);
 					mediaTypeSelected.setSelectedIndex(0);
 					textField1.setText("");
 					textField2.setText("");
