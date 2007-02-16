@@ -3,7 +3,6 @@
 // Macrosoft
 // Programmed by: Alex Antonio
 
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Insets;
@@ -14,7 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreateAccountUI implements ActionListener {
-	
+
+	// Declaration of screen objects used later in action listener method
 	private JButton createAccount;
 
 	private JTextField usernameTextBox;
@@ -27,11 +27,13 @@ public class CreateAccountUI implements ActionListener {
 
 	private JFrame frame;
 
+	// Purpose: Add all components of the pane into the correct locations and
+	// with correct functions
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	public void addComponentsToPane(Container pane) {
-		
+
 		// Absolute container positioning used
 		pane.setLayout(null);
 
@@ -88,15 +90,18 @@ public class CreateAccountUI implements ActionListener {
 		pane.add(usernameTaken);
 		pane.add(passwordConflict);
 		pane.add(somethingNotEntered);
-		
-		// Adds action listeners to relevant entities
-		createAccount.addActionListener(this);
 
-		// Gets the insets for the pane on the screen
-		Insets insets = pane.getInsets();
+		createAccount.addActionListener(this); // Adds action listeners to
+												// relevant entities
 
-		// Declares a size variable to properly size each entity on the screen
-		Dimension size = createAccount.getPreferredSize();
+		Insets insets = pane.getInsets(); // Gets the insets for the pane on
+											// the screen
+
+		Dimension size = createAccount.getPreferredSize(); // Declares a size
+															// variable to
+															// properly size
+															// each entity on
+															// the screen
 
 		// Uses the size variable and positioning bounds to place every entity
 		// as desired
@@ -160,6 +165,7 @@ public class CreateAccountUI implements ActionListener {
 				size.width, size.height);
 	}
 
+	// Purpose: To create and display the 'Create Account' UI
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
@@ -167,8 +173,8 @@ public class CreateAccountUI implements ActionListener {
 		frame = new JFrame("Macrosoft Media Works");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Set up the content pane.
-		addComponentsToPane(frame.getContentPane());
+		addComponentsToPane(frame.getContentPane()); // Set up the content
+														// pane.
 
 		// Size and display the window.
 		Insets insets = frame.getInsets();
@@ -176,46 +182,54 @@ public class CreateAccountUI implements ActionListener {
 				+ insets.bottom);
 		frame.setVisible(true);
 	}
-	
-	
-	public void actionPerformed(ActionEvent e) {
-		
-		SecurityControl sdb = new SecurityControl();
-		sdb.loadLoginDatabase();
-		
-		LoginUI loginUI = new LoginUI();
 
-		
+	public void actionPerformed(ActionEvent e) {
+
+		SecurityControl sdb = new SecurityControl(); // Creates an instance
+														// of the Security DB
+		sdb.loadLoginDatabase(); // Loads the Login DB
+
+		LoginUI loginUI = new LoginUI(); // Creates an instance of the
+											// LoginUI Class
+
+		// Condition where some field(s) were left empty
 		if ((usernameTextBox.getText().length() == 0)
 				|| (passwordTextBox.getPassword().length == 0)
 				|| (passwordConfirmTextBox.getPassword().length == 0)
 				|| (secretQuestionTextBox.getText().length() == 0)
 				|| (secretAnswerTextBox.getText().length() == 0)) {
-			somethingNotEntered.setVisible(true);
+			somethingNotEntered.setVisible(true); // Show relevant error
 		} else {
-			somethingNotEntered.setVisible(false);
+			somethingNotEntered.setVisible(false); // Remove relevant error
 
 			String password = String.valueOf(passwordTextBox.getPassword());
-			String confirmPassword = String.valueOf(passwordConfirmTextBox.getPassword());
+			String confirmPassword = String.valueOf(passwordConfirmTextBox
+					.getPassword());
+			// Condition where password entered is different then the confirmed
+			// password
 			if (password.compareTo(confirmPassword) != 0) {
-				passwordConflict.setVisible(true);
+				passwordConflict.setVisible(true); // Show relevant error
 			} else {
-				passwordConflict.setVisible(false);
-				
+				passwordConflict.setVisible(false); // Remove relevant error
+				// Condition where username is already in login DB
 				if (sdb.getUserNames().contains(usernameTextBox.getText()) == false) {
-					usernameTaken.setVisible(false);
+					usernameTaken.setVisible(false); // Remove relevant error
 					sdb.appendLoginDatabase(usernameTextBox.getText(),
-					passwordTextBox.getText(), secretQuestionTextBox.getText(),
-					secretAnswerTextBox.getText());
-					
-					loginUI.createAndShowGUI();
-					frame.setVisible(false);
-					
+							passwordTextBox.getText(), secretQuestionTextBox
+									.getText(), secretAnswerTextBox.getText()); // Adds
+																				// the
+																				// login
+																				// DB
+																				// entry
+
+					loginUI.createAndShowGUI(); // Returns to the Login Screen
+					frame.setVisible(false); // Shuts off current frame
+
 				} else {
-					usernameTaken.setVisible(true);
+					usernameTaken.setVisible(true); // Show relevant error
 				}
 			}
-		}	
+		}
 	}
 
 	// Test Method
