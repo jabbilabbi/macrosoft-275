@@ -12,7 +12,8 @@ public class LoginUI2 extends JFrame implements ActionListener{
 	private JLabel usernameLabel, passwordLabel, loginLabel, dynamicLabel, title;
 	private String dynamicText;
 	private Dimension dim;
-
+	
+	private SecurityControl sdb = new SecurityControl();
 	
 	private Component componentSetup() {
 		JPanel loginPanel = new JPanel();
@@ -131,6 +132,7 @@ public class LoginUI2 extends JFrame implements ActionListener{
 		
 		dynamicText = "";
 		dynamicLabel = new JLabel(dynamicText);
+		dynamicLabel.setForeground(Color.red);
 		dynamicLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		dynamicLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
@@ -174,15 +176,61 @@ public class LoginUI2 extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		ControllerClass controller = new ControllerClass();
-		if (e.getActionCommand().equals("Login")) {
-			dispose();
-			controller.createAccountFrame();
 		
+		sdb.loadLoginDatabase(); // Loads the Login DB
+		CreateAccountUI createAccountUI = new CreateAccountUI(); // Creates an instance of createAccountUI class
+		MainScreenUI mainScreenUI = new MainScreenUI(); // Creates an instance of the mainscreenUI class
+
+		
+		Boolean fieldsComplete = true;
+		String userEntered = String.valueOf(usernameTB.getText());
+		String passwordEntered = String.valueOf(passwordTB.getPassword());
+		
+		int user_result = sdb.checkLogin(userEntered, passwordEntered);
+		
+		if (e.getActionCommand().equals("Login")) {
+			// Checks if username wasn't completed
+			if (usernameTB.getText().length() == 0) {
+				fieldsComplete = false;
+				dynamicText = "Please enter username";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			} else {
+				dynamicLabel.setVisible(false); // Removes relevant error
+			}
+			// Checks if the password wasn't completed
+			if ((passwordTB.getText().length() == 0) && (usernameTB.getText().length() != 0)) {
+				fieldsComplete = false;
+				dynamicText = "Please enter password";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			} else if ((passwordTB.getText().length() != 0) && (usernameTB.getText().length() == 0)){
+				dynamicText = "Please enter username";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			}
+			
+			// Condition where the login entry was invalid
+			if ((user_result == 1) && (fieldsComplete == true)) {
+				dynamicLabel.setVisible(false); // Removes relevant error
+				String currentUser = String.valueOf(usernameTB.getText()); // Stores current user
+
+				dispose(); // Disposes of current frame
+
+			} 
+			else if ((user_result != 1) && (fieldsComplete == true)) {
+				dynamicText = "Invalid username or password";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+
+			}
+			
+			
 		}
 		
 		if (e.getActionCommand().equals("Create an Account")) {
-			
-			
+			dispose();
+			controller.createAccountFrame();			
 		}
 		
 		
