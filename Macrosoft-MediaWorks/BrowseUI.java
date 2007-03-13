@@ -18,11 +18,8 @@ public class BrowseUI implements ActionListener {
 
 	JFrame frame;
 
-	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will
-												// lay out components right to
-												// left if true and gridx/gridy
-												// components are not given
-
+	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
+												
 	JButton button;
 
 	// Purpose: To add and display components
@@ -41,16 +38,13 @@ public class BrowseUI implements ActionListener {
 		// JBUTTON: Back to Main
 		button = new JButton("Back to Main");
 		button.addActionListener(this);
-
 		c.gridx = 0; // Lays out component at grid x coordinate 0
 		c.gridy = 0; // Lays out component at grid y coordinate 0
 		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
 							// placed within adjacent columns
 		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
 							// placed within adjacent rows
-		c.insets = new Insets(10, 10, 5, 10); // Top,Left,Bottom,Right
-												// Determines padding around
-												// component in pixels
+		c.insets = new Insets(10, 10, 5, 10); // Top,Left,Bottom,Right Determines padding around component in pixels
 		button.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(button, c);
 
@@ -63,7 +57,7 @@ public class BrowseUI implements ActionListener {
 		c.insets = new Insets(5, 10, 5, 10); 
 		c.anchor = GridBagConstraints.LINE_END; // Aligns text to the right (LINE_END)
 		label2.setToolTipText("Select category to display media contents by");
-		// pane.add(label2, c);
+		//pane.add(label2, c);
 
 		// COMBO BOX
 		String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
@@ -75,20 +69,18 @@ public class BrowseUI implements ActionListener {
 		c.weighty = 0.0;
 		c.insets = new Insets(5, 10, 5, 10);
 		c.anchor = GridBagConstraints.LINE_START;
-		// pane.add(combo, c);
+		//pane.add(combo, c);
 
 		// JTABLE
 		DatabaseControl db = new DatabaseControl();
-
 		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
-		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data
-															
+		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data													
 		/*
-		 * tableData Example Object[][] tableData = { {"Mezzanine", "Masive
-		 * Attack", "Electronica", "09/2005"}, {"Nevermind", "Nirvana", "Rock",
-		 * "02/2003"}, {"Magnetic Fields", "Jean Michel Jarre", "Electronica",
-		 * "08/1999"} };
-		 */
+		 tableData Example Object[][] tableData = { 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "09/2005"}, 
+		 {"Nevermind", "Nirvana", "Rock", "02/2003"}, 
+		 {"Magnetic Fields", "Jean Michel Jarre", "Electronica", "08/1999"} };
+		*/
 		// Assigns data from the database to tableData
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
 			String[] rowData = db.getLibraryRow(i); // Holds a row of data from the database										
@@ -96,7 +88,6 @@ public class BrowseUI implements ActionListener {
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
 		}
-
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 2;
