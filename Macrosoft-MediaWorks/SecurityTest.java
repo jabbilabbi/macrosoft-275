@@ -37,5 +37,14 @@ public class SecurityTest {
 		
 		// Print out all user names in login database (would be [Joe4, ABC] unless more names have been added)
 		System.out.println(sc.getUserNames());
+		
+		// Print true
+		System.out.println(sc.checkIfUserExists("ABC"));
+		
+		String[] secretInfo = sc.getSecretInfo("ABC");
+		// Print what's up
+		System.out.println(secretInfo[0]);
+		// Print nothing
+		System.out.println(secretInfo[1]);
 	}
 }
