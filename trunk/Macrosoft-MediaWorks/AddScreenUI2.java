@@ -219,6 +219,7 @@ public class AddScreenUI2 implements ActionListener, Serializable {
 				case 1:
 					changePanel(1);
 					addedText.setVisible(false);
+					chooseMediaText.setVisible(false);
 					break;
 				default:
 					break;
