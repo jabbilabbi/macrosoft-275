@@ -1,10 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import javax.swing.*;
 
-public class LoginUI2 extends JFrame implements ActionListener, Serializable{
+public class LoginUI2 extends JFrame implements ActionListener{
 
 	
 	private JButton createAccountBtn, loginBtn, forgotPasswordBtn;
@@ -117,7 +116,7 @@ public class LoginUI2 extends JFrame implements ActionListener, Serializable{
 		loginPanel.add(bottomLogin);
 		
 		
-		title = new JLabel("Marcosoft Personal Library");
+		title = new JLabel("Macrosoft Personal Library");
 		title.setFont(new Font("Helvetica", Font.BOLD, 24));
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 		title.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -174,12 +173,17 @@ public class LoginUI2 extends JFrame implements ActionListener, Serializable{
 	
 	
 	public void actionPerformed(ActionEvent e){
+		ControllerClass controller = new ControllerClass();
+		if (e.getActionCommand().equals("Login")) {
+			dispose();
+			controller.createAccountFrame();
 		
+		}
 		
-		
-		
-		
-		
+		if (e.getActionCommand().equals("Create an Account")) {
+			
+			
+		}
 		
 		
 		
