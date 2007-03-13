@@ -168,6 +168,36 @@ public class SecurityControl {
 			return -1;
 		}
 	}
+	
+	// Get secret question and password for a given user
+	// PRE: usernameEntered exists in login database
+	// POST: String array is returned containing secret question in position 0 and answer in position 1
+	
+	public String[] getSecretInfo(String usernameEntered) {
+		
+		// String array to hold secret info
+		String[] secretInfo = new String[2];
+		
+		// Get secret question and answer
+		secretInfo[0] = loginItems.get(loginItems.indexOf(usernameEntered) + 2);
+		secretInfo[1] = loginItems.get(loginItems.indexOf(usernameEntered) + 3);
+		
+		// Return result
+		return secretInfo;
+	}
+	
+	// Determine if a user exists in the login database
+	// PRE: None
+	// POST: Returns true if username exists in database; otherwise false
+	
+	public boolean checkIfUserExists(String usernameEntered) {
+		// Check login and return appropriate result
+		if (loginItems.contains(usernameEntered)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// Get all user names in login database
 	// PRE: None
