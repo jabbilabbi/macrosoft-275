@@ -1,0 +1,280 @@
+// AddScreenUI.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Scott Fuoco
+
+import java.awt.CardLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Insets;
+
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.io.Serializable;
+
+public class AddScreenUI2 implements ActionListener, Serializable {
+
+	DatabaseControl cdb = new DatabaseControl();
+
+	// initalizes pane components
+	private JComboBox mediaTypeSelected;
+	private JButton add, backToMain;
+	private JLabel mediaText, addText, chooseMediaText, addedText;
+	private JPanel addSetup;
+	
+	// Initalizes variables
+	private String artist, title, genre, description;
+	private Boolean check_add;
+
+	// Initalizes the frame
+	private JFrame frame;
+	
+	private final String CDs = "CDs";
+	private final String UNSELECTED = "unselected";
+	
+	final private Dimension PANEL_SIZE = new Dimension(600,250);
+	final private Dimension SPACING = new Dimension(25, 0);
+
+	private CDsPanel CDsSelected = new CDsPanel(PANEL_SIZE);
+	
+	// Purpose: Add all components of the pane into the correct locations and with correct functions
+	// PRE: Valid pane is given as a parameter
+	// POST: All neceassray components for the Create Account screen will be
+	// added and displayed
+	public void addComponentsToPane(Container pane) {
+		// Absolute container positioning used
+		pane.setLayout(null);
+
+		// Variable declaration
+		String[] media_combo_box = { "Choose here", "CD" };
+		// declaration of pane components
+
+		// Combo boxes
+		mediaTypeSelected = new JComboBox(media_combo_box);
+		mediaTypeSelected.setActionCommand("Media Select");
+		mediaTypeSelected.addActionListener(this);
+
+		// Buttons
+		add = new JButton("Add");
+		add.setActionCommand("Add");
+		add.addActionListener(this);
+		backToMain = new JButton("Back to Main Screen");
+		backToMain.setActionCommand("Back to Main");
+		backToMain.addActionListener(this);
+
+		// Labels
+		mediaText = new JLabel("Select a media type:");
+		mediaText.setFont(new Font("Helvetica", Font.PLAIN, 12));
+
+		addText = new JLabel("Adding media:");
+		addText.setFont(new Font("Helvetica", Font.BOLD, 14));
+
+
+		chooseMediaText = new JLabel("Please choose a media type");
+		chooseMediaText.setFont(new Font("Helvetica", Font.PLAIN, 10));
+
+
+		addedText = new JLabel("Information successfully added");
+		addedText.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		addedText.setForeground(Color.red);
+		
+		chooseMediaText.setForeground(Color.red);
+		
+		addSetup = new JPanel();
+		addSetup.setLayout(new CardLayout()); 
+		addSetup.setBorder(BorderFactory.createEtchedBorder());
+		addSetup.setPreferredSize(new Dimension(600, 250));
+		addSetup.add(new UnselectedPanel(), UNSELECTED);
+		addSetup.add(CDsSelected, CDs);
+		
+		
+		// Add components to the pane
+		pane.add(mediaTypeSelected);
+		pane.add(backToMain);
+		pane.add(add);
+		pane.add(mediaText);
+		pane.add(addText);
+		pane.add(chooseMediaText);
+		pane.add(addedText);
+		pane.add(addSetup);
+		
+		// Screen positioning
+		Insets insets = pane.getInsets();
+
+		backToMain.setBounds(390 + insets.left, 425 + insets.top, 160, 75);
+
+		add.setBounds(220 + insets.left, 425 + insets.top, 160, 75);
+
+		mediaTypeSelected.setBounds(175 + insets.left, 128 + insets.top, 100,
+				20);
+
+		addText.setBounds(50 + insets.left, 50 + insets.top, 300, 75);
+
+		mediaText.setBounds(50 + insets.left, 100 + insets.top, 150, 75);
+
+		addedText.setBounds(450 + insets.left, 350 + insets.top, 300, 75);
+		addedText.setVisible(false);
+		
+		addSetup.setBounds(50 + insets.left,160 + insets.top, 600, 250);
+
+
+	}
+
+	// Purpose: To create and display the 'Create Account' UI
+	// PRE: None
+	// POST: A new frame is created, components added, frame displayed
+	public void createAndShowGUI() {
+		cdb.createUserDatabaseFile();
+
+		// Create and set up the window.
+		frame = new JFrame("Macrosoft Media Works");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// Set up the content pane
+		addComponentsToPane(frame.getContentPane());
+
+		// Size and display the window
+		Insets insets = frame.getInsets();
+		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
+				+ insets.bottom);
+		frame.setVisible(true);
+		frame.setResizable(false);
+
+	}
+	
+	// PURPOSE: Removes all the text fields from the frame
+	// PRE: None
+	// POST: Removes all the text fields from the frame
+	
+	// CD information below
+	
+	
+	// PURPOSE: Sets up the screen for CD information
+	// PRE: None
+	// POST: sets the necessary fields up for the user to enter information about a CD
+
+	// PURPOSE: To check if all the CD fields are complete
+	// PRE: None
+	// POST: Sets the necessary JLabels to visible or not visible to notify the user
+	//		 which fields need to be completed
+	public void checkCD() {
+		System.out.println(CDsSelected.titleField.getText());
+		if (CDsSelected.titleField.getText().length() != 0) {
+			title = CDsSelected.titleField.getText();
+			CDsSelected.enterTitleText.setVisible(false);
+		} else {
+			CDsSelected.enterTitleText.setVisible(true);
+			check_add = false;
+		}
+		if (CDsSelected.artistField.getText().length() != 0) {
+			artist = CDsSelected.artistField.getText();
+			CDsSelected.enterArtistText.setVisible(false);
+		} else {
+			CDsSelected.enterArtistText.setVisible(true);
+			check_add = false;
+		}
+		if (CDsSelected.genreField.getText().length() != 0) {
+			genre = CDsSelected.genreField.getText();
+			CDsSelected.enterGenreText.setVisible(false);
+		} else {
+			CDsSelected.enterGenreText.setVisible(true);
+			check_add = false;
+		}
+
+		description = CDsSelected.descriptionTextArea.getText();
+
+	}
+
+	public void changePanel(int PanelID){
+		CardLayout cl = (CardLayout)(addSetup.getLayout());
+		switch(PanelID){
+		case 0:
+			cl.show(addSetup, UNSELECTED);
+			break;
+		case 1:
+			cl.show(addSetup, CDs);
+			break;
+		default:
+			break;
+		}
+
+}
+	// Purpose: To syncronize the actions of the user with the functionality of the screen
+	// PRE: Valid action event as param
+	// POST: Button functionality with proper conditions and actions taken
+	public void actionPerformed(ActionEvent e) {
+		int selected_index = (int) mediaTypeSelected.getSelectedIndex();
+
+			// If mediaTypeSelected is changed these actions occur
+			if (e.getActionCommand().equals("Media Select")) {
+				System.out.println(selected_index);
+				// Checks which item is selected in the combo box and sets up the screen
+				// appropriately
+				switch (selected_index) {
+				case 0:
+					changePanel(0);
+					break;
+				case 1:
+					changePanel(1);
+					addedText.setVisible(false);
+					break;
+				default:
+					break;
+				}
+
+			}
+
+			// If add button is pressed
+			if (e.getActionCommand().equals("Add")) {
+				check_add = true;
+
+				// Checks which item is selected in the combo box and checks to make sure
+				// all the fields are filled in
+				switch (selected_index) {
+				case 0:
+					chooseMediaText.setBounds(276, 128, 150, 20);
+					chooseMediaText.setVisible(true);
+					break;
+				case 1:
+					checkCD();
+					break;
+				default:
+					break;
+				}
+
+
+				if ((check_add) && (selected_index != 0)) {
+					// Adds item to database and clears the text fields
+					cdb.appendMediaDatabase(title, artist, genre, description);
+					addedText.setVisible(true);
+					mediaTypeSelected.setSelectedIndex(0);
+					CDsSelected.titleField.setText("");
+					CDsSelected.artistField.setText("");
+					CDsSelected.genreField.setText("");
+					CDsSelected.descriptionTextArea.setText("");
+				}
+			}
+			
+			// If backToMain button is pressed
+			if (e.getActionCommand().equals("Back to Main")) {
+				// Goes back to main screen
+				frame.setVisible(false);
+			}
+
+		}
+	
+
+	
+	// Testing method
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				AddScreenUI2 ui = new AddScreenUI2();
+				ui.createAndShowGUI();
+			}
+		});
+
+	}
+}
