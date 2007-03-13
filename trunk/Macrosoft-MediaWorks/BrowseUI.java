@@ -51,14 +51,7 @@ public class BrowseUI implements ActionListener {
 		c.insets = new Insets(10, 10, 5, 10); // Top,Left,Bottom,Right
 												// Determines padding around
 												// component in pixels
-		button.setToolTipText("Close browse window and open Main window"); // Displays
-																			// text
-																			// when
-																			// cursor
-																			// is
-																			// hovered
-																			// over
-																			// component
+		button.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(button, c);
 
 		// JLABEL: Display By:
@@ -67,18 +60,15 @@ public class BrowseUI implements ActionListener {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(5, 10, 5, 10);
-		c.anchor = GridBagConstraints.LINE_END; // Aligns text to the right
-												// (LINE_END)
+		c.insets = new Insets(5, 10, 5, 10); 
+		c.anchor = GridBagConstraints.LINE_END; // Aligns text to the right (LINE_END)
 		label2.setToolTipText("Select category to display media contents by");
 		// pane.add(label2, c);
 
 		// COMBO BOX
 		String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
-		JComboBox combo = new JComboBox(mediaTypes); // Passes mediaTypes to
-														// combo box
-		combo.setSelectedIndex(0); // Sets the default item from mediaTypes to
-									// appear in the combo box
+		JComboBox combo = new JComboBox(mediaTypes); // Passes mediaTypes to combo box													
+		combo.setSelectedIndex(0); // Sets the default item from mediaTypes to appear in the combo box
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 0.0;
@@ -91,9 +81,8 @@ public class BrowseUI implements ActionListener {
 		DatabaseControl db = new DatabaseControl();
 
 		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
-		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds
-																	// table
-																	// data
+		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data
+															
 		/*
 		 * tableData Example Object[][] tableData = { {"Mezzanine", "Masive
 		 * Attack", "Electronica", "09/2005"}, {"Nevermind", "Nirvana", "Rock",
@@ -102,8 +91,7 @@ public class BrowseUI implements ActionListener {
 		 */
 		// Assigns data from the database to tableData
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
-			String[] rowData = db.getLibraryRow(i); // Holds a row of data from
-													// the database
+			String[] rowData = db.getLibraryRow(i); // Holds a row of data from the database										
 			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
@@ -117,18 +105,8 @@ public class BrowseUI implements ActionListener {
 		c.insets = new Insets(5, 10, 10, 10);
 		JTable table = new JTable(tableData, columnNames);
 		table.setEnabled(false);
-		table.setPreferredScrollableViewportSize(new Dimension(700, 300)); // Sets
-																			// size
-																			// of
-																			// table
-																			// width,height
-																			// in
-																			// pixels
-		JScrollPane scrollPane = new JScrollPane(table); // Makes a scroll
-															// bar available if
-															// windows sized
-															// smaller than
-															// table size
+		table.setPreferredScrollableViewportSize(new Dimension(700, 300)); // Sets size of table width, height in pixels																
+		JScrollPane scrollPane = new JScrollPane(table); // Makes a scroll bar available if windows sized smaller than table size													
 		pane.add(scrollPane, c); // Add the scroll pane to this panel
 	}
 
