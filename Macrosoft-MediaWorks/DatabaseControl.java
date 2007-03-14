@@ -47,6 +47,7 @@ public class DatabaseControl {
 			bw.write("");
 			// Clear BufferedWriter after appending is complete
 			bw.flush();
+			bw.close();
 		} catch (IOException ioe) {
 		}
 	}
@@ -88,10 +89,22 @@ public class DatabaseControl {
 				mediaRow = in.readLine();
 				// Continue reading database lines
 			} while (mediaRow != null);
-
+			
+			in.close();
+			
 		} catch (IOException e) {
 			// System.out.println(e.getMessage());
 		}
+	}
+	
+	// Reload current database of media entries
+	// PRE: None
+	// POST: Current ArrayList of media items is cleared and reloaded with entries in database file
+	public void reloadMediaDatabase() {
+		// Clear current database
+		mediaItems.clear();
+		// Reload database from file
+		loadMediaDatabase();
 	}
 
 	// Append media database with a new entry
@@ -116,14 +129,13 @@ public class DatabaseControl {
 			bw.newLine();
 			// Clear BufferedWriter after appending is complete
 			bw.flush();
+			bw.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 
-		// Clear old ArrayList and reload in order to include appended media
-		// entry
-		mediaItems.clear();
-		this.loadMediaDatabase();
+		// Reload database in order to include appended media entry
+		reloadMediaDatabase();
 	}
 
 	// Return an array containing the four elements of the current database row
@@ -131,7 +143,6 @@ public class DatabaseControl {
 	// POST: An array containing the elements of the current row is returned
 
 	public String[] getLibraryRow(int indexOfRow) {
-
 		// Determine index of current row; row 0 starts at index 0, row 1 starts
 		// at 4, row 2
 		// starts at 8, etc.
@@ -153,11 +164,9 @@ public class DatabaseControl {
 	// POST: Number of rows required is returned
 	
 	public int getRowsNeeded() {
-
 		// Number of rows needed is total items / items per row
 		int totalRows = mediaItems.size() / 4;
 		return totalRows;
-
 	}
 	
 	// PURPOSE: Delete current database file
@@ -166,7 +175,7 @@ public class DatabaseControl {
 
 	public void deleteDatabase() {
 		// Open file
-		File userFile = new File("fname");
+		File userFile = new File(fname);
 		// Perform deletion
 		userFile.delete();
 	}
@@ -184,21 +193,18 @@ public class DatabaseControl {
 			// Set up BufferedWriter to be used for appending
 			bw = new BufferedWriter(new FileWriter(fname, true));
 			// Append new account data to login database
-			System.out.println(mediaItems.size());
-			System.out.println(getRowsNeeded());
-//			for (int i = 0; i < getRowsNeeded() - 1; i++) {
-//				String[] currentRow = getLibraryRow(i);
-//				String rowToWrite = currentRow[0] + " ::: " + currentRow[1] + " ::: " + currentRow[2] +
-//				" ::: " + currentRow[3];
-//				System.out.println(rowToWrite);
-//				bw.write(rowToWrite);
-//				bw.newLine();
-//			}
+			for (int i = 0; i < getRowsNeeded() - 1; i++) {
+				String[] currentRow = getLibraryRow(i);
+				String rowToWrite = currentRow[0] + " ::: " + currentRow[1] + " ::: " + currentRow[2] +
+				" ::: " + currentRow[3];
+				bw.write(rowToWrite);
+				bw.newLine();
+			}
 			bw.flush();
+			bw.close();
 		} catch (IOException ioe) {
 		}
 
-		
 	}
 
 	// *** Unfinished code for future version ***
