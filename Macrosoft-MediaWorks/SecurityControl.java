@@ -169,6 +169,15 @@ public class SecurityControl {
 		}
 	}
 	
+	// Get password; used when retrieving password via secret question/answer
+	// PRE: User/password exist in database
+	// POST: Password is returned
+	
+	public String getPassword(String usernameEntered) {
+		// Get and return password for given username
+		return loginItems.get(loginItems.indexOf(usernameEntered) + 1);
+	}
+	
 	// Get secret question and password for a given user
 	// PRE: usernameEntered exists in login database
 	// POST: String array is returned containing secret question in position 0 and answer in position 1
