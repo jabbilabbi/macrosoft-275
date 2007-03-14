@@ -34,13 +34,13 @@ public class HTMLOutput {
 				"<td width=150 bgcolor=white><b><font size=4>Genre</font></b></td>" +
 				"<td width=200 bgcolor=white><b><font size=4>Description</font></b></td></tr>";
 		
-		// Cycle through media library
+		// Cycle through media library and create HTML rows as needed
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
 			// Get row information
 			String[] rowElements = db.getLibraryRow(i);
 			// Start a table row
 			textToWrite += "<tr>";
-			// Add table elements to the current row
+			// Create HTML to add table elements to the current row
 			for (int j = 0; j < 4; j++) {
 				textToWrite += "<td valign=top bgcolor=white>" + rowElements[j] + "</td>";
 			}
