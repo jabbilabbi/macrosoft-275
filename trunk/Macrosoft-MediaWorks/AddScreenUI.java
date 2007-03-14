@@ -41,8 +41,8 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
-	public Component addComponentsToPane(Container pane) {
-		
+	public Component componentSetup() {
+		JPanel pane = new JPanel();
 		// Absolute container positioning used
 		pane.setLayout(null);
 
@@ -142,8 +142,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Media Works - Add Screen");
 		setResizable(false);
-		JPanel pane = new JPanel();
-		add(addComponentsToPane(pane));
+		add(componentSetup());
 		pack();
 		setSize(720,540);
 		setVisible(true);

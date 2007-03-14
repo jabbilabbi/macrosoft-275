@@ -1,5 +1,6 @@
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
 
@@ -26,8 +27,10 @@ public class ControllerClass implements Serializable{
 		this.mainScreenUI = new MainScreenUI();
 		this.sdb = new SecurityControl();
 		this.cdb = new DatabaseControl();	
-		this.html = new HTMLOutput();
 	}
+	
+	
+	
 	public void createHTMLOutput(){
 		html.createHTMLOutput();
 	}
@@ -50,7 +53,13 @@ public class ControllerClass implements Serializable{
 	public void createUserDatabaseFile(){
 		cdb.createUserDatabaseFile();
 	}
-	
+	public void appendLoginDatabase(String username, String password, String secretQ, String secretA){
+		sdb.appendLoginDatabase(username, password, secretQ, secretA);
+	}
+	public ArrayList<String> getUserNames(){
+		return sdb.getUserNames();		
+	}
+		
 	public String getPassword(String tempUser){
 		return sdb.getPassword(tempUser);		
 	}
