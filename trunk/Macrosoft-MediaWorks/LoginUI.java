@@ -3,203 +3,450 @@
 // Macrosoft
 // Programmed by: Alex Antonio
 
-
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.Insets;
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import java.awt.*;
-import java.awt.event.*;
+public class LoginUI extends JFrame implements ActionListener {
 
-public class LoginUI implements ActionListener {
-	// Declaration of screen objects used later in action listener method
-	private JButton createAccount, login, forgotPassword;
+	// Declarations of UI Elements
+	private JButton createAccountBtn, loginBtn, forgotPasswordBtn,
+			checkAnswerBtn;
+	private JTextField usernameTB, secretAnswerTB;
+	private JPasswordField passwordTB;
+	private JLabel usernameLabel, passwordLabel, loginLabel, dynamicLabel,
+			title, secretQuestionLabel, secretAnswerLabel,
+			secretQuestionContentLabel;
+	private String dynamicText;
+	private Dimension dim;
+	private JPanel forgotPasswordPanel;
+	private SecurityControl sdb = new SecurityControl();
 
-	private JTextField usernameTextBox;
-
-	private JPasswordField passwordTextBox;
-	
-	private JLabel enterUsername, enterPassword, pleaseLogin,
-	enterUserNameText, enterPasswordText, invalidLogin;
-
-	SecurityControl sdb = new SecurityControl(); // Creates instance of the login DB	
-	
-	
-
-	private JFrame frame;
 	// Purpose: Add all components of the pane into the correct locations and
 	// with correct functions
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
-	public void addComponentsToPane(Container pane) {
-		pane.setLayout(null); // Absolute container positioning used
+	private Component componentSetup() {
 
-		// Declaration of pane components
-		createAccount = new JButton("Create New Account");
-		createAccount.addActionListener(this);
+		// Login panel
+		JPanel loginPanel = new JPanel();
+		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS));
+		loginPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		loginPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-		login = new JButton("Login");
-		login.addActionListener(this); // Adds Action Listener
+		// Creates a label instruction the user
+		loginLabel = new JLabel("Log into your account");
+		loginLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
+		loginLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		loginLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-		forgotPassword = new JButton("Forgot Password?");
-		forgotPassword.addActionListener(this); // Adds Action Listener
-		forgotPassword.setVisible(false);
+		// Forgot Password panel
+		forgotPasswordPanel = new JPanel();
+		forgotPasswordPanel.setLayout(new BoxLayout(forgotPasswordPanel,
+				BoxLayout.LINE_AXIS));
+		forgotPasswordPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		forgotPasswordPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
-		usernameTextBox = new JTextField(10);
+		// Forgot Password panel
+		JPanel centerForgotPasswordPanel = new JPanel();
+		centerForgotPasswordPanel.setLayout(new BoxLayout(centerForgotPasswordPanel,
+				BoxLayout.LINE_AXIS));
+		centerForgotPasswordPanel.setBorder(BorderFactory.createEtchedBorder());
+		centerForgotPasswordPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		centerForgotPasswordPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		// Sub-Panel to Forgot Password panel
+		JPanel labelPanel2 = new JPanel();
+		labelPanel2.setLayout(new BoxLayout(labelPanel2, BoxLayout.PAGE_AXIS));
+		labelPanel2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		labelPanel2.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		passwordTextBox = new JPasswordField(10);
+		// Sub-Panel to Forgot Password panel
+		JPanel fieldPanel2 = new JPanel();
+		fieldPanel2.setLayout(new BoxLayout(fieldPanel2, BoxLayout.PAGE_AXIS));
+		fieldPanel2.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		fieldPanel2.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		enterUsername = new JLabel("Username:");
+		// Sets the text and dimentions of labels
+		secretQuestionLabel = new JLabel("Secret Question:");
+		secretAnswerLabel = new JLabel("Secret Answer:");
+		secretQuestionContentLabel = new JLabel(" ");
+		secretQuestionContentLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		secretQuestionContentLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		secretAnswerTB = new JTextField(20);
+		secretAnswerTB.setAlignmentX(Component.LEFT_ALIGNMENT);
+		secretAnswerTB.setAlignmentY(Component.TOP_ALIGNMENT);
+		dim = secretAnswerTB.getPreferredSize();
+		secretAnswerTB.setMinimumSize(dim);
+		secretAnswerTB.setMaximumSize(dim);
 
-		enterPassword = new JLabel("Password:");
+		// Adds components to sub-panel
+		labelPanel2.add(Box.createRigidArea(new Dimension(0, 10)));
+		labelPanel2.add(secretQuestionLabel);
+		labelPanel2.add(Box.createRigidArea(new Dimension(0, 15)));
+		labelPanel2.add(secretAnswerLabel);
+		labelPanel2.add(Box.createRigidArea(new Dimension(0, 10)));
 
-		pleaseLogin = new JLabel("Login to your account:");
+		// Declares button functionality, dimentions and position
+		checkAnswerBtn = new JButton("Answer");
+		dim = checkAnswerBtn.getPreferredSize();
+		checkAnswerBtn.setMinimumSize(dim);
+		checkAnswerBtn.setMaximumSize(dim);
+		checkAnswerBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		checkAnswerBtn.setAlignmentY(Component.TOP_ALIGNMENT);
+		checkAnswerBtn.setActionCommand("Answer");
+		checkAnswerBtn.addActionListener(this);
+		
 
-		enterUserNameText = new JLabel("Please enter your user name");
-		enterUserNameText.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		// Adds components to sub-panel
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0, 10)));
+		fieldPanel2.add(secretQuestionContentLabel);
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0, 15)));
+		fieldPanel2.add(secretAnswerTB);
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0, 10)));
+		
+		JPanel secretAnswerBtn = new JPanel();
+		secretAnswerBtn.setLayout(new BoxLayout(secretAnswerBtn, BoxLayout.PAGE_AXIS));
+		secretAnswerBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+		secretAnswerBtn.setAlignmentY(Component.TOP_ALIGNMENT);
+		secretAnswerBtn.add(fieldPanel2);
+		secretAnswerBtn.add(checkAnswerBtn);
+		
+		// Adds sub-panels to main panel
+		centerForgotPasswordPanel.add(Box.createRigidArea(new Dimension(25, 0)));
+		centerForgotPasswordPanel.add(labelPanel2);
+		centerForgotPasswordPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		centerForgotPasswordPanel.add(secretAnswerBtn);
+		centerForgotPasswordPanel.add(Box.createRigidArea(new Dimension(25, 0)));
+		
+		forgotPasswordPanel.add(centerForgotPasswordPanel);
+		forgotPasswordPanel.setVisible(false);
+		
+		// Username/Password border panel
+		JPanel usernamePasswordPanel = new JPanel();
+		usernamePasswordPanel.setLayout(new BoxLayout(usernamePasswordPanel,
+				BoxLayout.LINE_AXIS));
+		usernamePasswordPanel.setBorder(BorderFactory.createEtchedBorder());
+		usernamePasswordPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		usernamePasswordPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 
-		enterPasswordText = new JLabel("Please enter your password");
-		enterPasswordText.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		// Sub-Panel to username Password Panel
+		JPanel labelPanel = new JPanel();
+		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));
+		labelPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		labelPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		invalidLogin = new JLabel("Invalid user name/password");
-		invalidLogin.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		// Sub-Panel to username Password Panel
+		JPanel fieldPanel = new JPanel();
+		fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.PAGE_AXIS));
+		fieldPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		fieldPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		// Add components to the pane
-		pane.add(createAccount);
-		pane.add(login);
-		pane.add(forgotPassword);
-		pane.add(usernameTextBox);
-		pane.add(passwordTextBox);
-		pane.add(enterUsername);
-		pane.add(enterPassword);
-		pane.add(pleaseLogin);
-		pane.add(enterPasswordText);
-		pane.add(enterUserNameText);
-		pane.add(invalidLogin);
+		// Declares components of sub-panel
+		usernameLabel = new JLabel("Username:");
+		usernameTB = new JTextField(20);
+		dim = usernameTB.getPreferredSize();
+		usernameTB.setMinimumSize(dim);
+		usernameTB.setMaximumSize(dim);
+		usernameTB.setAlignmentX(Component.LEFT_ALIGNMENT);
+		usernameTB.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		// Screen positioning
-		Insets insets = pane.getInsets();
-		Dimension size = createAccount.getPreferredSize();
-		createAccount.setBounds(305 + insets.left, 180 + insets.top,
-				size.width, size.height);
-		size = login.getPreferredSize();
-		login.setBounds(340 + insets.left, 400 + insets.top, size.width,
-				size.height);
-		size = forgotPassword.getPreferredSize();
-		forgotPassword.setBounds(310 + insets.left, 520 + insets.top,
-				size.width, size.height);
-		size = usernameTextBox.getPreferredSize();
-		usernameTextBox.setBounds(350 + insets.left, 250 + insets.top,
-				size.width, size.height);
-		size = passwordTextBox.getPreferredSize();
-		passwordTextBox.setBounds(350 + insets.left, 310 + insets.top,
-				size.width, size.height);
-		size = enterUsername.getPreferredSize();
-		enterUsername.setBounds(250 + insets.left, 250 + insets.top,
-				size.width, size.height);
-		size = enterPassword.getPreferredSize();
-		enterPassword.setBounds(250 + insets.left, 310 + insets.top,
-				size.width, size.height);
-		size = pleaseLogin.getPreferredSize();
-		pleaseLogin.setBounds(315 + insets.left, 150 + insets.top, size.width,
-				size.height);
-		size = enterPasswordText.getPreferredSize();
-		enterPasswordText.setBounds(465 + insets.left, 310 + insets.top,
-				size.width, size.height);
-		enterPasswordText.setVisible(false);
-		size = enterUserNameText.getPreferredSize();
-		enterUserNameText.setBounds(465 + insets.left, 250 + insets.top,
-				size.width, size.height);
-		enterUserNameText.setVisible(false);
-		invalidLogin.setBounds(295 + insets.left, 350 + insets.top,
-				size.width + 50, size.height);
-		invalidLogin.setVisible(false);
+		// Declares components of sub-panel
+		passwordLabel = new JLabel("Password:");
+		passwordTB = new JPasswordField(20);
+		dim = usernameTB.getPreferredSize();
+		passwordTB.setMinimumSize(dim);
+		passwordTB.setMaximumSize(dim);
+		passwordTB.setAlignmentX(Component.LEFT_ALIGNMENT);
+		passwordTB.setAlignmentY(Component.TOP_ALIGNMENT);
+
+		// Adds components to sub-panel
+		labelPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		labelPanel.add(usernameLabel);
+		labelPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+		labelPanel.add(passwordLabel);
+		labelPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		// Adds components to sub-panel
+		fieldPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		fieldPanel.add(usernameTB);
+		fieldPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		fieldPanel.add(passwordTB);
+		fieldPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		// Adds sub-panels to main panel
+		usernamePasswordPanel.add(Box.createRigidArea(new Dimension(25, 0)));
+		usernamePasswordPanel.add(labelPanel);
+		usernamePasswordPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		usernamePasswordPanel.add(fieldPanel);
+		usernamePasswordPanel.add(Box.createRigidArea(new Dimension(25, 0)));
+		
+		// Declares button functionality, dimentions and position
+		loginBtn = new JButton("Login");
+		dim = loginBtn.getPreferredSize();
+		System.out.println(dim);
+		loginBtn.setMinimumSize(dim);
+		loginBtn.setMaximumSize(dim);
+		loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		loginBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
+		loginBtn.setActionCommand("Login");
+		loginBtn.addActionListener(this);
+
+		// Declares button functionality, dimentions and position
+		createAccountBtn = new JButton("Create an Account");
+		dim = createAccountBtn.getPreferredSize();
+		createAccountBtn.setMinimumSize(dim);
+		createAccountBtn.setMaximumSize(dim);
+		createAccountBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		createAccountBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
+		createAccountBtn.setActionCommand("Create an Account");
+		createAccountBtn.addActionListener(this);
+		
+		// Declares button functionality, dimentions and position
+		forgotPasswordBtn = new JButton("Forgot Your Password?");
+		dim = new Dimension(180,23);
+		forgotPasswordBtn.setMinimumSize(dim);
+		forgotPasswordBtn.setMaximumSize(dim);
+		forgotPasswordBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		forgotPasswordBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
+		forgotPasswordBtn.setActionCommand("Forgot your Password");
+		forgotPasswordBtn.addActionListener(this);
+		
+		// Declares a sub-panel the top of the screen
+		JPanel topLogin = new JPanel();
+		topLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+		topLogin.setAlignmentY(Component.CENTER_ALIGNMENT);
+		topLogin.setLayout(new BoxLayout(topLogin, BoxLayout.PAGE_AXIS));
+		topLogin.add(loginLabel);
+		topLogin.add(loginPanel);
+		
+		// Declares a sub-panel for the bottom of the screen
+		JPanel bottomLogin = new JPanel();
+		bottomLogin.setLayout(new BoxLayout(bottomLogin, BoxLayout.LINE_AXIS));
+		bottomLogin.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		bottomLogin.add(createAccountBtn);
+		bottomLogin.add(loginBtn);
+		
+		// Adds sub-panels to main panel
+		loginPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+		loginPanel.add(usernamePasswordPanel);
+		loginPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		loginPanel.add(bottomLogin);
+
+		// Defines screen title
+		title = new JLabel("     Macrosoft Personal Library     ");
+		title.setFont(new Font("Helvetica", Font.BOLD, 24));
+		title.setAlignmentX(Component.CENTER_ALIGNMENT);
+		title.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+		// Defines panel for the title screen
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.PAGE_AXIS));
+		titlePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		titlePanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		titlePanel.add(title);
+		titlePanel.add(Box.createRigidArea(new Dimension(0, 25)));
+		titlePanel.add(topLogin);
+
+		// Defines Dynamic Text used for error messages
+		dynamicText = " ";
+		dynamicLabel = new JLabel(dynamicText);
+		dynamicLabel.setForeground(Color.red);
+		dynamicLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		dynamicLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+		// Declares a sub-panel
+		JPanel componentsPanel = new JPanel();
+		componentsPanel.setLayout(new BoxLayout(componentsPanel, BoxLayout.PAGE_AXIS));
+		componentsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		componentsPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		// Adds appropriate sub-panels and labels
+		componentsPanel.add(Box.createRigidArea(new Dimension(0, 75)));
+		componentsPanel.add(titlePanel);
+		componentsPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+		componentsPanel.add(dynamicLabel);
+		componentsPanel.add(forgotPasswordPanel);
+		
+		JPanel forgotBtnPanel = new JPanel();
+		forgotBtnPanel.setLayout(new BoxLayout(forgotBtnPanel, BoxLayout.LINE_AXIS));
+		forgotBtnPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		forgotBtnPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		forgotBtnPanel.add(Box.createRigidArea(new Dimension(290, 0)));
+		forgotBtnPanel.add(forgotPasswordBtn);
+		forgotBtnPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+		
+		// Declares the main panel
+		JPanel primaryPanel = new JPanel();
+		primaryPanel.setLayout(new BorderLayout());
+		// Adds appropriate sub-panels
+		primaryPanel.add(componentsPanel, BorderLayout.CENTER);
+		primaryPanel.add(forgotBtnPanel, BorderLayout.PAGE_END);
+
+		return primaryPanel;
 	}
+
+	public static void windowLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			System.out.println("Look and Feel error: " + e);
+		}
+	}
+
 	// Purpose: To create and display the 'Create Account' UI
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		// Create and set up the window
-		frame = new JFrame("Macrosoft Media Works");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		
-		addComponentsToPane(frame.getContentPane()); // Set up the content pane
-
-		// Size and display the window
-		Insets insets = frame.getInsets();
-		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
-				+ insets.bottom);
-		frame.setVisible(true);
+		windowLookAndFeel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Macrosoft Media Works");
+		setResizable(false);
+		add(componentSetup());
+		pack();
+		setSize(720, 540);
+		setVisible(true);
 	}
-	// Purpose: To syncronize the actions of the user with the functionality of the screen
+
+	// Purpose: To syncronize the actions of the user with the functionality of
+	// the screen
 	// PRE: Valid action event as param
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
+		ControllerClass controller = new ControllerClass(); // Creates an
+															// instance of the
+															// UI controller
 
 		sdb.loadLoginDatabase(); // Loads the Login DB
-
-		CreateAccountUI createAccountUI = new CreateAccountUI(); // Creates an instance of createAccountUI class
-		MainScreenUI mainScreenUI = new MainScreenUI(); // Creates an instance of the mainscreenUI class
+		CreateAccountUI createAccountUI = new CreateAccountUI(); // Creates
+																	// an
+																	// instance
+																	// of
+																	// createAccountUI
+																	// class
+		MainScreenUI mainScreenUI = new MainScreenUI(); // Creates an instance
+														// of the mainscreenUI
+														// class
 
 		Boolean fieldsComplete = true;
+		String userEntered = String.valueOf(usernameTB.getText());
+		String passwordEntered = String.valueOf(passwordTB.getPassword());
 
-		String userEntered = String.valueOf(usernameTextBox.getText());
-		String passwordEntered = String.valueOf(passwordTextBox.getPassword());
 		int user_result = sdb.checkLogin(userEntered, passwordEntered);
-
-		JButton b = (JButton) e.getSource();
-		// Condition where the button pressed what the Create Account button
-		if (b == this.createAccount) {
-			createAccountUI.createAndShowGUI();
-			frame.setVisible(false);
+		// Case where button pressed was 'Forgot your Password'
+		if (e.getActionCommand().equals("Forgot your Password")) {
+			String tempuser = usernameTB.getText(); // Stores the current
+													// username
+			// Case where username is in DB
+			if (sdb.checkIfUserExists(usernameTB.getText())) {
+				dynamicLabel.setVisible(false); // Turns off error messages
+				forgotPasswordPanel.setVisible(true); // Turns on forgot
+														// password panel
+				secretQuestionContentLabel
+						.setText(sdb.getSecretInfo(tempuser)[0]); // Gets
+																	// secret
+																	// question
+																	// from DB
+				// Case where Answer button was hit
+				if (e.getActionCommand().equals("Answer")) {
+					// Case where correct Answer is given
+					if (sdb.getSecretInfo(tempuser)[1] == secretAnswerTB
+							.getText()) {
+						forgotPasswordPanel.setVisible(false); // Turns off the
+																// forgot
+																// password
+																// panel
+						dynamicText = "Your password is: "
+								+ sdb.getPassword(tempuser); // Password is
+																// printed for
+																// user
+						dynamicLabel.setText(dynamicText); // Password is set
+															// to label
+						dynamicLabel.setVisible(true); // Password is displayed
+														// for user
+					}
+					// Case where correct Answer is not given
+					else {
+						dynamicText = "Incorrect secret question answer, try again"; // Error
+																					 // message
+																				  	 // for
+																				   	 // user
+						dynamicLabel.setText(dynamicText);
+						dynamicLabel.setVisible(true);
+					}
+				}
+			}
+			// Case where username is not in DB
+			else {
+				dynamicText = "That username is not found, please enter a valid username";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			}
 		}
-		// Condition where the button pressed what the Login button
-		if (b == this.login) {
+		// Case where button pressed was the Login button
+		if (e.getActionCommand().equals("Login")) {
 			// Checks if username wasn't completed
-			if (usernameTextBox.getText().length() == 0) {
-				fieldsComplete = false;
-				enterUserNameText.setVisible(true); // Shows relevant error
-			} else {
-				enterUserNameText.setVisible(false); // Removes relevant error
+			if (usernameTB.getText().length() == 0) {
+				fieldsComplete = false; // Fields are not complete
+				dynamicText = "Please enter username"; // User prompted for
+														// appropriate action
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			}
+			// Case where username is entered
+			else {
+				dynamicLabel.setVisible(false); // Removes relevant error
 			}
 			// Checks if the password wasn't completed
-			if (passwordTextBox.getText().length() == 0) {
+			if ((passwordTB.getText().length() == 0)
+					&& (usernameTB.getText().length() != 0)) {
 				fieldsComplete = false;
-				enterPasswordText.setVisible(true); // Shows relevant error
-			} else {
-				enterPasswordText.setVisible(false); // Removes relevant error
+				dynamicText = "Please enter password";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			} else if ((passwordTB.getText().length() != 0)
+					&& (usernameTB.getText().length() == 0)) {
+				dynamicText = "Please enter username";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
 			}
+
 			// Condition where the login entry was invalid
 			if ((user_result == 1) && (fieldsComplete == true)) {
-				invalidLogin.setVisible(false); // Removes relevant error
-				String currentUser = String.valueOf(usernameTextBox.getText()); // Stores current user
+				dynamicLabel.setVisible(false); // Removes relevant error
+				String currentUser = String.valueOf(usernameTB.getText()); // Stores
+																			// current
+																			// user
 
-				sdb.recordCurrentUser(currentUser); // Records current user in DB
-
-				mainScreenUI.createAndShowGUI(); // Displays main screen
-				frame.setVisible(false); // Shuts off current frame
+				dispose(); // Disposes of current frame
 
 			} else if ((user_result != 1) && (fieldsComplete == true)) {
-				invalidLogin.setVisible(true); // Shows relevant error
-
+				dynamicText = "Invalid username or password";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
 			}
 
+		}
+		// Case where button pressed was Create an Account
+		if (e.getActionCommand().equals("Create an Account")) {
+			dispose(); // Throw out current frame
+			controller.createAccountFrame(); // Load new frame for Create an
+												// Account
 		}
 
 	}
+
 	// Test Method
 	public static void main(String[] args) {
+		// Schedule a job for the event-dispatching thread:
+		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				LoginUI ui = new LoginUI();
-				ui.createAndShowGUI();
+				LoginUI2 loginUI = new LoginUI2();
+				loginUI.createAndShowGUI();
 			}
 		});
-
 	}
 }
