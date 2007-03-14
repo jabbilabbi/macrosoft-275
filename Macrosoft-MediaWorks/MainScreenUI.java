@@ -16,25 +16,20 @@ import java.awt.*;
 
 import java.awt.event.*;
 
-public class MainScreenUI implements ActionListener{
+public class MainScreenUI extends JFrame implements ActionListener{
 	
 	 // Intializes all components needed for the frame
 	 private JLabel mainText, chooseText;
 	 private JButton addMedia, browse, createHTML;
 	 
-	 // Initializes the frame
-	 private JFrame frame;
-	 
-	 // Sets up an instance of SecurityControl
-	 private SecurityControl sc = new SecurityControl();
+	 // Sets up an instance of ControllerClass
+	private ControllerClass controller;
 	 
 	// Purpose: Add all components of the pane into the correct locations and with correct functions
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	public void addComponentsToPane(Container pane) {
-		
-		sc.deleteCurrentUser();
 		
 		// Absolute container positioning used
 		pane.setLayout(null);
@@ -71,7 +66,6 @@ public class MainScreenUI implements ActionListener{
                 150, 75);
         createHTML.setBounds(525 + insets.left, 300 + insets.top,
                 150, 75);
-        createHTML.setVisible(false);
         mainText.setBounds(320 + insets.left, 100 + insets.top,
                 200, 150);
         chooseText.setBounds(300 + insets.left, 150 + insets.top,
@@ -83,20 +77,20 @@ public class MainScreenUI implements ActionListener{
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
-
+			controller = new ControllerClass();
 	        //Create and set up the window.
-	        frame= new JFrame("Macrosoft Media Works");
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setResizable(false);
+			setTitle("Media Works - Main Screen");
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        setResizable(false);
 	        
 	        //Set up the content pane.
-	        addComponentsToPane(frame.getContentPane());
+	        addComponentsToPane(getContentPane());
 
 	        //Size and display the window.
-	        Insets insets = frame.getInsets();
-	        frame.setSize(800 + insets.left + insets.right,
+	        Insets insets = getInsets();
+	        setSize(800 + insets.left + insets.right,
 	                      600 + insets.top + insets.bottom);
-	        frame.setVisible(true);
+	        setVisible(true);
 
 	    }
 	
@@ -105,17 +99,14 @@ public class MainScreenUI implements ActionListener{
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
-		
-		BrowseUI browseUI = new BrowseUI();
-		AddScreenUI addScreenUI = new AddScreenUI();
 					
 		if (b == this.addMedia){
-			addScreenUI.createAndShowGUI();
-			frame.setVisible(false);
+			controller.addScreenFrame();
+			dispose();
 			
 		}else if(b == this.browse){
-			browseUI.createAndShowGUI();
-			frame.setVisible(false);
+			controller.browseFrame();
+			dispose();
 			
 		}else if(b == this.createHTML){
 

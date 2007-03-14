@@ -21,15 +21,14 @@ public class LoginUI extends JFrame implements ActionListener {
 	private String dynamicText;
 	private Dimension dim;
 	private JPanel forgotPasswordPanel;
-	private SecurityControl sdb = new SecurityControl();
-
+	private ControllerClass controller;
+	
 	// Purpose: Add all components of the pane into the correct locations and
 	// with correct functions
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	private Component componentSetup() {
-
 		// Login panel
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS));
@@ -186,7 +185,6 @@ public class LoginUI extends JFrame implements ActionListener {
 		// Declares button functionality, dimentions and position
 		loginBtn = new JButton("Login");
 		dim = loginBtn.getPreferredSize();
-		System.out.println(dim);
 		loginBtn.setMinimumSize(dim);
 		loginBtn.setMaximumSize(dim);
 		loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -299,10 +297,13 @@ public class LoginUI extends JFrame implements ActionListener {
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
+		controller = new ControllerClass(); // Creates an
+															// instance of the
+															// UI controller
 		// Create and set up the window
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Macrosoft Media Works");
+		setTitle("Media Works - Login Screen");
 		setResizable(false);
 		add(componentSetup());
 		pack();
@@ -315,51 +316,39 @@ public class LoginUI extends JFrame implements ActionListener {
 	// PRE: Valid action event as param
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
-		ControllerClass controller = new ControllerClass(); // Creates an
-															// instance of the
-															// UI controller
-
-		sdb.loadLoginDatabase(); // Loads the Login DB
-		CreateAccountUI createAccountUI = new CreateAccountUI(); // Creates
-																	// an
-																	// instance
-																	// of
-																	// createAccountUI
-																	// class
-		MainScreenUI mainScreenUI = new MainScreenUI(); // Creates an instance
-														// of the mainscreenUI
-														// class
+		controller.loadLoginDatabase(); // Loads the Login DB
 
 		Boolean fieldsComplete = true;
-		String userEntered = String.valueOf(usernameTB.getText());
+		String usernameEntered = String.valueOf(usernameTB.getText());
 		String passwordEntered = String.valueOf(passwordTB.getPassword());
 
-		int user_result = sdb.checkLogin(userEntered, passwordEntered);
+		int user_result = controller.checkLogin(usernameEntered, passwordEntered);
+		
 		// Case where button pressed was 'Forgot your Password'
 		if (e.getActionCommand().equals("Forgot your Password")) {
-			String tempuser = usernameTB.getText(); // Stores the current
+			String tempUser = usernameTB.getText(); // Stores the current
 													// username
 			// Case where username is in DB
-			if (sdb.checkIfUserExists(usernameTB.getText())) {
+			if (controller.checkIfUserExists(tempUser)) {
 				dynamicLabel.setVisible(false); // Turns off error messages
 				forgotPasswordPanel.setVisible(true); // Turns on forgot
 														// password panel
 				secretQuestionContentLabel
-						.setText(sdb.getSecretInfo(tempuser)[0]); // Gets
+						.setText(controller.getSecretInfo(tempUser)[0]); // Gets
 																	// secret
 																	// question
 																	// from DB
 				// Case where Answer button was hit
 				if (e.getActionCommand().equals("Answer")) {
 					// Case where correct Answer is given
-					if (sdb.getSecretInfo(tempuser)[1] == secretAnswerTB
+					if (controller.getSecretInfo(tempUser)[1] == secretAnswerTB
 							.getText()) {
 						forgotPasswordPanel.setVisible(false); // Turns off the
 																// forgot
 																// password
 																// panel
 						dynamicText = "Your password is: "
-								+ sdb.getPassword(tempuser); // Password is
+								+ controller.getPassword(tempUser); // Password is
 																// printed for
 																// user
 						dynamicLabel.setText(dynamicText); // Password is set
@@ -416,10 +405,10 @@ public class LoginUI extends JFrame implements ActionListener {
 			// Condition where the login entry was invalid
 			if ((user_result == 1) && (fieldsComplete == true)) {
 				dynamicLabel.setVisible(false); // Removes relevant error
-				String currentUser = String.valueOf(usernameTB.getText()); // Stores
-																			// current
-																			// user
-
+				String currentUser = String.valueOf(usernameEntered); // Stores
+														     			// current
+																		// user
+				controller.mainScreenFrame();
 				dispose(); // Disposes of current frame
 
 			} else if ((user_result != 1) && (fieldsComplete == true)) {
@@ -444,7 +433,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				LoginUI2 loginUI = new LoginUI2();
+				LoginUI loginUI = new LoginUI();
 				loginUI.createAndShowGUI();
 			}
 		});
