@@ -24,8 +24,8 @@ public class DatabaseTest {
 		//db.createUserDatabaseFile();
 		
 		// Add a couple of media entries
-		db.appendMediaDatabase("Cool Music", "Rockman", "Rock", "This is a description");
-		db.appendMediaDatabase("Okay Music", "BluesWarrior", "Blues", "This is a description");
+//		db.appendMediaDatabase("Cool Music", "Rockman", "Rock", "This is a description");
+//		db.appendMediaDatabase("Okay Music", "BluesWarrior", "Blues", "This is a description");
 		
 		// Should print 2 if running on a new database file; otherwise prints total lines
 		// currently in the file
@@ -41,7 +41,21 @@ public class DatabaseTest {
 			System.out.println();
 		}
 		
-		
+		db.deleteDatabase();
+//		db.deleteLastRow();
+//		
+//		db.loadMediaDatabase();
+//		System.out.println("---------------");
+//		
+////		 Print out database contents by getting rows and printing individual elements
+//		for (int i = 0; i < db.getRowsNeeded(); i++) {
+//			String[] rowTest = db.getLibraryRow(i);
+//			System.out.print("- ");
+//			for (int j = 0; j < 4; j++) {
+//				System.out.print(rowTest[j] + " - ");
+//			}
+//			System.out.println();
+//		}
 	}
 	
 }
