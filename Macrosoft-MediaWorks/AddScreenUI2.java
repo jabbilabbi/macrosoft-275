@@ -12,11 +12,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.Serializable;
-
-public class AddScreenUI2 implements ActionListener, Serializable {
-
-	DatabaseControl cdb = new DatabaseControl();
+public class AddScreenUI2 extends JFrame implements ActionListener{
 
 	// initalizes pane components
 	private JComboBox mediaTypeSelected;
@@ -43,7 +39,7 @@ public class AddScreenUI2 implements ActionListener, Serializable {
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
-	public void addComponentsToPane(Container pane) {
+	public Component addComponentsToPane(Container pane) {
 		// Absolute container positioning used
 		pane.setLayout(null);
 
@@ -86,7 +82,7 @@ public class AddScreenUI2 implements ActionListener, Serializable {
 		addSetup.setLayout(new CardLayout()); 
 		addSetup.setBorder(BorderFactory.createEtchedBorder());
 		addSetup.setPreferredSize(new Dimension(600, 250));
-		addSetup.add(new UnselectedPanel(), UNSELECTED);
+		addSetup.add(new UnselectedPanel(PANEL_SIZE), UNSELECTED);
 		addSetup.add(CDsSelected, CDs);
 		
 		
@@ -119,67 +115,59 @@ public class AddScreenUI2 implements ActionListener, Serializable {
 		
 		addSetup.setBounds(50 + insets.left,160 + insets.top, 600, 250);
 
+		return pane;
 
 	}
 
 	// Purpose: To create and display the 'Create Account' UI
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
+	public static void windowLookAndFeel(){
+	    try{
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	    }catch (Exception e) {
+	        System.out.println("Look and Feel error: " + e);
+	    }
+	}	
+	
 	public void createAndShowGUI() {
-		cdb.createUserDatabaseFile();
-
-		// Create and set up the window.
-		frame = new JFrame("Macrosoft Media Works");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Set up the content pane
-		addComponentsToPane(frame.getContentPane());
-
-		// Size and display the window
-		Insets insets = frame.getInsets();
-		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
-				+ insets.bottom);
-		frame.setVisible(true);
-		frame.setResizable(false);
-
+		// Create and set up the window
+		windowLookAndFeel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Macrosoft Media Works");
+		setResizable(false);
+		JPanel pane = new JPanel();
+		add(addComponentsToPane(pane));
+		pack();
+		setSize(720,540);
+		setVisible(true);
 	}
 	
-	// PURPOSE: Removes all the text fields from the frame
-	// PRE: None
-	// POST: Removes all the text fields from the frame
-	
-	// CD information below
-	
-	
-	// PURPOSE: Sets up the screen for CD information
-	// PRE: None
-	// POST: sets the necessary fields up for the user to enter information about a CD
 
 	// PURPOSE: To check if all the CD fields are complete
 	// PRE: None
 	// POST: Sets the necessary JLabels to visible or not visible to notify the user
 	//		 which fields need to be completed
 	public void checkCD() {
-		System.out.println(CDsSelected.titleField.getText());
 		if (CDsSelected.titleField.getText().length() != 0) {
 			title = CDsSelected.titleField.getText();
-			CDsSelected.enterTitleText.setVisible(false);
+			CDsSelected.enterTitleText.setText(" ");
 		} else {
-			CDsSelected.enterTitleText.setVisible(true);
+			CDsSelected.enterTitleText.setText("Please enter a title");
 			check_add = false;
 		}
 		if (CDsSelected.artistField.getText().length() != 0) {
 			artist = CDsSelected.artistField.getText();
-			CDsSelected.enterArtistText.setVisible(false);
+			CDsSelected.enterArtistText.setText(" ");
 		} else {
-			CDsSelected.enterArtistText.setVisible(true);
+			CDsSelected.enterArtistText.setText("Please enter an artist");
 			check_add = false;
 		}
 		if (CDsSelected.genreField.getText().length() != 0) {
 			genre = CDsSelected.genreField.getText();
-			CDsSelected.enterGenreText.setVisible(false);
+			CDsSelected.enterGenreText.setText(" ");
 		} else {
-			CDsSelected.enterGenreText.setVisible(true);
+			CDsSelected.enterGenreText.setText("Please enter a genre");
 			check_add = false;
 		}
 
@@ -209,15 +197,14 @@ public class AddScreenUI2 implements ActionListener, Serializable {
 
 			// If mediaTypeSelected is changed these actions occur
 			if (e.getActionCommand().equals("Media Select")) {
-				System.out.println(selected_index);
 				// Checks which item is selected in the combo box and sets up the screen
 				// appropriately
 				switch (selected_index) {
 				case 0:
-					changePanel(0);
+					changePanel(selected_index);
 					break;
 				case 1:
-					changePanel(1);
+					changePanel(selected_index);
 					addedText.setVisible(false);
 					chooseMediaText.setVisible(false);
 					break;
@@ -248,7 +235,6 @@ public class AddScreenUI2 implements ActionListener, Serializable {
 
 				if ((check_add) && (selected_index != 0)) {
 					// Adds item to database and clears the text fields
-					cdb.appendMediaDatabase(title, artist, genre, description);
 					addedText.setVisible(true);
 					mediaTypeSelected.setSelectedIndex(0);
 					CDsSelected.titleField.setText("");
