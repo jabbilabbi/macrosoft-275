@@ -150,7 +150,7 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		backToLoginBtn.setMaximumSize(dim);
 		backToLoginBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		backToLoginBtn.setAlignmentY(Component.TOP_ALIGNMENT);
-		backToLoginBtn.setActionCommand("Back to Main");
+		backToLoginBtn.setActionCommand("Back to Login");
 		backToLoginBtn.addActionListener(this);
 		
 		JPanel btnPanel = new JPanel();
@@ -218,6 +218,8 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 				.getPassword());
 		String secretQ = String.valueOf(secretQTB.getText());
 		String secretA = String.valueOf(secretATB.getText());
+		
+		if (e.getActionCommand().equals("Create Account")) {
 		// Condition where some field(s) were left empty
 		if ((username.length() == 0)
 				|| (password.length() == 0)
@@ -251,7 +253,12 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 				}
 			}
 		}
-	
+		
+		if (e.getActionCommand().equals("Back to Login")) {
+			controller.loginFrame(); // Returns to the Login Screen
+			dispose(); // disposes of current frame
+		}
+	}
 
 	// Test Method
 	public static void main(String[] args) {

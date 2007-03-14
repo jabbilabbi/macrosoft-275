@@ -25,11 +25,23 @@ public class ControllerClass implements Serializable{
 		this.createAccountUI = new CreateAccountUI();
 		this.loginUI = new LoginUI();
 		this.mainScreenUI = new MainScreenUI();
+		this.html = new HTMLOutput();
 		this.sdb = new SecurityControl();
 		this.cdb = new DatabaseControl();	
 	}
 	
-	
+	public String retrieveCurrentUser(){
+		return sdb.retrieveCurrentUser();
+	}
+	public void loadMediaDatabase(){
+		cdb.loadMediaDatabase();
+	}
+	public int getRowsNeeded(){
+		return cdb.getRowsNeeded();
+	}
+	public String[] getLibraryRow(int i){
+		return cdb.getLibraryRow(i);
+	}
 	
 	public void createHTMLOutput(){
 		html.createHTMLOutput();

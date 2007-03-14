@@ -1,16 +1,5 @@
 scott ::: 123 ::: hi ::: hi
-ABC ::: 123 ::: what's up ::: nothing
-ABC ::: 123 ::: what's up ::: nothing
-ABC ::: 123 ::: what's up ::: nothing
-asdf ::: fa ::: asdf ::: asdf
-asdff ::: as ::: afaf ::: afaf
-Joe ::: asdf ::: fdfdfd ::: dfdfddddd
-Mac ::: a ::: a ::: a
-Joe4 ::: mypass123 ::: Where were you born? ::: Arizona, USA
-ABC ::: 123 ::: what's up ::: nothing
-googly ::: doogly ::: asfsd s fksdj ::: yay
-Joe4 ::: mypass123 ::: Where were you born? ::: Arizona, USA
-ABC ::: 123 ::: what's up ::: nothing
-Joe4 ::: mypass123 ::: Where were you born? ::: Arizona, USA
-ABC ::: 123 ::: what's up ::: nothing
-dfgd ::: gdfg ::: gdfg ::: gdfg
+
+alan ::: hi ::: I like? ::: men
+hello ::: 123 ::: hi this prog is? ::: cool
+sup ::: hi ::: helo ::: mota
