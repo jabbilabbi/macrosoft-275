@@ -6,16 +6,19 @@ import javax.swing.*;
 public class LoginUI2 extends JFrame implements ActionListener{
 
 	
-	private JButton createAccountBtn, loginBtn, forgotPasswordBtn;
-	private JTextField usernameTB;
+	private JButton createAccountBtn, loginBtn, forgotPasswordBtn, checkAnswerBtn;
+	private JTextField usernameTB, secretAnswerTB;
 	private JPasswordField passwordTB;
-	private JLabel usernameLabel, passwordLabel, loginLabel, dynamicLabel, title;
+	private JLabel usernameLabel, passwordLabel, loginLabel, dynamicLabel, title, secretQuestionLabel, secretAnswerLabel, secretQuestionContentLabel;
 	private String dynamicText;
 	private Dimension dim;
+	private JPanel forgotPasswordPanel;
 	
 	private SecurityControl sdb = new SecurityControl();
 	
 	private Component componentSetup() {
+		
+		
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.PAGE_AXIS));
 		loginPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -26,6 +29,62 @@ public class LoginUI2 extends JFrame implements ActionListener{
 		loginLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
 		loginLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		loginLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		// Forgot Password panel
+		JPanel forgotPasswordPanel = new JPanel();
+		forgotPasswordPanel.setLayout(new BoxLayout(forgotPasswordPanel, BoxLayout.LINE_AXIS));
+		forgotPasswordPanel.setBorder(BorderFactory.createEtchedBorder());
+		forgotPasswordPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		forgotPasswordPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		JPanel labelPanel2 = new JPanel();
+		labelPanel2.setLayout(new BoxLayout(labelPanel2, BoxLayout.PAGE_AXIS));	
+		labelPanel2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		labelPanel2.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		JPanel fieldPanel2 = new JPanel();
+		fieldPanel2.setLayout(new BoxLayout(fieldPanel2, BoxLayout.PAGE_AXIS));	
+		fieldPanel2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		fieldPanel2.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		secretQuestionLabel = new JLabel("Secret Question:");
+		secretAnswerLabel = new JLabel("Secret Answer:");
+		secretQuestionContentLabel = new JLabel(" ");
+		secretAnswerTB = new JTextField(20);
+		dim = secretAnswerTB.getPreferredSize();
+		secretAnswerTB.setMinimumSize(dim);
+		secretAnswerTB.setMaximumSize(dim);
+		
+		labelPanel2.add(Box.createRigidArea(new Dimension(0,10)));
+		labelPanel2.add(secretQuestionLabel);
+		labelPanel2.add(Box.createRigidArea(new Dimension(0,15)));
+		labelPanel2.add(secretAnswerLabel);
+		labelPanel2.add(Box.createRigidArea(new Dimension(0,10)));
+		
+		checkAnswerBtn = new JButton("Answer");
+		dim = checkAnswerBtn.getPreferredSize();
+		checkAnswerBtn.setMinimumSize(dim);
+		checkAnswerBtn.setMaximumSize(dim);
+		checkAnswerBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		checkAnswerBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
+		checkAnswerBtn.setActionCommand("Answer");
+		checkAnswerBtn.addActionListener(this);
+		
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0,10)));
+		fieldPanel2.add(secretQuestionContentLabel);
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0,15)));
+		fieldPanel2.add(secretAnswerTB);
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0,10)));
+		fieldPanel2.add(checkAnswerBtn);
+		fieldPanel2.add(Box.createRigidArea(new Dimension(0,10)));
+		
+		forgotPasswordPanel.add(Box.createRigidArea(new Dimension(25,0)));
+		forgotPasswordPanel.add(labelPanel2);
+		forgotPasswordPanel.add(Box.createRigidArea(new Dimension(10,0)));
+		forgotPasswordPanel.add(fieldPanel2);
+		forgotPasswordPanel.add(Box.createRigidArea(new Dimension(25,0)));
+		
+		forgotPasswordPanel.setVisible(false);
 		
 		// Username/Password border panel
 		JPanel usernamePasswordPanel = new JPanel();
@@ -87,6 +146,15 @@ public class LoginUI2 extends JFrame implements ActionListener{
 		loginBtn.setActionCommand("Login");
 		loginBtn.addActionListener(this);
 		
+		forgotPasswordBtn = new JButton("Forgot Your Password?");
+		dim = forgotPasswordBtn.getPreferredSize();
+		forgotPasswordBtn.setMinimumSize(dim);
+		forgotPasswordBtn.setMaximumSize(dim);
+		forgotPasswordBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		forgotPasswordBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
+		forgotPasswordBtn.setActionCommand("Forgot your Password");
+		forgotPasswordBtn.addActionListener(this);
+		
 		createAccountBtn = new JButton("Create an Account");
 		dim = createAccountBtn.getPreferredSize();
 		createAccountBtn.setMinimumSize(dim);
@@ -108,6 +176,7 @@ public class LoginUI2 extends JFrame implements ActionListener{
 		bottomLogin.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		bottomLogin.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		bottomLogin.setLayout(new BoxLayout(bottomLogin, BoxLayout.LINE_AXIS));
+		bottomLogin.add(forgotPasswordBtn);
 		bottomLogin.add(createAccountBtn);
 		bottomLogin.add(loginBtn);
 		
@@ -149,6 +218,7 @@ public class LoginUI2 extends JFrame implements ActionListener{
 		primaryPanel.setLayout(new BoxLayout(primaryPanel, BoxLayout.PAGE_AXIS));
 		primaryPanel.add(Box.createRigidArea(new Dimension(0,75)));
 		primaryPanel.add(componentsPanel);
+		primaryPanel.add(forgotPasswordPanel);
 		return primaryPanel;
 	}
 	
@@ -187,6 +257,33 @@ public class LoginUI2 extends JFrame implements ActionListener{
 		String passwordEntered = String.valueOf(passwordTB.getPassword());
 		
 		int user_result = sdb.checkLogin(userEntered, passwordEntered);
+		if (e.getActionCommand().equals("Forgot your Password")){
+			String tempuser = usernameTB.getText();
+			if (sdb.checkIfUserExists(usernameTB.getText())){
+				dynamicLabel.setVisible(false);
+				forgotPasswordPanel.setVisible(true);
+				secretQuestionContentLabel.setText(sdb.getSecretInfo(tempuser)[0]);
+
+				if (e.getActionCommand().equals("Answer")){
+					if (sdb.getSecretInfo(tempuser)[1] == secretAnswerTB.getText()){
+						forgotPasswordPanel.setVisible(false);
+						dynamicText = "Your password is: " + sdb.getPassword(tempuser);
+						dynamicLabel.setText(dynamicText);
+						dynamicLabel.setVisible(true);
+					}
+					else {
+						dynamicText = "You have incorrectly answered the Secret Question, please try again";
+						dynamicLabel.setText(dynamicText);
+						dynamicLabel.setVisible(true);
+					}
+				}
+			}
+			else {
+				dynamicText = "That username is not found, please verify that a correct username is given";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true); // Shows relevant error
+			}
+		}
 		
 		if (e.getActionCommand().equals("Login")) {
 			// Checks if username wasn't completed
