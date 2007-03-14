@@ -41,21 +41,21 @@ public class DatabaseTest {
 			System.out.println();
 		}
 		
-		db.deleteDatabase();
-//		db.deleteLastRow();
+		db.deleteLastRow();
 //		
-//		db.loadMediaDatabase();
-//		System.out.println("---------------");
-//		
-////		 Print out database contents by getting rows and printing individual elements
-//		for (int i = 0; i < db.getRowsNeeded(); i++) {
-//			String[] rowTest = db.getLibraryRow(i);
-//			System.out.print("- ");
-//			for (int j = 0; j < 4; j++) {
-//				System.out.print(rowTest[j] + " - ");
-//			}
-//			System.out.println();
-//		}
+		db.reloadMediaDatabase();
+		System.out.println("---------------");
+		
+		System.out.println(db.getRowsNeeded());
+//		 Print out database contents by getting rows and printing individual elements
+		for (int i = 0; i < db.getRowsNeeded(); i++) {
+			String[] rowTest = db.getLibraryRow(i);
+			System.out.print("- ");
+			for (int j = 0; j < 4; j++) {
+				System.out.print(rowTest[j] + " - ");
+			}
+			System.out.println();
+		}
 	}
 	
 }
