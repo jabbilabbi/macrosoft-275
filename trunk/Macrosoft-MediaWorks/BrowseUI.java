@@ -47,7 +47,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.gridwidth = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 40, 0); 
+		c.insets = new Insets(20, 0, 20, 0); 
 		c.anchor = GridBagConstraints.CENTER; 
 		pane.add(label1, c);
 		
@@ -85,6 +85,22 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		Object[][] tableData = { 
 		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
 		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"},
+		 {"Nevermind", "Nirvana", "Rock", "Click"},
+		 {"Nevermind", "Nirvana", "Rock", "Click"},
 		 {"Magnetic Fields", "Jean Michel Jarre", "Electronica", "Click"} };
 		//*/
 		// Assigns data from the database to tableData
@@ -102,10 +118,13 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(5, 10, 10, 10);
-		JTable table = new JTable(tableData, columnNames);
-		
+		JTable table = new JTable(tableData, columnNames) {
+			public boolean isCellEditable(int rowIndex, int vColIndex) {
+	            return false;	// Turns off the ability to edit cells directly
+	        }
+		};
 		table.setEnabled(true);// Allows coloumns/cells to be selected
-		table.setPreferredScrollableViewportSize(new Dimension(700, 300)); // Sets size of table width, height in pixels																
+		table.setPreferredScrollableViewportSize(new Dimension(700, 304)); // Sets size of table width, height in pixels																
 		
 		//DETECTS SELECTIONS FOR EACH CELL
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only allows one thin to be selected at a time
@@ -150,8 +169,10 @@ public class BrowseUI extends JFrame implements ActionListener  {
 							// placed within adjacent columns
 		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
 							// placed within adjacent rows
-		c.insets = new Insets(30, 0, 0, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
+		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
+		Insets insets = new Insets(20, 20, 20, 20);
+		button.setMargin(insets);
 		button.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(button, c);
 	}
@@ -169,7 +190,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 
 		// Size and display the window
 		Insets insets = getInsets();
-		setSize(800 + insets.left + insets.right, 600 + insets.top
+		setSize(740 + insets.left + insets.right, 540 + insets.top
 				+ insets.bottom);
 		setVisible(true);
 		setResizable(false);
