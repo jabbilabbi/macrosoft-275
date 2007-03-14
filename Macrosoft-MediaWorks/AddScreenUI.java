@@ -215,6 +215,13 @@ public class AddScreenUI extends JFrame implements ActionListener{
 					changePanel(selected_index);
 					addedText.setVisible(false);
 					chooseMediaText.setVisible(false);
+					CDsSelected.titleField.setText("");
+					CDsSelected.artistField.setText("");
+					CDsSelected.genreField.setText("");
+					CDsSelected.descriptionTextArea.setText("");
+					CDsSelected.enterTitleText.setText(" ");
+					CDsSelected.enterArtistText.setText(" ");
+					CDsSelected.enterGenreText.setText(" ");
 					break;
 				default:
 					break;
@@ -250,7 +257,6 @@ public class AddScreenUI extends JFrame implements ActionListener{
 					CDsSelected.artistField.setText("");
 					CDsSelected.genreField.setText("");
 					CDsSelected.descriptionTextArea.setText("");
-					controller.mainScreenFrame();
 				}
 			}
 			
