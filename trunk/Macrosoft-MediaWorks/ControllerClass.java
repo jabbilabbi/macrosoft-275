@@ -14,6 +14,8 @@ public class ControllerClass implements Serializable{
 	private MainScreenUI mainScreenUI;
 	private SecurityControl sdb;
 	private DatabaseControl cdb;
+	private HTMLOutput html;
+	protected String user;
 	private Object[] UIs;
 	
 	public ControllerClass(){
@@ -24,8 +26,11 @@ public class ControllerClass implements Serializable{
 		this.mainScreenUI = new MainScreenUI();
 		this.sdb = new SecurityControl();
 		this.cdb = new DatabaseControl();	
+		this.html = new HTMLOutput();
 	}
-	
+	public void createHTMLOutput(){
+		html.createHTMLOutput();
+	}
 	public boolean checkIfUserExists(String tempUser){
 		return sdb.checkIfUserExists(tempUser);
 	}

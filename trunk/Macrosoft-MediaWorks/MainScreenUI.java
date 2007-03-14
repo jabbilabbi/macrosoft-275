@@ -78,6 +78,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 			controller = new ControllerClass();
+			System.out.println(controller.user);
 	        //Create and set up the window.
 			setTitle("Media Works - Main Screen");
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,9 +88,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	        addComponentsToPane(getContentPane());
 
 	        //Size and display the window.
-	        Insets insets = getInsets();
-	        setSize(800 + insets.left + insets.right,
-	                      600 + insets.top + insets.bottom);
+	        setSize(720, 540);
 	        setVisible(true);
 
 	    }
@@ -109,7 +108,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 			dispose();
 			
 		}else if(b == this.createHTML){
-
+			controller.createHTMLOutput();
 		}
 		
 	}
