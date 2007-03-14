@@ -18,11 +18,11 @@ import java.awt.event.*;
 public class CreateAccountUI extends JFrame implements ActionListener {
 
 	// Declaration of screen objects used later in action listener method
-	private JButton createAccount;
+	private JButton createAccountBtn, backToLoginBtn;
 	private JTextField usernameTB, secretATB;
 	private JPasswordField passwordTB, passwordComfirmTB;
 	private JLabel usernameLabel, passwordLabel, passwordComfirmLabel, secretQLabel,
-					secretALabel, dynamicLabel;
+					secretALabel, dynamicLabel, createAccountLabel;
 	private JTextArea secretQTB;
 	private JScrollPane secretQPane;
 	private Dimension dim;
@@ -33,9 +33,9 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	public Component componentSetup() {
+		dim = new Dimension(175, 20);
 		usernameLabel = new JLabel("Username:");
 		usernameTB = new JTextField(20);
-		dim = usernameTB.getPreferredSize();
 		usernameTB.setMinimumSize(dim);
 		usernameTB.setMaximumSize(dim);
 		usernameTB.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -43,7 +43,6 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		
 		passwordLabel = new JLabel("Password:");
 		passwordTB = new JPasswordField(20);
-		dim = passwordTB.getPreferredSize();
 		passwordTB.setMinimumSize(dim);
 		passwordTB.setMaximumSize(dim);
 		passwordTB.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -51,7 +50,6 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		
 		passwordComfirmLabel = new JLabel("Confirm password:");
 		passwordComfirmTB = new JPasswordField(20);
-		dim = passwordComfirmTB.getPreferredSize();
 		passwordComfirmTB.setMinimumSize(dim);
 		passwordComfirmTB.setMaximumSize(dim);
 		passwordComfirmTB.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -59,6 +57,7 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		
 		secretQLabel = new JLabel("Secret question:");
 		secretQTB = new JTextArea(5, 20);
+		secretQTB.setFont(new Font("New Roman Times", Font.PLAIN, 11));
 		secretQPane = new JScrollPane(secretQTB,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -73,8 +72,7 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		secretQPane.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		secretALabel = new JLabel("Secret answer:");
-		secretATB = new JPasswordField(20);
-		dim = secretATB.getPreferredSize();
+		secretATB = new JTextField(20);
 		secretATB.setMinimumSize(dim);
 		secretATB.setMaximumSize(dim);
 		secretATB.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -88,26 +86,25 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.LINE_AXIS));
 		infoPanel.setBorder(BorderFactory.createEtchedBorder());
-		infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		infoPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		infoPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		infoPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));	
 		labelPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		labelPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-		labelPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelPanel.add(Box.createRigidArea(new Dimension(0,12)));
 		labelPanel.add(usernameLabel);
-		labelPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelPanel.add(Box.createRigidArea(new Dimension(0,17)));
 		labelPanel.add(passwordLabel);
-		labelPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelPanel.add(Box.createRigidArea(new Dimension(0,17)));
 		labelPanel.add(passwordComfirmLabel);
-		labelPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelPanel.add(Box.createRigidArea(new Dimension(0,17)));
 		labelPanel.add(secretQLabel);
-		labelPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelPanel.add(Box.createRigidArea(new Dimension(0,33)));
 		labelPanel.add(secretALabel);
 		labelPanel.add(Box.createRigidArea(new Dimension(0,15)));
-		
 		
 		JPanel fieldPanel = new JPanel();
 		fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.PAGE_AXIS));	
@@ -132,78 +129,54 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		infoPanel.add(fieldPanel);
 		infoPanel.add(Box.createRigidArea(new Dimension(25,0)));
 		
-//		loginBtn = new JButton("Login");
-//		dim = loginBtn.getPreferredSize();
-//		loginBtn.setMinimumSize(dim);
-//		loginBtn.setMaximumSize(dim);
-//		loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		loginBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		loginBtn.setActionCommand("Login");
-//		loginBtn.addActionListener(this);
-//		
-//		createAccountBtn = new JButton("Create an Account");
-//		dim = createAccountBtn.getPreferredSize();
-//		createAccountBtn.setMinimumSize(dim);
-//		createAccountBtn.setMaximumSize(dim);
-//		createAccountBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		createAccountBtn.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		createAccountBtn.setActionCommand("Create an Account");
-//		createAccountBtn.addActionListener(this);
-//		
-//		
-//		JPanel topLogin = new JPanel();
-//		topLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		topLogin.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		topLogin.setLayout(new BoxLayout(topLogin, BoxLayout.PAGE_AXIS));
-//		topLogin.add(loginLabel);
-//		topLogin.add(loginPanel);
-//		
-//		JPanel bottomLogin = new JPanel();
-//		bottomLogin.setAlignmentX(Component.RIGHT_ALIGNMENT);
-//		bottomLogin.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-//		bottomLogin.setLayout(new BoxLayout(bottomLogin, BoxLayout.LINE_AXIS));
-//		bottomLogin.add(createAccountBtn);
-//		bottomLogin.add(loginBtn);
-//		
-//		loginPanel.add(Box.createRigidArea(new Dimension(0,15)));
-//		loginPanel.add(usernamePasswordPanel);
-//		loginPanel.add(Box.createRigidArea(new Dimension(0,5)));
-//		loginPanel.add(bottomLogin);
-//		
-//		
-//		title = new JLabel("Macrosoft Personal Library");
-//		title.setFont(new Font("Helvetica", Font.BOLD, 24));
-//		title.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		title.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		
-//		JPanel titlePanel = new JPanel();
-//		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.PAGE_AXIS));
-//		titlePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		titlePanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		titlePanel.add(title);
-//		titlePanel.add(Box.createRigidArea(new Dimension(0,25)));
-//		titlePanel.add(topLogin);
-//		
-//		dynamicText = "";
-//		dynamicLabel = new JLabel(dynamicText);
-//		dynamicLabel.setForeground(Color.red);
-//		dynamicLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		dynamicLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		
-//		JPanel componentsPanel = new JPanel();
-//		componentsPanel.setLayout(new BoxLayout(componentsPanel, BoxLayout.PAGE_AXIS));
-//		componentsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		componentsPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-//		componentsPanel.add(titlePanel);
-//		componentsPanel.add(Box.createRigidArea(new Dimension(0,50)));
-//		componentsPanel.add(dynamicLabel);
-//		
+		createAccountLabel = new JLabel("Create an Account");
+		createAccountLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
+		createAccountLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		createAccountLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		createAccountBtn = new JButton("Create Account");
+		dim = createAccountBtn.getPreferredSize();
+		createAccountBtn.setMinimumSize(dim);
+		createAccountBtn.setMaximumSize(dim);
+		createAccountBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		createAccountBtn.setAlignmentY(Component.TOP_ALIGNMENT);
+		createAccountBtn.setActionCommand("Create Account");
+		createAccountBtn.addActionListener(this);
+		
+		backToLoginBtn = new JButton("Back to Login");
+		dim = backToLoginBtn.getPreferredSize();
+		backToLoginBtn.setMinimumSize(dim);
+		backToLoginBtn.setMaximumSize(dim);
+		backToLoginBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		backToLoginBtn.setAlignmentY(Component.TOP_ALIGNMENT);
+		backToLoginBtn.setActionCommand("Back to Main");
+		backToLoginBtn.addActionListener(this);
+		
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.LINE_AXIS));
+		btnPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		btnPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+
+		btnPanel.add(createAccountBtn);
+		btnPanel.add(backToLoginBtn);
+		
+		JPanel bodyPanel = new JPanel();
+		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.PAGE_AXIS));
+		bodyPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bodyPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		bodyPanel.add(createAccountLabel);
+		bodyPanel.add(Box.createRigidArea(new Dimension(0,25)));
+		bodyPanel.add(infoPanel);
+		bodyPanel.add(Box.createRigidArea(new Dimension(0,10)));
+		bodyPanel.add(btnPanel);
 		
 		JPanel primaryPanel = new JPanel();
 		primaryPanel.setLayout(new BoxLayout(primaryPanel, BoxLayout.PAGE_AXIS));
+		primaryPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		primaryPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		primaryPanel.add(Box.createRigidArea(new Dimension(0,75)));
-		primaryPanel.add(infoPanel);
-
+		primaryPanel.add(createAccountLabel);
+		primaryPanel.add(bodyPanel);
 		return primaryPanel;
 	}
 	// Purpose: To create and display the 'Create Account' UI
