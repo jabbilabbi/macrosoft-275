@@ -358,6 +358,7 @@ public class LoginUI extends JFrame implements ActionListener {
 				dynamicText = "That username is not found, please enter a valid username";
 				dynamicLabel.setText(dynamicText);
 				dynamicLabel.setVisible(true); // Shows relevant error
+				forgotPasswordPanel.setVisible(false);
 			}
 			
 		}
