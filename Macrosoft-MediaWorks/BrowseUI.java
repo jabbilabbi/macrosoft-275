@@ -10,16 +10,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BrowseUI implements ActionListener {
+public class BrowseUI extends JFrame implements ActionListener  {
 
-	JFrame frame;
+	//JFrame frame;
 
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
-												
+	private boolean ALLOW_COLUMN_SELECTION = true;
+    private boolean ALLOW_ROW_SELECTION = true;		
+	
 	JButton button;
 
 	// Purpose: To add and display components
@@ -72,22 +78,25 @@ public class BrowseUI implements ActionListener {
 		//pane.add(combo, c);
 
 		// JTABLE
-		DatabaseControl db = new DatabaseControl();
+		//DatabaseControl db = new DatabaseControl();
 		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
-		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data													
-		/*
-		 tableData Example Object[][] tableData = { 
-		 {"Mezzanine", "MasiveAttack", "Electronica", "09/2005"}, 
-		 {"Nevermind", "Nirvana", "Rock", "02/2003"}, 
-		 {"Magnetic Fields", "Jean Michel Jarre", "Electronica", "08/1999"} };
-		*/
+		//Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data													
+		
+		///*
+		Object[][] tableData = { 
+		 {"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
+		 {"Nevermind", "Nirvana", "Rock", "Click"}, 
+		 {"Magnetic Fields", "Jean Michel Jarre", "Electronica", "Click"} };
+		//*/
 		// Assigns data from the database to tableData
+		/*
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
 			String[] rowData = db.getLibraryRow(i); // Holds a row of data from the database										
 			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
 		}
+		*/
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 2;
@@ -95,8 +104,40 @@ public class BrowseUI implements ActionListener {
 		c.weighty = 0.0;
 		c.insets = new Insets(5, 10, 10, 10);
 		JTable table = new JTable(tableData, columnNames);
-		table.setEnabled(false);
+		
+		table.setEnabled(true);// Allows coloumns/cells to be selected
 		table.setPreferredScrollableViewportSize(new Dimension(700, 300)); // Sets size of table width, height in pixels																
+		
+		//DETECTS SELECTIONS FOR EACH CELL
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only allows one thin to be selected at a time
+        if (ALLOW_COLUMN_SELECTION) { // false by default
+            if (ALLOW_ROW_SELECTION) {//Allows individual cell selection
+                table.setCellSelectionEnabled(true);
+            }
+            table.setColumnSelectionAllowed(true);
+            ListSelectionModel colSM =
+                table.getColumnModel().getSelectionModel();
+            colSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    //Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
+
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    if (lsm.isSelectionEmpty()) {//No columns are selected
+                        System.out.println("No columns are selected.");
+                    } else {//selectedColumn is now selected
+                        int selectedCol = lsm.getMinSelectionIndex();
+                        MainScreenUI mainScreenUI = new MainScreenUI();
+                        if (selectedCol == 3) {
+                        	mainScreenUI.createAndShowGUI();
+                			dispose();
+                        }
+                        System.out.println("Column " + selectedCol + " is now selected.");
+                    }
+                }
+            });
+        }
+		
 		JScrollPane scrollPane = new JScrollPane(table); // Makes a scroll bar available if windows sized smaller than table size													
 		pane.add(scrollPane, c); // Add the scroll pane to this panel
 	}
@@ -106,18 +147,18 @@ public class BrowseUI implements ActionListener {
 	// POST: Sets up GUI
 	public void createAndShowGUI() {
 		// Create and set up the window.
-		frame = new JFrame("Media Works - Browse Library");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Media Works - Browse Library");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Set up the content pane.
-		addComponentsToPane(frame.getContentPane());
+		addComponentsToPane(getContentPane());
 
 		// Size and display the window
-		Insets insets = frame.getInsets();
-		frame.setSize(800 + insets.left + insets.right, 600 + insets.top
+		Insets insets = getInsets();
+		setSize(800 + insets.left + insets.right, 600 + insets.top
 				+ insets.bottom);
-		frame.setVisible(true);
-		frame.setResizable(false);
+		setVisible(true);
+		setResizable(false);
 	}
 
 	// Purpose: To set action evemt for back to main button
@@ -131,7 +172,7 @@ public class BrowseUI implements ActionListener {
 
 		if (b == button) {
 			mainScreenUI.createAndShowGUI();
-			frame.setVisible(false);
+			dispose();
 		}
 	}
 
