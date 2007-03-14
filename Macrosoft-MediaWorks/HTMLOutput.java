@@ -11,13 +11,13 @@ import java.io.IOException;
 public class HTMLOutput {
 	
 	// Used for database/current user information
-	DatabaseControl db = new DatabaseControl();
-	SecurityControl sc = new SecurityControl();
+	ControllerClass controller;
 	
 	public void createHTMLOutput() {
-		
+		ControllerClass controller = new ControllerClass();
+		controller.loadMediaDatabase();
 		// Get current user
-		String currentUser = sc.retrieveCurrentUser();
+		String currentUser = controller.retrieveCurrentUser();
 		// Name of web page to be created; will have same name as current user
 		String pageToCreate = currentUser + ".htm";
 		
@@ -35,9 +35,9 @@ public class HTMLOutput {
 				"<td width=200 bgcolor=white><b><font size=4>Description</font></b></td></tr>";
 		
 		// Cycle through media library and create HTML rows as needed
-		for (int i = 0; i < db.getRowsNeeded(); i++) {
+		for (int i = 0; i < controller.getRowsNeeded(); i++) {
 			// Get row information
-			String[] rowElements = db.getLibraryRow(i);
+			String[] rowElements = controller.getLibraryRow(i);
 			// Start a table row
 			textToWrite += "<tr>";
 			// Create HTML to add table elements to the current row

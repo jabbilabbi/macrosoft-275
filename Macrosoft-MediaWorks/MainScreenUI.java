@@ -114,7 +114,6 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Media Works - Add Screen");
 		setResizable(false);
-		JPanel pane = new JPanel();
 		add(componentSetup());
 		pack();
 		setSize(720,540);

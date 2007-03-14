@@ -62,7 +62,7 @@ public class DatabaseControl {
 
 	// Constructor
 	public DatabaseControl() {
-		this.loadMediaDatabase();
+
 	}
 
 	// Load database of media entries into an HashSet, allowing them to be read
