@@ -45,6 +45,7 @@ public class SecurityControl {
 					new FileReader("current.txt"));
 			// Read user name
 			userLoggedIn = in.readLine();
+			in.close();
 		} catch (IOException ioe) {
 		}
 		// Return result
@@ -69,6 +70,7 @@ public class SecurityControl {
 			bw.write(currentUser);
 			// Clear BufferedWriter after writing is complete
 			bw.flush();
+			bw.close();
 		} catch (IOException ioe) {
 		}
 	}
@@ -103,6 +105,7 @@ public class SecurityControl {
 				// Continue reading database lines
 			} while (loginRow != null);
 
+			in.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
@@ -130,6 +133,7 @@ public class SecurityControl {
 			bw.newLine();
 			// Clear BufferedWriter after appending is complete
 			bw.flush();
+			bw.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
