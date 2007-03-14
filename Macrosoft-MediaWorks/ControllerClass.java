@@ -79,7 +79,9 @@ public class ControllerClass implements Serializable{
 	public String[] getSecretInfo(String tempUser){
 		return sdb.getSecretInfo(tempUser);		
 	}
-
+	public ArrayList<String> searchDB(String wordToFind){
+		return cdb.searchDB(wordToFind);
+	}
 	public void addScreenFrame(){
 		addScreenUI.createAndShowGUI();
 	}
