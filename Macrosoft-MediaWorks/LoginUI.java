@@ -313,8 +313,6 @@ public class LoginUI extends JFrame implements ActionListener {
 		// instance of the
 		// UI controller
 		
-		controller.user = "test";
-		
 		// Create and set up the window
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

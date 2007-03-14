@@ -5,6 +5,8 @@
 
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 
 import java.awt.Container;
 
@@ -19,8 +21,8 @@ import java.awt.event.*;
 public class MainScreenUI extends JFrame implements ActionListener{
 	
 	 // Intializes all components needed for the frame
-	 private JLabel mainText, chooseText;
-	 private JButton addMedia, browse, createHTML;
+	 private JLabel mainLabel, chooseLabel;
+	 private JButton addMediaBtn, browseBtn, createHTMLBtn;
 	 
 	 // Sets up an instance of ControllerClass
 	private ControllerClass controller;
@@ -29,85 +31,112 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
-	public void addComponentsToPane(Container pane) {
+	public Container componentSetup() {
 		
-		// Absolute container positioning used
-		pane.setLayout(null);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+		buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		JPanel mainScreen = new JPanel();
+		mainScreen.setLayout(new BoxLayout(mainScreen, BoxLayout.PAGE_AXIS));
+		mainScreen.setAlignmentX(Component.CENTER_ALIGNMENT);
+		mainScreen.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
 		// Declaration of pane components
-		addMedia = new JButton("Add New Media");
-		addMedia.addActionListener(this);
+		addMediaBtn = new JButton("Add New Media");
+		addMediaBtn.setMinimumSize(new Dimension(140, 75));
+		addMediaBtn.setPreferredSize(new Dimension(140, 75));
+		addMediaBtn.setMaximumSize(new Dimension(140, 75));
+		addMediaBtn.setActionCommand("Add Media");
+		addMediaBtn.addActionListener(this);
 		
-		browse = new JButton("Browse");
-		browse.addActionListener(this);
+		browseBtn = new JButton("Browse");
+		browseBtn.setMinimumSize(new Dimension(140, 75));
+		browseBtn.setPreferredSize(new Dimension(140, 75));
+		browseBtn.setMaximumSize(new Dimension(140, 75));
+		browseBtn.setActionCommand("Browse Media");
+		browseBtn.addActionListener(this);
 		
-		createHTML = new JButton("Create a Web Page");
-		createHTML.addActionListener(this);
+		createHTMLBtn = new JButton("Create a Web Page");
+		createHTMLBtn.setMinimumSize(new Dimension(140, 75));
+		createHTMLBtn.setPreferredSize(new Dimension(140, 75));
+		createHTMLBtn.setMaximumSize(new Dimension(140, 75));
+		createHTMLBtn.setActionCommand("Create HTML");
+		createHTMLBtn.addActionListener(this);
 		
-		mainText = new JLabel("Main Screen");
+		mainLabel = new JLabel("Main Screen");
+		mainLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
+		mainLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		mainLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-		mainText.setFont(new Font("Helvetica", Font.PLAIN, 28));
-
-		chooseText = new JLabel("Choose one of the following:");
-		chooseText.setFont(new Font("Helvetica", Font.PLAIN, 16));
-
-		// Add components to the pane
-		pane.add(mainText);
-		pane.add(addMedia);
-		pane.add(browse);
-		pane.add(createHTML);
-		pane.add(chooseText);
-
-		// Screen positioning
-		Insets insets = pane.getInsets();
-        addMedia.setBounds(125 + insets.left, 300 + insets.top,
-                150, 75);
-        browse.setBounds(325 + insets.left, 300 + insets.top,
-                150, 75);
-        createHTML.setBounds(525 + insets.left, 300 + insets.top,
-                150, 75);
-        mainText.setBounds(320 + insets.left, 100 + insets.top,
-                200, 150);
-        chooseText.setBounds(300 + insets.left, 150 + insets.top,
-                250, 150);
+		chooseLabel = new JLabel("Choose one of the following:");
+		chooseLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
+		chooseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		chooseLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		buttonPanel.add(addMediaBtn);
+		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		buttonPanel.add(browseBtn);
+		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		buttonPanel.add(createHTMLBtn);
+		
+		mainScreen.add(Box.createRigidArea(new Dimension(0, 75)));
+		mainScreen.add(mainLabel);
+		mainScreen.add(Box.createRigidArea(new Dimension(0, 25)));
+		mainScreen.add(chooseLabel);
+		mainScreen.add(Box.createRigidArea(new Dimension(0, 50)));
+		mainScreen.add(buttonPanel);
+		
+		JPanel primaryPanel = new JPanel();
+		primaryPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		primaryPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		primaryPanel.add(mainScreen);
+		
+        return primaryPanel;
 
 	}
 	
-    // Purpose: To create and display the 'Create Account' UI
-	// PRE: None
-	// POST: A new frame is created, components added, frame displayed
-	public void createAndShowGUI() {
-			controller = new ControllerClass();
-			System.out.println(controller.user);
-	        //Create and set up the window.
-			setTitle("Media Works - Main Screen");
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setResizable(false);
-	        
-	        //Set up the content pane.
-	        addComponentsToPane(getContentPane());
-
-	        //Size and display the window.
-	        setSize(720, 540);
-	        setVisible(true);
-
+	public static void windowLookAndFeel(){
+	    try{
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	    }catch (Exception e) {
+	        System.out.println("Look and Feel error: " + e);
 	    }
+	}	
+	
+	public void createAndShowGUI() {
+		controller = new ControllerClass(); // Creates an
+											// instance of the
+											// UI controller
+		// Create and set up the window
+		windowLookAndFeel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Media Works - Add Screen");
+		setResizable(false);
+		JPanel pane = new JPanel();
+		add(componentSetup());
+		pack();
+		setSize(720,540);
+		setVisible(true);
+	}
 	
 	// Purpose: To syncronize the actions of the user with the functionality of the screen
 	// PRE: Valid action event as param
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
-		JButton b = (JButton) e.getSource();
-					
-		if (b == this.addMedia){
+
+		if (e.getActionCommand().equals("Add Media")){
 			controller.addScreenFrame();
 			dispose();
 			
-		}else if(b == this.browse){
+		}
+		if (e.getActionCommand().equals("Browse Media")){
 			controller.browseFrame();
 			dispose();
 			
-		}else if(b == this.createHTML){
+		}
+		if (e.getActionCommand().equals("Create HTML")){
 			controller.createHTMLOutput();
 		}
 		

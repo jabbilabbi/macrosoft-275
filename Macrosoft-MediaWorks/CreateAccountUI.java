@@ -26,7 +26,8 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 	private JTextArea secretQTB;
 	private JScrollPane secretQPane;
 	private Dimension dim;
-
+	private ControllerClass controller;
+	
 	// Purpose: Add all components of the pane into the correct locations and
 	// with correct functions
 	// PRE: Valid pane is given as a parameter
@@ -184,6 +185,9 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		// Create and set up the window
+		controller = new ControllerClass(); // Creates an
+		// instance of the
+		// UI controller
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Macrosoft Media Works");
@@ -207,26 +211,23 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 
-		SecurityControl sdb = new SecurityControl(); // Creates an instance
-														// of the Security DB
-		sdb.loadLoginDatabase(); // Loads the Login DB
-
-		LoginUI loginUI = new LoginUI(); // Creates an instance of the
-											// LoginUI Class
-
+		controller.loadLoginDatabase(); // Loads the Login DB
+		String username = String.valueOf(usernameTB.getText());
+		String password = String.valueOf(passwordTB.getPassword());
+		String confirmPassword = String.valueOf(passwordComfirmTB
+				.getPassword());
+		String secretQ = String.valueOf(secretQTB.getText());
+		String secretA = String.valueOf(secretATB.getText());
 		// Condition where some field(s) were left empty
-		if ((usernameTB.getText().length() == 0)
-				|| (passwordTB.getPassword().length == 0)
-				|| (passwordComfirmTB.getPassword().length == 0)
-				|| (secretQTB.getText().length() == 0)
-				|| (secretQTB.getText().length() == 0)) {
+		if ((username.length() == 0)
+				|| (password.length() == 0)
+				|| (confirmPassword.length() == 0)
+				|| (secretQ.length() == 0)
+				|| (secretA.length() == 0)) {
 			dynamicLabel.setVisible(true); // Show relevant error
 		} else {
 			dynamicLabel.setVisible(false); // Remove relevant error
-
-			String password = String.valueOf(passwordTB.getPassword());
-			String confirmPassword = String.valueOf(passwordComfirmTB
-					.getPassword());
+		}
 			// Condition where password entered is different then the confirmed
 			// password
 			if (password.compareTo(confirmPassword) != 0) {
@@ -234,17 +235,15 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 			} else {
 				dynamicLabel.setVisible(false); // Remove relevant error
 				// Condition where username is already in login DB
-				if (sdb.getUserNames().contains(usernameTB.getText()) == false) {
+				if (controller.getUserNames().contains(username) == false) {
 					dynamicLabel.setVisible(false); // Remove relevant error
-					sdb.appendLoginDatabase(usernameTB.getText(),
-							secretQTB.getText(), secretQTB
-									.getText(), secretQTB.getText()); // Adds
+					controller.appendLoginDatabase(username,password, secretQ, secretA); // Adds
 																				// the
 																				// login
 																				// DB
 																				// entry
 
-					loginUI.createAndShowGUI(); // Returns to the Login Screen
+					controller.loginFrame(); // Returns to the Login Screen
 					dispose(); // disposes of current frame
 
 				} else {
