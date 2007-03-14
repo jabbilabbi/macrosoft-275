@@ -4,6 +4,7 @@
 // Programmed by: Alex Androne
 
 import java.awt.*;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,8 +21,6 @@ import java.awt.event.ActionListener;
 
 public class BrowseUI extends JFrame implements ActionListener  {
 
-	//JFrame frame;
-
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;		
@@ -30,8 +29,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 
 	// Purpose: To add and display components
 	// PRE: Valid pane is given as a parameter
-	// POST: All necessary components for the Create Account screen will be
-	// added and displayed
+	// POST: All necessary components for the Create Account screen will be added and displayed
 	public void addComponentsToPane(Container pane) {
 		if (RIGHT_TO_LEFT) {
 			pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -41,23 +39,23 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		// JBUTTON: Back to Main
-		button = new JButton("Back to Main");
-		button.addActionListener(this);
-		c.gridx = 0; // Lays out component at grid x coordinate 0
-		c.gridy = 0; // Lays out component at grid y coordinate 0
-		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent columns
-		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent rows
-		c.insets = new Insets(10, 10, 5, 10); // Top,Left,Bottom,Right Determines padding around component in pixels
-		button.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
-		pane.add(button, c);
-
+		// JLABEL: Browse Library
+		JLabel label1 = new JLabel("Browse Library");
+		label1.setFont(new Font("Helvetica", Font.BOLD, 16));
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 1;
+		c.weightx = 0.0;
+		c.weighty = 0.0;
+		c.insets = new Insets(0, 0, 40, 0); 
+		c.anchor = GridBagConstraints.CENTER; 
+		pane.add(label1, c);
+		
+		/*
 		// JLABEL: Display By:
 		JLabel label2 = new JLabel("Display by:");
-		c.gridx = 0;
-		c.gridy = 1;
+		c.gridx = ;
+		c.gridy = ;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(5, 10, 5, 10); 
@@ -69,13 +67,14 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
 		JComboBox combo = new JComboBox(mediaTypes); // Passes mediaTypes to combo box													
 		combo.setSelectedIndex(0); // Sets the default item from mediaTypes to appear in the combo box
-		c.gridx = 1;
-		c.gridy = 1;
+		c.gridx = ;
+		c.gridy = ;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(5, 10, 5, 10);
 		c.anchor = GridBagConstraints.LINE_START;
 		//pane.add(combo, c);
+		*/
 
 		// JTABLE
 		//DatabaseControl db = new DatabaseControl();
@@ -98,8 +97,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		}
 		*/
 		c.gridx = 0;
-		c.gridy = 3;
-		c.gridwidth = 2;
+		c.gridy = 1;
+		c.gridwidth = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(5, 10, 10, 10);
@@ -140,6 +139,21 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
 		JScrollPane scrollPane = new JScrollPane(table); // Makes a scroll bar available if windows sized smaller than table size													
 		pane.add(scrollPane, c); // Add the scroll pane to this panel
+		
+		// JBUTTON: Back to Main
+		button = new JButton("Back to Main");
+		button.addActionListener(this);
+		c.gridx = 0; // Lays out component at grid x coordinate 0
+		c.gridy = 3; // Lays out component at grid y coordinate 0
+		c.gridwidth = 1;
+		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
+							// placed within adjacent columns
+		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
+							// placed within adjacent rows
+		c.insets = new Insets(30, 0, 0, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
+		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
+		button.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
+		pane.add(button, c);
 	}
 
 	// Purpose: To display GUI
