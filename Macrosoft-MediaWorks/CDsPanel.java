@@ -12,21 +12,27 @@ public class CDsPanel extends JPanel implements Serializable {
 	protected JScrollPane descriptionPane;
 	protected Container title, artist, genre, description;
 	public JPanel labels, fields, errors;
-	private JFrame frame;
 	
 	private Dimension dim;
 	
 	public CDsPanel(){}
 	
 	public CDsPanel(Dimension PANEL_SIZE){
+		windowLookAndFeel();
 		setPreferredSize(PANEL_SIZE);
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		
-		add(labels());
-		add(fields());
-		add(Box.createRigidArea(new Dimension(5,0)));
-		add(errors());
+		JPanel combine = new JPanel();
+		combine.setPreferredSize(PANEL_SIZE);
+		combine.setLayout(new BoxLayout(combine, BoxLayout.LINE_AXIS));
+		combine.add(Box.createRigidArea(new Dimension(5,0)));
+		combine.add(labels());
+		combine.add(Box.createRigidArea(new Dimension(5,0)));
+		combine.add(fields());
+		combine.add(Box.createRigidArea(new Dimension(5,0)));
+		combine.add(errors());
 		
+		add(combine);
 		
 	}
 
@@ -122,29 +128,34 @@ public class CDsPanel extends JPanel implements Serializable {
 		errors.setAlignmentX(Component.LEFT_ALIGNMENT);
 		errors.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		enterTitleText = new JLabel("Please enter a title");
+		enterTitleText = new JLabel();
 		enterTitleText.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		enterTitleText.setForeground(Color.red);
-		enterTitleText.setVisible(false);
 		
-		enterArtistText = new JLabel("Please enter an artist");
+		enterArtistText = new JLabel();
 		enterArtistText.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		enterArtistText.setForeground(Color.red);
-		enterArtistText.setVisible(false);	
-
-		enterGenreText = new JLabel("Please enter a genre");
+	
+		enterGenreText = new JLabel();
 		enterGenreText.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		enterGenreText.setForeground(Color.red);
-		enterGenreText.setVisible(false);	
-
+		
 		errors.add(Box.createRigidArea(new Dimension(0,15)));
 		errors.add(enterTitleText);
-		errors.add(Box.createRigidArea(new Dimension(0,20)));
+		errors.add(Box.createRigidArea(new Dimension(0,21)));
 		errors.add(enterArtistText);
 		errors.add(Box.createRigidArea(new Dimension(0,23)));
 		errors.add(enterGenreText);
 		
 		return errors;
+	}
+	
+	public static void windowLookAndFeel(){
+	    try{
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	    }catch (Exception e) {
+	        System.out.println("Look and Feel error: " + e);
+	    }
 	}
 	
 }
