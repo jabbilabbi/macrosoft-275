@@ -211,8 +211,9 @@ public class DatabaseControl {
 		ArrayList<String> al = new ArrayList<String>();
 		int count = 0;
 			for (int i = 0; i < getRowsNeeded(); i++) {
-				if (mediaItems.contains(wordsToGet)){
-					al.set(count, mediaItems.get(i));
+				String sToFind = mediaItems.get(i);
+				if (sToFind.contains(wordsToGet)){
+					al.set(count, sToFind);
 					count++;
 				}
 			}
