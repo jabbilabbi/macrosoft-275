@@ -41,13 +41,18 @@ public class DatabaseTest {
 			System.out.println();
 		}
 		
+		// Delete last row of media database, aka "Undo" function
 		db.deleteLastRow();
-//		
+
+		// Reload database to ensure the deletion is incorporated
 		db.reloadMediaDatabase();
+		
 		System.out.println("---------------");
 		
+		// Check rows needed; should be 1 less than before
 		System.out.println(db.getRowsNeeded());
-//		 Print out database contents by getting rows and printing individual elements
+		// Print out database contents by getting rows and printing individual elements
+		// Should print one less line than before
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
 			String[] rowTest = db.getLibraryRow(i);
 			System.out.print("- ");
