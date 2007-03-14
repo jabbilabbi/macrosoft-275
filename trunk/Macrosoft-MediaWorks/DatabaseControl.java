@@ -8,6 +8,7 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -150,12 +151,54 @@ public class DatabaseControl {
 	// Return the total number of rows to display
 	// PRE: None
 	// POST: Number of rows required is returned
+	
 	public int getRowsNeeded() {
 
 		// Number of rows needed is total items / items per row
 		int totalRows = mediaItems.size() / 4;
 		return totalRows;
 
+	}
+	
+	// PURPOSE: Delete current database file
+	// PRE: None
+	// POST: Current user's database is deleted
+
+	public void deleteDatabase() {
+		// Open file
+		File userFile = new File("fname");
+		// Perform deletion
+		userFile.delete();
+	}
+	
+	// Delete last row of media database
+	// PRE: None
+	// POST: Media database file has last row deleted; media database is reloaded
+	
+	public void deleteLastRow() {
+
+		try {
+			deleteDatabase();
+			BufferedWriter bw = null;
+			
+			// Set up BufferedWriter to be used for appending
+			bw = new BufferedWriter(new FileWriter(fname, true));
+			// Append new account data to login database
+			System.out.println(mediaItems.size());
+			System.out.println(getRowsNeeded());
+//			for (int i = 0; i < getRowsNeeded() - 1; i++) {
+//				String[] currentRow = getLibraryRow(i);
+//				String rowToWrite = currentRow[0] + " ::: " + currentRow[1] + " ::: " + currentRow[2] +
+//				" ::: " + currentRow[3];
+//				System.out.println(rowToWrite);
+//				bw.write(rowToWrite);
+//				bw.newLine();
+//			}
+			bw.flush();
+		} catch (IOException ioe) {
+		}
+
+		
 	}
 
 	// *** Unfinished code for future version ***
