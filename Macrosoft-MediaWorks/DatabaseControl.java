@@ -210,22 +210,12 @@ public class DatabaseControl {
 	public ArrayList<String> searchDB(String wordsToGet){
 		ArrayList<String> al = new ArrayList<String>();
 		int count = 0;
-		try {
-			BufferedWriter bw = null;
-			
-			// Set up BufferedWriter to be used for appending
-			bw = new BufferedWriter(new FileWriter(fname, true));
-			// Append new account data to login database
 			for (int i = 0; i < getRowsNeeded(); i++) {
 				if (mediaItems.contains(wordsToGet)){
 					al.set(count, mediaItems.get(i));
 					count++;
 				}
 			}
-			bw.flush();
-			bw.close();
-		} catch (IOException ioe) {
-		}
 		return al;
 	}
 
