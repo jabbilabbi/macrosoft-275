@@ -251,7 +251,7 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 				}
 			}
 		}
-	}
+	
 
 	// Test Method
 	public static void main(String[] args) {
