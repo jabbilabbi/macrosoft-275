@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -20,10 +21,16 @@ public class HTMLOutput {
 		// Name of web page to be created; will have same name as current user
 		String pageToCreate = currentUser + ".htm";
 		
+		// Delete previous HTML page
+		File oldHTML = new File(pageToCreate);
+		oldHTML.delete();
+		
 		// Begin HTML code for web page, including beginning of media library table
 		String textToWrite = "<html><head><title>" + currentUser + "'s Media " +
 				"Library</title></head><body><h1>" + currentUser + "'s Media " +
-				"Library</h1><table>";
+				"Library</h1><table width=500><tr><td><b>Title</b></td><td><b>Artist</b></td>" +
+				"<td><b>Genre</b></td><td><b>Description</b></td></tr>" +
+				"<tr><td></td><td></td><td></td><td></td></tr>";
 		
 		// Cycle through media library
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
@@ -32,7 +39,7 @@ public class HTMLOutput {
 			// Start a table row
 			textToWrite += "<tr>";
 			// Add table elements to the current row
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 4; j++) {
 				textToWrite += "<td>" + rowElements[j] + "</td>";
 			}
 			// End the current row
