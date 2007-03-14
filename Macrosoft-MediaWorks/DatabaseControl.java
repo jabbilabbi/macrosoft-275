@@ -114,6 +114,7 @@ public class DatabaseControl {
 			String description) {
 
 		BufferedWriter bw = null;
+		// Ensure file name is current
 		updateFileName();
 
 		// Join media data elements
