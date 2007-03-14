@@ -27,10 +27,12 @@ public class HTMLOutput {
 		
 		// Begin HTML code for web page, including beginning of media library table
 		String textToWrite = "<html><head><title>" + currentUser + "'s Media " +
-				"Library</title></head><body><h1>" + currentUser + "'s Media " +
-				"Library</h1><table width=500><tr><td><b>Title</b></td><td><b>Artist</b></td>" +
-				"<td><b>Genre</b></td><td><b>Description</b></td></tr>" +
-				"<tr><td></td><td></td><td></td><td></td></tr>";
+				"Library</title></head><body><font face=Arial><h1>" + currentUser + "'s Media " +
+				"Library</h1><font font=Arial>" +
+				"<table width=700 bgcolor=black><tr><td width=300 bgcolor=white><b><font size=4>Title</font></b></td>" +
+				"<td width=200 bgcolor=white><b><font size=4>Artist</font></b></td>" +
+				"<td width=150 bgcolor=white><b><font size=4>Genre</font></b></td>" +
+				"<td width=200 bgcolor=white><b><font size=4>Description</font></b></td></tr>";
 		
 		// Cycle through media library
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
@@ -40,7 +42,7 @@ public class HTMLOutput {
 			textToWrite += "<tr>";
 			// Add table elements to the current row
 			for (int j = 0; j < 4; j++) {
-				textToWrite += "<td>" + rowElements[j] + "</td>";
+				textToWrite += "<td valign=top bgcolor=white>" + rowElements[j] + "</td>";
 			}
 			// End the current row
 			textToWrite += "</tr>";
@@ -57,6 +59,7 @@ public class HTMLOutput {
 			bw.write(textToWrite);
 			// Clear BufferedWriter after writing is complete
 			bw.flush();
+			bw.close();
 		} catch (IOException ioe) {
 		}
 	}
