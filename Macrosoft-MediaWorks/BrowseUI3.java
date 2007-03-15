@@ -102,9 +102,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		c.anchor = GridBagConstraints.CENTER; 
 		pane.add(browseLibrary, c);
 		
-		searchTF = new JTextField(" ");
-		searchTF.setBounds(375, 60, 100, 75);
-		pane.add(searchTF);
+		
 		// JTABLE
 		c.gridx = 0;
 		c.gridy = 1;
@@ -191,13 +189,17 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		pane.add(backToMain, c);
 		
 		searchDB = new JButton("Search");
-		insets = new Insets(20, 20, 20, 20);
+		insets = new Insets(5, 5, 5, 5);
 		searchDB.setMargin(insets);
 		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component
 		searchDB.setActionCommand("Search");
 		searchDB.addActionListener(this);
+		searchDB.setBounds(350, 560, 30, 30);
 		pane.add(searchDB);
-		searchDB.setBounds(350, 60, 100, 75);
+		
+		searchTF = new JTextField(" ");
+		searchTF.setBounds(375, 560, 100, 75);
+		pane.add(searchTF);
 	}
 
 	// Purpose: To display GUI
