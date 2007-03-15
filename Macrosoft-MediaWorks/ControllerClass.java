@@ -30,6 +30,10 @@ public class ControllerClass implements Serializable{
 		this.cdb = new DatabaseControl();	
 	}
 	
+	public void recordCurrentUser(String currentUser){
+		sdb.recordCurrentUser(currentUser);
+	}
+
 	public String retrieveCurrentUser(){
 		return sdb.retrieveCurrentUser();
 	}

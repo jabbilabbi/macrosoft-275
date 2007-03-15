@@ -81,7 +81,10 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		
 		dynamicLabel = new JLabel(" ");
 		dynamicLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		dynamicLabel.setForeground(Color.red);
 		dim = dynamicLabel.getPreferredSize();
+		dynamicLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		dynamicLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		dynamicLabel.setSize(dim);
 		
 		JPanel infoPanel = new JPanel();
@@ -178,6 +181,8 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		primaryPanel.add(Box.createRigidArea(new Dimension(0,75)));
 		primaryPanel.add(createAccountLabel);
 		primaryPanel.add(bodyPanel);
+		primaryPanel.add(Box.createRigidArea(new Dimension(0,25)));
+		primaryPanel.add(dynamicLabel);
 		return primaryPanel;
 	}
 	// Purpose: To create and display the 'Create Account' UI
@@ -218,25 +223,46 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 				.getPassword());
 		String secretQ = String.valueOf(secretQTB.getText());
 		String secretA = String.valueOf(secretATB.getText());
-		
+		Boolean completeFields = true;
 		if (e.getActionCommand().equals("Create Account")) {
 		// Condition where some field(s) were left empty
-		if ((username.length() == 0)
-				|| (password.length() == 0)
-				|| (confirmPassword.length() == 0)
-				|| (secretQ.length() == 0)
-				|| (secretA.length() == 0)) {
+			
+		if (username.contains(":")){
+			dynamicLabel.setText("Username contains invalid character   ' : '");
+			dynamicLabel.setVisible(true);// Show relevant error
+			completeFields = false;
+		}
+		else if (username.length() == 0){
+			dynamicLabel.setText("Please enter a username");
+			dynamicLabel.setVisible(true);// Show relevant error
+			completeFields = false;
+		} else if (password.length() == 0){
+			dynamicLabel.setText("Please enter a password");
+			dynamicLabel.setVisible(true);// Show relevant error
+			completeFields = false;
+		} else if (confirmPassword.length() == 0){
+			dynamicLabel.setText("Please comfirm your password");
+			dynamicLabel.setVisible(true);// Show relevant error
+			completeFields = false;
+		} else if (secretQ.length() == 0){
+			dynamicLabel.setText("Please enter a secret question");
+			dynamicLabel.setVisible(true);// Show relevant error
+			completeFields = false;
+		} else if (secretA.length() == 0) {
+			dynamicLabel.setText("Please enter a secret answer");
 			dynamicLabel.setVisible(true); // Show relevant error
+			completeFields = false;
 		} else {
 			dynamicLabel.setVisible(false); // Remove relevant error
 		}
+		if(completeFields){
 			// Condition where password entered is different then the confirmed
 			// password
-			if (password.compareTo(confirmPassword) != 0) {
+			if ((password.compareTo(confirmPassword) != 0)) {
+				dynamicLabel.setText("Passwords do not match");
 				dynamicLabel.setVisible(true); // Show relevant error
 			} else {
 				dynamicLabel.setVisible(false); // Remove relevant error
-				// Condition where username is already in login DB
 				if (controller.getUserNames().contains(username) == false) {
 					dynamicLabel.setVisible(false); // Remove relevant error
 					controller.appendLoginDatabase(username,password, secretQ, secretA); // Adds
@@ -244,16 +270,17 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 																				// login
 																				// DB
 																				// entry
-
 					controller.loginFrame(); // Returns to the Login Screen
 					dispose(); // disposes of current frame
-
+					
+					// Condition where username is already in login DB
 				} else {
+					dynamicLabel.setText("That username already exists");
 					dynamicLabel.setVisible(true); // Show relevant error
 				}
 			}
 		}
-		
+	}
 		if (e.getActionCommand().equals("Back to Login")) {
 			controller.loginFrame(); // Returns to the Login Screen
 			dispose(); // disposes of current frame

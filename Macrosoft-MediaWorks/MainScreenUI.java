@@ -21,7 +21,7 @@ import java.awt.event.*;
 public class MainScreenUI extends JFrame implements ActionListener{
 	
 	 // Intializes all components needed for the frame
-	 private JLabel mainLabel, chooseLabel;
+	 private JLabel mainLabel, chooseLabel, createdHTMLLabel;
 	 private JButton addMediaBtn, browseBtn, createHTMLBtn;
 	 
 	 // Sets up an instance of ControllerClass
@@ -50,6 +50,8 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		addMediaBtn.setMaximumSize(new Dimension(140, 75));
 		addMediaBtn.setActionCommand("Add Media");
 		addMediaBtn.addActionListener(this);
+		addMediaBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		addMediaBtn.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		browseBtn = new JButton("Browse");
 		browseBtn.setMinimumSize(new Dimension(140, 75));
@@ -57,6 +59,8 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		browseBtn.setMaximumSize(new Dimension(140, 75));
 		browseBtn.setActionCommand("Browse Media");
 		browseBtn.addActionListener(this);
+		browseBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		browseBtn.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		createHTMLBtn = new JButton("Create a Web Page");
 		createHTMLBtn.setMinimumSize(new Dimension(140, 75));
@@ -64,6 +68,8 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		createHTMLBtn.setMaximumSize(new Dimension(140, 75));
 		createHTMLBtn.setActionCommand("Create HTML");
 		createHTMLBtn.addActionListener(this);
+		createHTMLBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		createHTMLBtn.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		mainLabel = new JLabel("Main Screen");
 		mainLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
@@ -75,11 +81,26 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		chooseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		chooseLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
+		createdHTMLLabel = new JLabel("HTML successfully created");
+		createdHTMLLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		createdHTMLLabel.setForeground(Color.red);
+		createdHTMLLabel.setVisible(false);
+		createdHTMLLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		createdHTMLLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		
+		JPanel HTMLPanel = new JPanel();
+		HTMLPanel.setLayout(new BoxLayout(HTMLPanel, BoxLayout.PAGE_AXIS));
+		HTMLPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		HTMLPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		
+		HTMLPanel.add(createdHTMLLabel);
+		HTMLPanel.add(createHTMLBtn);
+		
 		buttonPanel.add(addMediaBtn);
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		buttonPanel.add(browseBtn);
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-		buttonPanel.add(createHTMLBtn);
+		buttonPanel.add(HTMLPanel);
 		
 		mainScreen.add(Box.createRigidArea(new Dimension(0, 75)));
 		mainScreen.add(mainLabel);
@@ -137,6 +158,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		}
 		if (e.getActionCommand().equals("Create HTML")){
 			controller.createHTMLOutput();
+			createdHTMLLabel.setVisible(true);
 		}
 		
 	}

@@ -1,5 +1,1 @@
-scott ::: 123 ::: hi ::: hi
-
-alan ::: hi ::: I like? ::: men
-hello ::: 123 ::: hi this prog is? ::: cool
-sup ::: hi ::: helo ::: mota
+Username ::: Password ::: Secret Question ::: Secret Answer
