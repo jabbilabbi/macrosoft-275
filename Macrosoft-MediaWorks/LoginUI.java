@@ -321,6 +321,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		add(componentSetup());
 		pack();
 		setSize(720, 540);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
@@ -436,9 +437,9 @@ public class LoginUI extends JFrame implements ActionListener {
 		}
 		// Case where button pressed was Create an Account
 		if (e.getActionCommand().equals("Create an Account")) {
-			dispose(); // Throw out current frame
 			controller.createAccountFrame(); // Load new frame for Create an
-												// Account
+											// Account
+			dispose(); // Throw out current frame
 		}
 
 	}

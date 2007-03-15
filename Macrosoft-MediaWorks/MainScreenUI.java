@@ -81,10 +81,9 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		chooseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		chooseLabel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
-		createdHTMLLabel = new JLabel("HTML successfully created");
+		createdHTMLLabel = new JLabel(" ");
 		createdHTMLLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		createdHTMLLabel.setForeground(Color.red);
-		createdHTMLLabel.setVisible(false);
 		createdHTMLLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		createdHTMLLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
@@ -138,6 +137,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		add(componentSetup());
 		pack();
 		setSize(720,540);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
@@ -158,7 +158,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		}
 		if (e.getActionCommand().equals("Create HTML")){
 			controller.createHTMLOutput();
-			createdHTMLLabel.setVisible(true);
+			createdHTMLLabel.setText("HTML successfully created");
 		}
 		
 	}

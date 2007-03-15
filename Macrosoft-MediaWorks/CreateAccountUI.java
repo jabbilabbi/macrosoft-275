@@ -200,6 +200,7 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		add(componentSetup());
 		pack();
 		setSize(720,540);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
