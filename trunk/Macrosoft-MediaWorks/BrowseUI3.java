@@ -115,9 +115,9 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		
 		
 		//JBUTTON: Search Library
-		searchDB = new JButton("Search");
+		searchDB = new JButton("Search Library");
 		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
-		searchDB.setActionCommand("Search");
+		searchDB.setActionCommand("Search Library");
 		searchDB.addActionListener(this);
 		c.gridx = 1;
 		c.gridy = 1;
@@ -125,7 +125,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		c.weighty = 0.0;
 		c.insets = new Insets(10, 0, 10, 0); 		
 		c.anchor = GridBagConstraints.LINE_END;
-		insets = new Insets(0, 40, 0, 40);
+		insets = new Insets(0, 25, 0, 25);
 		searchDB.setMargin(insets);
 		pane.add(searchDB, c);
 		
