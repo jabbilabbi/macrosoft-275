@@ -6,7 +6,7 @@
 import java.awt.*;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+//import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -101,6 +101,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		 {"Nevermind", "Nirvana", "Rock", "Click"},
 		 {"Nevermind", "Nirvana", "Rock", "Click"},
 		 {"Nevermind", "Nirvana", "Rock", "Click"},
+		 
 		 {"Magnetic Fields", "Jean Michel Jarre", "Electronica", "Click"} };
 		//*/
 		// Assigns data from the database to tableData
