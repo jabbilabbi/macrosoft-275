@@ -137,12 +137,11 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                     int selectedCol = lsm.getMinSelectionIndex();
-                        System.out.println("hihih");
+                    
                         if (selectedCol == 3) {
                         	description = new DescriptionUI(selectedRow);
-                        
+                   
                         }
-                        System.out.println("Column " + selectedCol + " is now selected.");
                     }
                 
             });
