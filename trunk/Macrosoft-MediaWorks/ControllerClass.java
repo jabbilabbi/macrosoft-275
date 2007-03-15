@@ -27,7 +27,8 @@ public class ControllerClass implements Serializable{
 		this.mainScreenUI = new MainScreenUI();
 		this.html = new HTMLOutput();
 		this.sdb = new SecurityControl();
-		this.cdb = new DatabaseControl();	
+		this.cdb = new DatabaseControl();
+		loadMediaDatabase();
 	}
 	
 	public void recordCurrentUser(String currentUser){
@@ -83,9 +84,9 @@ public class ControllerClass implements Serializable{
 	public String[] getSecretInfo(String tempUser){
 		return sdb.getSecretInfo(tempUser);		
 	}
-	public ArrayList<String> searchDB(String wordToFind){
-		return cdb.searchDB(wordToFind);
-	}
+//	public ArrayList<String> searchDB(String wordToFind){
+//		return cdb.searchDB(wordToFind);
+//	}
 	public void addScreenFrame(){
 		addScreenUI.createAndShowGUI();
 	}

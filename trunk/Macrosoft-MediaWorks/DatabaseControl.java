@@ -72,6 +72,7 @@ public class DatabaseControl {
 	// POST: The media database is loaded into an ArrayList
 	public void loadMediaDatabase() {
 		updateFileName();
+		System.out.println(fname);
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			// Read first line
