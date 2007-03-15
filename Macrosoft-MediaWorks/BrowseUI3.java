@@ -5,7 +5,6 @@
 
 import java.awt.*;
 import javax.swing.JButton;
-//import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -18,11 +17,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class BrowseUI3 extends JFrame implements ActionListener  {
 
-	//	 Initalizes pane components
+	// Initalizes pane components
 	
 	private JLabel browseLibrary;
 	private JTable table;
@@ -30,8 +28,9 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	private JButton backToMain, searchDB;
 	private JTextField searchTF;
 	
-	//	 Initalizes variables
-	//	 GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
+	// Initalizes variables
+	
+	// GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
 	final static boolean RIGHT_TO_LEFT = false; 
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;	
@@ -50,21 +49,21 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		// Lays out frame with GridBagLayout
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		
 
-//		 Variable declaration
+		// Variable declaration
 		
+		// Used for padding around components
 		Insets insets;
-		
-		String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
 		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
 		DatabaseControl db = new DatabaseControl();
 		db.loadMediaDatabase();
-		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data				
+		// Holds table data	
+		Object[][] tableData = new Object[db.getRowsNeeded()][4]; 			
 		
 		// Assigns data from the database to tableData
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
-			String[] rowData = db.getLibraryRow(i); // Holds a row of data from the database										
+			// Holds a row of data from the database	
+			String[] rowData = db.getLibraryRow(i); 									
 			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
@@ -84,7 +83,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		c.anchor = GridBagConstraints.CENTER; 
 		pane.add(browseLibrary, c);
 		
-		//JTEXTFIELD: Search Library
+		// JTEXTFIELD: Search Library
 		searchTF = new JTextField("", 17);
 		c.gridx = 0;
 		c.gridy = 1;
@@ -95,7 +94,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		pane.add(searchTF, c);
 		
 		
-		//JBUTTON: Search Library
+		// JBUTTON: Search Library
 		searchDB = new JButton("Search Library");
 		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
 		searchDB.setActionCommand("Search Library");
@@ -119,25 +118,27 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		c.insets = new Insets(0, 0, 0, 0);
 		table = new JTable(tableData, columnNames) {
 			public boolean isCellEditable(int rowIndex, int vColIndex) {
-	            return false;	// Turns off the ability to edit cells directly
+				// Turns off the ability to edit cells directly
+	            return false;	
 	        }
 		};
 		
-		//DETECTS SELECTIONS FOR EACH CELL
+		// DETECTS SELECTIONS FOR EACH CELL
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        if (ALLOW_ROW_SELECTION) { // true by default
+		// True by default
+		if (ALLOW_ROW_SELECTION) { 
             ListSelectionModel rowSM = table.getSelectionModel();
             rowSM.addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {
-                    //Ignore extra messages.
+                    // Ignore extra messages.
                     if (e.getValueIsAdjusting()) return;
 
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                     if (lsm.isSelectionEmpty()) {
-                    	//No rows are selected
+                    	// No rows are selected
                     } else {
                         selectedRow = lsm.getMinSelectionIndex();
-                        System.out.println("Row " + selectedRow + " is now selected.");
+                        // Row  selectedRow is now selected
                     }
                 }
             });
@@ -145,8 +146,10 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
             table.setRowSelectionAllowed(false);
         }
 		
-        if (ALLOW_COLUMN_SELECTION) { // false by default
-            if (ALLOW_ROW_SELECTION) {//Allows individual cell selection
+        // False by default
+        if (ALLOW_COLUMN_SELECTION) { 
+        	// Allows individual cell selection
+            if (ALLOW_ROW_SELECTION) {
                 table.setCellSelectionEnabled(true);
             }
             table.setColumnSelectionAllowed(true);
@@ -154,13 +157,14 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
                 table.getColumnModel().getSelectionModel();
             colSM.addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {
-                    //Ignore extra messages.
+                    // Ignore extra messages.
                     if (e.getValueIsAdjusting()) return;
 
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {//No columns are selected
-                        System.out.println("No columns are selected.");
-                    } else {//selectedColumn is now selected
+                    if (lsm.isSelectionEmpty()) {
+                    	// No columns are selected
+                    } else {
+                    	// SelectedColumn is now selected
                         int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
                         	DescriptionUI description = new DescriptionUI(selectedRow);
@@ -173,9 +177,11 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
             });
         }
 		
-		scrollPane = new JScrollPane(table); // Makes a scroll bar available if windows sized smaller than table size													
+        // Makes a scroll bar available if windows sized smaller than table size									
+		scrollPane = new JScrollPane(table); 				
 		scrollPane.setPreferredSize(new Dimension(500, 300));
-		pane.add(scrollPane, c); // Add the scroll pane to this panel
+		// Add the scroll pane to this panel
+		pane.add(scrollPane, c); 
 		
 		// JBUTTON: Back to Main
 		backToMain = new JButton("Back to Main");
@@ -183,14 +189,14 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		backToMain.addActionListener(this);
 		c.gridx = 0; // Lays out component at grid x coordinate 0
 		c.gridy = 3; // Lays out component at grid y coordinate 0
-		c.gridwidth = 2;
+		c.gridwidth = 2;	// Number of coumns the component is spanning
 		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
 							// placed within adjacent columns
 		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
 							// placed within adjacent rows
 		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
-		insets = new Insets(20, 20, 20, 20);
+		insets = new Insets(20, 20, 20, 20);	//Padding around component
 		backToMain.setMargin(insets);
 		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(backToMain, c);
@@ -218,7 +224,6 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		// Set up the content pane.
 		addComponentsToPane(getContentPane());
 		// Size and display the window
-		//Insets insets = getInsets();
 		setSize(720, 540);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -230,21 +235,9 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	// PRE: Valid action event
 	// POST: Sets up action event for back to main button
 	public void actionPerformed(ActionEvent e) {
-
-		
 		if (e.getSource().equals("Back to Main")) {
 			controller.mainScreenFrame();
 			dispose();
-		}
-		if (e.getSource().equals("Search Library")){
-			//ArrayList<String> newtable = controller.searchDB(searchTF.getText());
-			//update shown table 
-//			for (int i = 0; i < newtable.size(); i++) {
-//				String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
-//				for (int j = 0; j < 4; j++)
-//					// Assigns column data from a row to tableData
-//					tableData[i][j] = rowData[j];
-//			}
 		}
 	}
 
@@ -261,15 +254,15 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 }
 
 /*
-// COMBO BOX
-String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
-JComboBox combo = new JComboBox(mediaTypes); // Passes mediaTypes to combo box													
-combo.setSelectedIndex(0); // Sets the default item from mediaTypes to appear in the combo box
-c.gridx = ;
-c.gridy = ;
-c.weightx = 0.0;
-c.weighty = 0.0;
-c.insets = new Insets(5, 10, 5, 10);
-c.anchor = GridBagConstraints.LINE_START;
-//pane.add(combo, c);
+import java.util.ArrayList;
+if (e.getSource().equals("Search Library")){
+	ArrayList<String> newtable = controller.searchDB(searchTF.getText());
+	// Update shown table 
+	for (int i = 0; i < newtable.size(); i++) {
+		String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
+		for (int j = 0; j < 4; j++)
+			// Assigns column data from a row to tableData
+			tableData[i][j] = rowData[j];
+	}
+}
 */
