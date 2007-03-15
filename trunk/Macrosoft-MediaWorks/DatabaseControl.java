@@ -159,7 +159,7 @@ public class DatabaseControl {
 		// Return array containing row elements
 		return mediaRowElements;
 	}
-
+	
 	// Return the total number of rows to display
 	// PRE: None
 	// POST: Number of rows required is returned
@@ -205,62 +205,5 @@ public class DatabaseControl {
 			bw.close();
 		} catch (IOException ioe) {
 		}
-
 	}
-	public ArrayList<String> searchDB(String wordsToGet){
-		ArrayList<String> al = new ArrayList<String>();
-		int count = 0;
-			for (int i = 0; i < getRowsNeeded(); i++) {
-				String sToFind = mediaItems.get(i);
-				if (sToFind.contains(wordsToGet)){
-					al.set(count, sToFind);
-					count++;
-				}
-			}
-		return al;
-	}
-
-	// *** Unfinished code for future version ***
-
-	// // Return the number of rows required to display all entries of a certain
-	// type
-	// // PRE: The media type to be displayed (e.g. CD)
-	// // POST: Number of rows required is returned
-	// public int getRowsNeededByType(String mediaType) {
-	//		
-	// // Temporary counter
-	// int counter = 0;
-	//		
-	// // Cycle through database elements, checking the type of media
-	// for (int i = 1; i < mediaItems.size(); i += 4) {
-	// // Compare media type of current entry to desired type
-	// int typeCheck = mediaItems.get(i).compareTo(mediaType);
-	// // Entry with given media found; increment counter
-	// if (typeCheck == 0) {
-	// counter++;
-	// }
-	// }
-	//		
-	// // Return result
-	// return counter;
-	// }
-
-	// public void editLibraryEntry(String oldName, String newName, String
-	// oldArtist,
-	// String newArtist, String oldGenre, String newGenre, String oldDesc,
-	// String newDesc) {
-	//		
-	// if (mediaItems.contains(oldName)) {
-	// String artistRequired = mediaItems.get(mediaItems.indexOf(oldName) + 1);
-	// int checkArtist = oldArtist.compareTo(artistRequired);
-	// String genreRequired = mediaItems.get(mediaItems.indexOf(oldName) + 2);
-	// int checkGenre = oldGenre.compareTo(genreRequired);
-	// String descRequired = mediaItems.get(mediaItems.indexOf(oldName) + 3);
-	// int checkDesc = oldDesc.compareTo(descRequired);
-	//			
-	// if (checkArtist == 0 && checkGenre == 0 && checkDesc == 0) {
-	//				
-	// }
-	// }
-	// }
 }

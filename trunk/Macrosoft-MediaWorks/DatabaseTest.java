@@ -15,13 +15,15 @@ public class DatabaseTest {
 		
 		DatabaseControl db = new DatabaseControl();
 		
+		db.loadMediaDatabase();
+		
 		// Print out Joe1.txt
 		db.updateFileName();
 		System.out.println(db.getFname());
 		
 		// Create a user database file; simply reloads the file here as it is called in
 		// the DatabaseControl constructor
-		//db.createUserDatabaseFile();
+		// db.createUserDatabaseFile();
 		
 		// Add a couple of media entries
 //		db.appendMediaDatabase("Cool Music", "Rockman", "Rock", "This is a description");
@@ -62,5 +64,4 @@ public class DatabaseTest {
 			System.out.println();
 		}
 	}
-	
 }
