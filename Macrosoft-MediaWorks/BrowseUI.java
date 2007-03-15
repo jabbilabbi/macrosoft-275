@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
@@ -25,8 +24,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	private JLabel browseLibrary;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private JButton backToMain, searchDB;
-	private JTextField searchTF;
+	private JButton backToMain;
 	
 	// Initalizes variables
 	
@@ -76,43 +74,17 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		browseLibrary.setFont(new Font("Helvetica", Font.BOLD, 16));
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridwidth = 2;
+		c.gridwidth = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(20, 0, 20, 0); 
 		c.anchor = GridBagConstraints.CENTER; 
 		pane.add(browseLibrary, c);
 		
-		// JTEXTFIELD: Search Library
-		searchTF = new JTextField("", 17);
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(10, 0, 10, 0); 
-		c.anchor = GridBagConstraints.CENTER; 
-		pane.add(searchTF, c);
-		
-		
-		// JBUTTON: Search Library
-		searchDB = new JButton("Search Library");
-		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
-		searchDB.setActionCommand("Search Library");
-		searchDB.addActionListener(this);
-		c.gridx = 1;
-		c.gridy = 1;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(10, 0, 10, 0); 		
-		c.anchor = GridBagConstraints.LINE_END;
-		insets = new Insets(0, 25, 0, 25);
-		searchDB.setMargin(insets);
-		pane.add(searchDB, c);
-		
 		// JTABLE
 		c.gridx = 0;
-		c.gridy = 2;
-		c.gridwidth = 2;
+		c.gridy = 1;
+		c.gridwidth = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(0, 0, 0, 0);
@@ -188,8 +160,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
 		c.gridx = 0; // Lays out component at grid x coordinate 0
-		c.gridy = 3; // Lays out component at grid y coordinate 0
-		c.gridwidth = 2;	// Number of coumns the component is spanning
+		c.gridy = 2; // Lays out component at grid y coordinate 0
+		c.gridwidth = 1;	// Number of coumns the component is spanning
 		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
 							// placed within adjacent columns
 		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
@@ -218,6 +190,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	// POST: Sets up GUI
 	public void createAndShowGUI() {
 		// Create and set up the window.
+		controller = new ControllerClass();
 		setTitle("Media Works - Browse Library");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -235,7 +208,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	// PRE: Valid action event
 	// POST: Sets up action event for back to main button
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals("Back to Main")) {
+		if (e.getActionCommand().equals("Back to Main")) {
 			controller.mainScreenFrame();
 			dispose();
 		}
@@ -265,4 +238,33 @@ if (e.getSource().equals("Search Library")){
 			tableData[i][j] = rowData[j];
 	}
 }
+		import javax.swing.JTextField;
+		private JButton searchDB;
+		private JTextField searchTF;
+
+		// JTEXTFIELD: Search Library
+		searchTF = new JTextField("", 17);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 0.0;
+		c.weighty = 0.0;
+		c.insets = new Insets(10, 0, 10, 0); 
+		c.anchor = GridBagConstraints.CENTER; 
+		pane.add(searchTF, c);
+		
+		
+		// JBUTTON: Search Library
+		searchDB = new JButton("Search Library");
+		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
+		searchDB.setActionCommand("Search Library");
+		searchDB.addActionListener(this);
+		c.gridx = 1;
+		c.gridy = 1;
+		c.weightx = 0.0;
+		c.weighty = 0.0;
+		c.insets = new Insets(10, 0, 10, 0); 		
+		c.anchor = GridBagConstraints.LINE_END;
+		insets = new Insets(0, 25, 0, 25);
+		searchDB.setMargin(insets);
+		pane.add(searchDB, c);
 */
