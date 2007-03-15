@@ -110,8 +110,6 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	            return false;	// Turns off the ability to edit cells directly
 	        }
 		};
-		//table.setEnabled(true);// Allows coloumns/cells to be selected
-		//table.setPreferredScrollableViewportSize(new Dimension(700, 304)); // Sets size of table width, height in pixels																
 		
 		//DETECTS SELECTIONS FOR EACH CELL
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only allows one thin to be selected at a time
