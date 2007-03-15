@@ -54,43 +54,20 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		
 
 //		 Variable declaration
-		//DatabaseControl db = new DatabaseControl();
+		
 		Insets insets;
-		//String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
+		String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
 		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
-		//Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data				
-		///*	
-		Object[][] tableData = { 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"}, 
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Nevermind", "Nirvana", "Rock", "Click"},
-			{"Nevermind", "Nirvana", "Rock", "Click"},
-			{"Nevermind", "Nirvana", "Rock", "Click"},
-			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
-			{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "Click"} 
-		 };
-		//*/
-		/*// Assigns data from the database to tableData
+		Object[][] tableData = new Object[controller.getRowsNeeded()][4]; // Holds table data				
+		
+		// Assigns data from the database to tableData
 		for (int i = 0; i < controller.getRowsNeeded(); i++) {
 			String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
 			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
 		}
-		*/	
+		
 		// Declaration of pane components
 		
 		// JLABEL: Browse Library
@@ -200,6 +177,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		
 		// JBUTTON: Back to Main
 		backToMain = new JButton("Back to Main");
+		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
 		c.gridx = 0; // Lays out component at grid x coordinate 0
 		c.gridy = 3; // Lays out component at grid y coordinate 0
@@ -250,16 +228,12 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	// PRE: Valid action event
 	// POST: Sets up action event for back to main button
 	public void actionPerformed(ActionEvent e) {
-		JButton b = new JButton();
-		b = (JButton) e.getSource();
 
-		MainScreenUI mainScreenUI = new MainScreenUI();
-
-		if (b == backToMain) {
-			mainScreenUI.createAndShowGUI();
+		if (e.getSource().equals("Back to Main")) {
+			controller.mainScreenFrame();
 			dispose();
 		}
-		if (b == searchDB){
+		if (e.getSource().equals("Search Library")){
 			ArrayList<String> newtable = controller.searchDB(searchTF.getText());
 			//update shown table 
 //			for (int i = 0; i < newtable.size(); i++) {
@@ -283,19 +257,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	}
 }
 
-
 /*
-// JLABEL: Display By:
-JLabel label2 = new JLabel("Display by:");
-c.gridx = ;
-c.gridy = ;
-c.weightx = 0.0;
-c.weighty = 0.0;
-c.insets = new Insets(5, 10, 5, 10); 
-c.anchor = GridBagConstraints.LINE_END; // Aligns text to the right (LINE_END)
-label2.setToolTipText("Select category to display media contents by");
-//pane.add(label2, c);
-
 // COMBO BOX
 String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
 JComboBox combo = new JComboBox(mediaTypes); // Passes mediaTypes to combo box													
