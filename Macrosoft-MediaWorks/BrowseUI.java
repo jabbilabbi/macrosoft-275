@@ -63,9 +63,10 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		for (int i = 0; i < db.getRowsNeeded(); i++) {
 			// Holds a row of data from the database	
 			String[] rowData = db.getLibraryRow(i); 									
-			for (int j = 0; j < 4; j++)
+			for (int j = 0; j < 3; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
+			tableData[i][3] = "Click";
 		}
 		
 		// Declaration of pane components
