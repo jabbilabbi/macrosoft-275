@@ -35,6 +35,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
     
     DescriptionUI(int row) {
     	selectedRow = row;
+    	createAndShowGUI();
     }
 	
 	private ControllerClass controller;

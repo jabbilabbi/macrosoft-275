@@ -33,6 +33,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;	
     private ControllerClass controller;
+    private DescriptionUI description;
     
     private int selectedRow;
 
@@ -139,9 +140,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     	// SelectedColumn is now selected
                         int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
-                        	DescriptionUI description = new DescriptionUI(selectedRow);
-                        	System.out.println("khsfh");
-                        	description.createAndShowGUI();
+                        	description = new DescriptionUI(selectedRow);
                         }
                         System.out.println("Column " + selectedCol + " is now selected.");
                     }
