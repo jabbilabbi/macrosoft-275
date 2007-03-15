@@ -21,7 +21,7 @@ public class ControllerClass implements Serializable{
 	
 	public ControllerClass(){
 		this.addScreenUI = new AddScreenUI();
-		this.browseUI = new BrowseUI();
+		this.browseUI = new BrowseUI3();
 		this.createAccountUI = new CreateAccountUI();
 		this.loginUI = new LoginUI();
 		this.mainScreenUI = new MainScreenUI();
