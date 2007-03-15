@@ -147,7 +147,7 @@ public class DescriptionUI extends JFrame implements ActionListener  {
 		JButton b = new JButton();
 		b = (JButton) e.getSource();
 
-		BrowseUI3 browseUI3 = new BrowseUI3();
+		BrowseUI browseUI3 = new BrowseUI();
 
 		if (b == backToBrowse) {
 			browseUI3.createAndShowGUI();
