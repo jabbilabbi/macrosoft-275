@@ -129,22 +129,21 @@ public class BrowseUI extends JFrame implements ActionListener  {
             ListSelectionModel colSM =
                 table.getColumnModel().getSelectionModel();
             colSM.addListSelectionListener(new ListSelectionListener() {
+            	
+            	
                 public void valueChanged(ListSelectionEvent e) {
                     // Ignore extra messages.
                     if (e.getValueIsAdjusting()) return;
-
+                    
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {
-                    	// No columns are selected
-                    } else {
-                    	// SelectedColumn is now selected
-                        int selectedCol = lsm.getMinSelectionIndex();
+                    int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
                         	description = new DescriptionUI(selectedRow);
+                        
                         }
                         System.out.println("Column " + selectedCol + " is now selected.");
                     }
-                }
+                
             });
         }
 		
