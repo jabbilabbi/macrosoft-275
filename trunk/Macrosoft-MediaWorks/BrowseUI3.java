@@ -38,6 +38,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;	
     private ControllerClass controller;
+    private int selectedRow;
 
 	// Purpose: To add and display components
 	// PRE: Valid pane is given as a parameter
@@ -156,7 +157,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
                     if (lsm.isSelectionEmpty()) {
                         System.out.println("No rows are selected.");
                     } else {
-                        int selectedRow = lsm.getMinSelectionIndex();
+                        selectedRow = lsm.getMinSelectionIndex();
                         System.out.println("Row " + selectedRow
                                            + " is now selected.");
                     }
@@ -184,7 +185,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
                     } else {//selectedColumn is now selected
                         int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
-                        	DescriptionUI2 description = new DescriptionUI2();
+                        	DescriptionUI2 description = new DescriptionUI2(selectedRow);
                         	description.createAndShowGUI();
                         }
                         System.out.println("Column " + selectedCol + " is now selected.");
@@ -213,10 +214,6 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		backToMain.setMargin(insets);
 		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(backToMain, c);
-		
-		
-		
-		
 	}
 	
 	// Purpose: To create and display the 'Create Account' UI
