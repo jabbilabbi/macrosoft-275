@@ -4,7 +4,6 @@
 // Programmed by: Alex Androne
 
 import java.awt.*;
-
 import javax.swing.JButton;
 //import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,7 +15,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,20 +22,21 @@ import java.util.ArrayList;
 
 public class BrowseUI3 extends JFrame implements ActionListener  {
 
-//	 Initalizes pane components
+	//	 Initalizes pane components
 	
 	private JLabel browseLibrary;
-	//private JComboBox combo;
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JButton backToMain, searchDB;
 	private JTextField searchTF;
 	
 	//	 Initalizes variables
-	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
+	//	 GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
+	final static boolean RIGHT_TO_LEFT = false; 
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;	
     private ControllerClass controller;
+    
     private int selectedRow;
 
 	// Purpose: To add and display components
@@ -56,13 +55,16 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 //		 Variable declaration
 		
 		Insets insets;
+		
 		String[] mediaTypes = { "All", "CDs" }; // Items in the combo box
 		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
-		Object[][] tableData = new Object[controller.getRowsNeeded()][4]; // Holds table data				
+		DatabaseControl db = new DatabaseControl();
+		db.loadMediaDatabase();
+		Object[][] tableData = new Object[db.getRowsNeeded()][4]; // Holds table data				
 		
 		// Assigns data from the database to tableData
-		for (int i = 0; i < controller.getRowsNeeded(); i++) {
-			String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
+		for (int i = 0; i < db.getRowsNeeded(); i++) {
+			String[] rowData = db.getLibraryRow(i); // Holds a row of data from the database										
 			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
@@ -132,11 +134,10 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                     if (lsm.isSelectionEmpty()) {
-                        System.out.println("No rows are selected.");
+                    	//No rows are selected
                     } else {
                         selectedRow = lsm.getMinSelectionIndex();
-                        System.out.println("Row " + selectedRow
-                                           + " is now selected.");
+                        System.out.println("Row " + selectedRow + " is now selected.");
                     }
                 }
             });
@@ -162,8 +163,9 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
                     } else {//selectedColumn is now selected
                         int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
-                        	DescriptionUI2 description = new DescriptionUI2(selectedRow);
+                        	DescriptionUI description = new DescriptionUI(selectedRow);
                         	description.createAndShowGUI();
+                        	dispose();
                         }
                         System.out.println("Column " + selectedCol + " is now selected.");
                     }
@@ -229,12 +231,13 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	// POST: Sets up action event for back to main button
 	public void actionPerformed(ActionEvent e) {
 
+		
 		if (e.getSource().equals("Back to Main")) {
 			controller.mainScreenFrame();
 			dispose();
 		}
 		if (e.getSource().equals("Search Library")){
-			ArrayList<String> newtable = controller.searchDB(searchTF.getText());
+			//ArrayList<String> newtable = controller.searchDB(searchTF.getText());
 			//update shown table 
 //			for (int i = 0; i < newtable.size(); i++) {
 //				String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
