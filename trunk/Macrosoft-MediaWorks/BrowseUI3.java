@@ -72,7 +72,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 			{"Nevermind", "Nirvana", "Rock", "Click"},
 			{"Nevermind", "Nirvana", "Rock", "Click"},
 			{"Nevermind", "Nirvana", "Rock", "Click"},
-		
+			{"Mezzanine", "MasiveAttack", "Electronica", "Click"}, 
 			{"Magnetic Fields", "Jean Michel Jarre", "Electronica", "Click"} 
 		 };
 		//*/
@@ -110,8 +110,8 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	            return false;	// Turns off the ability to edit cells directly
 	        }
 		};
-		table.setEnabled(true);// Allows coloumns/cells to be selected
-		table.setPreferredScrollableViewportSize(new Dimension(700, 304)); // Sets size of table width, height in pixels																
+		//table.setEnabled(true);// Allows coloumns/cells to be selected
+		//table.setPreferredScrollableViewportSize(new Dimension(700, 304)); // Sets size of table width, height in pixels																
 		
 		//DETECTS SELECTIONS FOR EACH CELL
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only allows one thin to be selected at a time
@@ -144,6 +144,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
         }
 		
 		scrollPane = new JScrollPane(table); // Makes a scroll bar available if windows sized smaller than table size													
+		scrollPane.setPreferredSize(new Dimension(620, 280));
 		pane.add(scrollPane, c); // Add the scroll pane to this panel
 		
 		// JBUTTON: Back to Main
@@ -177,7 +178,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 
 		// Size and display the window
 		Insets insets = getInsets();
-		setSize(740 + insets.left + insets.right, 540 + insets.top
+		setSize(700 + insets.left + insets.right, 500 + insets.top
 				+ insets.bottom);
 		setVisible(true);
 		setResizable(false);
