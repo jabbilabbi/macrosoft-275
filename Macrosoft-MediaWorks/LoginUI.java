@@ -309,9 +309,8 @@ public class LoginUI extends JFrame implements ActionListener {
 	// PRE: None
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
-		controller = new ControllerClass(); // Creates an
-		// instance of the
-		// UI controller
+		// Creates an instance of the UI controller
+		controller = new ControllerClass(); 
 		
 		// Create and set up the window
 		windowLookAndFeel();
@@ -335,8 +334,8 @@ public class LoginUI extends JFrame implements ActionListener {
 		Boolean fieldsComplete = true;
 		String usernameEntered = String.valueOf(usernameTB.getText());
 		String passwordEntered = String.valueOf(passwordTB.getPassword());
-		String tempUser = usernameTB.getText(); // Stores the current
-												// username
+		//Stores the current username
+		String tempUser = usernameTB.getText(); 
 		String secretAnswer = String.valueOf(secretAnswerTB.getText());
 		
 		int user_result = controller.checkLogin(usernameEntered, passwordEntered);
@@ -345,20 +344,20 @@ public class LoginUI extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("Forgot your Password")) {
 			// Case where username is in DB
 			if (controller.checkIfUserExists(tempUser)) {
-				dynamicLabel.setVisible(false); // Turns off error messages
-				forgotPasswordPanel.setVisible(true); // Turns on forgot
-														// password panel
+				// Turns off error messages
+				dynamicLabel.setVisible(false); 
+				// Turns on forgot password panel
+				forgotPasswordPanel.setVisible(true); 
+				// Gets secret question from DB					
 				secretQuestionContentLabel
-						.setText(controller.getSecretInfo(tempUser)[0]); // Gets
-																	// secret
-																	// question
-																	// from DB
+						.setText(controller.getSecretInfo(tempUser)[0]);
 			}
 			// Case where username is not in DB
 			else{
 				dynamicText = "That username is not found, please enter a valid username";
 				dynamicLabel.setText(dynamicText);
-				dynamicLabel.setVisible(true); // Shows relevant error
+				// Shows relevant error
+				dynamicLabel.setVisible(true); 
 				forgotPasswordPanel.setVisible(false);
 			}
 			
@@ -367,26 +366,20 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (e.getActionCommand().equals("Answer")) {
 					// Case where correct Answer is given					
 					if (controller.getSecretInfo(tempUser)[1].equals(secretAnswer)) {
-						forgotPasswordPanel.setVisible(false); // Turns off the
-																// forgot
-																// password
-																// panel
+						// Turns off the forgot password panel
+						forgotPasswordPanel.setVisible(false);
+						// Password is printed for user
 						dynamicText = "Your password is: "
-								+ controller.getPassword(tempUser); // Password
-																	// is
-																// printed for
-																// user
-						dynamicLabel.setText(dynamicText); // Password is set
-															// to label
-						dynamicLabel.setVisible(true); // Password is displayed
-														// for user
+								+ controller.getPassword(tempUser); 
+						// Password is set to label
+						dynamicLabel.setText(dynamicText); 
+						// Password is displayed for user
+						dynamicLabel.setVisible(true); 
 					}
 					// Case where correct Answer is not given
 					else {
-						dynamicText = "Incorrect secret question answer, try again"; // Error
-																					 // message
-																				  	 // for
-																					// user
+						// Error message for user
+						dynamicText = "Incorrect secret question answer, try again";
 						dynamicLabel.setText(dynamicText);
 						dynamicLabel.setVisible(true);
 					}
@@ -396,15 +389,18 @@ public class LoginUI extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("Login")) {
 			// Checks if username wasn't completed
 			if (usernameTB.getText().length() == 0) {
-				fieldsComplete = false; // Fields are not complete
-				dynamicText = "Please enter username"; // User prompted for
-														// appropriate action
+				// Fields are not complete
+				fieldsComplete = false;
+				// user prompted for appropriate action
+				dynamicText = "Please enter username";
 				dynamicLabel.setText(dynamicText);
-				dynamicLabel.setVisible(true); // Shows relevant error
+				// Shows relevant error
+				dynamicLabel.setVisible(true);
 			}
 			// Case where username is entered
 			else {
-				dynamicLabel.setVisible(false); // Removes relevant error
+				// Removes relevant error
+				dynamicLabel.setVisible(false);
 			}
 			// Checks if the password wasn't completed
 			if ((passwordTB.getText().length() == 0)
@@ -412,34 +408,40 @@ public class LoginUI extends JFrame implements ActionListener {
 				fieldsComplete = false;
 				dynamicText = "Please enter password";
 				dynamicLabel.setText(dynamicText);
-				dynamicLabel.setVisible(true); // Shows relevant error
+				// Shows relevant error
+				dynamicLabel.setVisible(true);
 			} else if ((passwordTB.getText().length() != 0)
 					&& (usernameTB.getText().length() == 0)) {
 				dynamicText = "Please enter username";
 				dynamicLabel.setText(dynamicText);
-				dynamicLabel.setVisible(true); // Shows relevant error
+				// Shows relevatn error
+				dynamicLabel.setVisible(true);
 			}
 
 			// Condition where the login entry was invalid
 			if ((user_result == 1) && (fieldsComplete == true)) {
-				dynamicLabel.setVisible(false); // Removes relevant error
+				// Removes releavnt error
+				dynamicLabel.setVisible(false);
 				
 				controller.recordCurrentUser(usernameEntered);
 				controller.mainScreenFrame();
-				dispose(); // Disposes of current frame
+				// Disposes of current frame
+				dispose();
 
 			} else if ((user_result != 1) && (fieldsComplete == true)) {
 				dynamicText = "Invalid username or password";
 				dynamicLabel.setText(dynamicText);
-				dynamicLabel.setVisible(true); // Shows relevant error
+				// Shows relevant error
+				dynamicLabel.setVisible(true);
 			}
 
 		}
 		// Case where button pressed was Create an Account
 		if (e.getActionCommand().equals("Create an Account")) {
-			controller.createAccountFrame(); // Load new frame for Create an
-											// Account
-			dispose(); // Throw out current frame
+			// Load nwe frame for Create an Account
+			controller.createAccountFrame(); 
+			// Throws out current frame
+			dispose();
 		}
 
 	}
