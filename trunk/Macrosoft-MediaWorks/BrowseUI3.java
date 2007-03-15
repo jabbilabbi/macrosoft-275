@@ -36,6 +36,7 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;	
+    private ControllerClass controller;
 
 	// Purpose: To add and display components
 	// PRE: Valid pane is given as a parameter
@@ -101,6 +102,9 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		c.anchor = GridBagConstraints.CENTER; 
 		pane.add(browseLibrary, c);
 		
+		searchTF = new JTextField(" ");
+		searchTF.setBounds(375, 60, 100, 75);
+		pane.add(searchTF);
 		// JTABLE
 		c.gridx = 0;
 		c.gridy = 1;
