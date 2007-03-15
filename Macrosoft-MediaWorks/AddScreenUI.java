@@ -24,14 +24,11 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	private String artist, title, genre, description;
 	private Boolean check_add;
 
-	// Initalizes the frame
-	private JFrame frame;
 	
 	private final String CDs = "CDs";
 	private final String UNSELECTED = "unselected";
 	
 	final private Dimension PANEL_SIZE = new Dimension(600,250);
-	final private Dimension SPACING = new Dimension(25, 0);
 
 	private CDsPanel CDsSelected = new CDsPanel(PANEL_SIZE);
 	

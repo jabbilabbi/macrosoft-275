@@ -24,8 +24,7 @@ public class DescriptionUI extends JFrame implements ActionListener  {
 
 //	 Initalizes pane components
 	
-	private JLabel details;
-	private JLabel nameLabel;
+	private JLabel details, nameLabel;
 	private JTextField nameTextField;
 	private JScrollPane scrollPane;
 	private JButton backToBrowse;
