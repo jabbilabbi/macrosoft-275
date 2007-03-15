@@ -9,7 +9,7 @@ import java.awt.event.*;
 public class ControllerClass implements Serializable{
 
 	private AddScreenUI addScreenUI;
-	private BrowseUI browseUI;
+	private BrowseUI3 browseUI;
 	private CreateAccountUI createAccountUI;
 	private LoginUI loginUI;
 	private MainScreenUI mainScreenUI;
