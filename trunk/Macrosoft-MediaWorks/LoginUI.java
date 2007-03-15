@@ -422,9 +422,8 @@ public class LoginUI extends JFrame implements ActionListener {
 			// Condition where the login entry was invalid
 			if ((user_result == 1) && (fieldsComplete == true)) {
 				dynamicLabel.setVisible(false); // Removes relevant error
-				String currentUser = String.valueOf(usernameEntered); // Stores
-														     			// current
-																		// user
+				
+				controller.recordCurrentUser(usernameEntered);
 				controller.mainScreenFrame();
 				dispose(); // Disposes of current frame
 
