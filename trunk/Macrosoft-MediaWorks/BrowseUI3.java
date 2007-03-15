@@ -112,7 +112,28 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		};
 		
 		//DETECTS SELECTIONS FOR EACH CELL
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Only allows one thin to be selected at a time
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        if (ALLOW_ROW_SELECTION) { // true by default
+            ListSelectionModel rowSM = table.getSelectionModel();
+            rowSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    //Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
+
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    if (lsm.isSelectionEmpty()) {
+                        System.out.println("No rows are selected.");
+                    } else {
+                        int selectedRow = lsm.getMinSelectionIndex();
+                        System.out.println("Row " + selectedRow
+                                           + " is now selected.");
+                    }
+                }
+            });
+        } else {
+            table.setRowSelectionAllowed(false);
+        }
+		
         if (ALLOW_COLUMN_SELECTION) { // false by default
             if (ALLOW_ROW_SELECTION) {//Allows individual cell selection
                 table.setCellSelectionEnabled(true);
@@ -130,8 +151,8 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
                         System.out.println("No columns are selected.");
                     } else {//selectedColumn is now selected
                         int selectedCol = lsm.getMinSelectionIndex();
-                        MainScreenUI mainScreenUI = new MainScreenUI();
                         if (selectedCol == 3) {
+                        	MainScreenUI mainScreenUI = new MainScreenUI();
                         	mainScreenUI.createAndShowGUI();
                 			dispose();
                         }
