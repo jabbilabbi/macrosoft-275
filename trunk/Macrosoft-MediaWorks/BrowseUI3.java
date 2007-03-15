@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -18,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BrowseUI3 extends JFrame implements ActionListener  {
 
@@ -27,7 +29,8 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 	//private JComboBox combo;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private JButton backToMain;
+	private JButton backToMain, searchDB;
+	private JTextField searchTF;
 	
 	//	 Initalizes variables
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
@@ -182,6 +185,15 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		backToMain.setMargin(insets);
 		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(backToMain, c);
+		
+		searchDB = new JButton("Search");
+		insets = new Insets(20, 20, 20, 20);
+		searchDB.setMargin(insets);
+		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component
+		searchDB.setActionCommand("Search");
+		searchDB.addActionListener(this);
+		pane.add(searchDB);
+		searchDB.setBounds(350, 60, 100, 75);
 	}
 
 	// Purpose: To display GUI
@@ -215,6 +227,10 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		if (b == backToMain) {
 			mainScreenUI.createAndShowGUI();
 			dispose();
+		}
+		if (b == searchDB){
+			ArrayList<String> newtable = controller.searchDB(searchTF.getText());
+			//update shown table 
 		}
 	}
 
