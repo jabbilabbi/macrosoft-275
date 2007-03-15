@@ -81,8 +81,8 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		 };
 		//*/
 		/*// Assigns data from the database to tableData
-		for (int i = 0; i < db.getRowsNeeded(); i++) {
-			String[] rowData = db.getLibraryRow(i); // Holds a row of data from the database										
+		for (int i = 0; i < controller.getRowsNeeded(); i++) {
+			String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
 			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
 				tableData[i][j] = rowData[j];
@@ -195,11 +195,11 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		searchDB.setActionCommand("Search");
 		searchDB.addActionListener(this);
 		searchDB.setBounds(350, 560, 30, 30);
-		pane.add(searchDB);
+		//pane.add(searchDB);
 		
 		searchTF = new JTextField(" ");
 		searchTF.setBounds(375, 560, 100, 75);
-		pane.add(searchTF);
+		//pane.add(searchTF);
 	}
 
 	// Purpose: To display GUI
@@ -237,6 +237,12 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		if (b == searchDB){
 			ArrayList<String> newtable = controller.searchDB(searchTF.getText());
 			//update shown table 
+//			for (int i = 0; i < newtable.size(); i++) {
+//				String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
+//				for (int j = 0; j < 4; j++)
+//					// Assigns column data from a row to tableData
+//					tableData[i][j] = rowData[j];
+//			}
 		}
 	}
 
