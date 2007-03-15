@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -183,9 +184,8 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
                     } else {//selectedColumn is now selected
                         int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
-                        	MainScreenUI mainScreenUI = new MainScreenUI();
-                        	mainScreenUI.createAndShowGUI();
-                			dispose();
+                        	DescriptionUI2 description = new DescriptionUI2();
+                        	description.createAndShowGUI();
                         }
                         System.out.println("Column " + selectedCol + " is now selected.");
                     }
@@ -218,6 +218,17 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		
 		
 	}
+	
+	// Purpose: To create and display the 'Create Account' UI
+	// PRE: None
+	// POST: A new frame is created, components added, frame displayed
+	public static void windowLookAndFeel(){
+	    try{
+	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	    }catch (Exception e) {
+	        System.out.println("Look and Feel error: " + e);
+	    }
+	}	
 
 	// Purpose: To display GUI
 	// PRE: None
@@ -229,17 +240,13 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 
 		// Set up the content pane.
 		addComponentsToPane(getContentPane());
-
 		// Size and display the window
 		//Insets insets = getInsets();
-		setSize(700, 550);
-		/*
-		Insets insets = getInsets();
-		setSize(700 + insets.left + insets.right, 500 + insets.top
-				+ insets.bottom);
-		*/
+		setLocationRelativeTo(null);
+		setSize(720, 540);
 		setVisible(true);
 		setResizable(false);
+		windowLookAndFeel();
 	}
 
 	// Purpose: To set action evemt for back to main button
