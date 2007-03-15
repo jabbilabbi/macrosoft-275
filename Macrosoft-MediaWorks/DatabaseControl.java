@@ -90,17 +90,18 @@ public class DatabaseControl {
 				mediaRow = in.readLine();
 				// Continue reading database lines
 			} while (mediaRow != null);
-			
+
 			in.close();
-			
+
 		} catch (IOException e) {
 			// System.out.println(e.getMessage());
 		}
 	}
-	
+
 	// Reload current database of media entries
 	// PRE: None
-	// POST: Current ArrayList of media items is cleared and reloaded with entries in database file
+	// POST: Current ArrayList of media items is cleared and reloaded with
+	// entries in database file
 	public void reloadMediaDatabase() {
 		// Clear current database
 		mediaItems.clear();
@@ -160,17 +161,17 @@ public class DatabaseControl {
 		// Return array containing row elements
 		return mediaRowElements;
 	}
-	
+
 	// Return the total number of rows to display
 	// PRE: None
 	// POST: Number of rows required is returned
-	
+
 	public int getRowsNeeded() {
 		// Number of rows needed is total items / items per row
 		int totalRows = mediaItems.size() / 4;
 		return totalRows;
 	}
-	
+
 	// PURPOSE: Delete current database file
 	// PRE: None
 	// POST: Current user's database is deleted
@@ -181,27 +182,32 @@ public class DatabaseControl {
 		// Perform deletion
 		userFile.delete();
 	}
-	
+
 	// Delete last row of media database
 	// PRE: None
-	// POST: Media database file has last row deleted; media database is reloaded
-	
-	public void deleteLastRow() {
+	// POST: Media database file has last row deleted; media database is
+	// reloaded
 
+	public void deleteLastRow() {
 		try {
+			// Delete old database; will be remade with -1 rows
 			deleteDatabase();
+
 			BufferedWriter bw = null;
-			
-			// Set up BufferedWriter to be used for appending
+			// Set up BufferedWriter
 			bw = new BufferedWriter(new FileWriter(fname, true));
-			// Append new account data to login database
+			// Cycle through already loaded media database
 			for (int i = 0; i < getRowsNeeded() - 1; i++) {
+				// Get current row
 				String[] currentRow = getLibraryRow(i);
-				String rowToWrite = currentRow[0] + " ::: " + currentRow[1] + " ::: " + currentRow[2] +
-				" ::: " + currentRow[3];
+				// Join row elements
+				String rowToWrite = currentRow[0] + " ::: " + currentRow[1]
+						+ " ::: " + currentRow[2] + " ::: " + currentRow[3];
+				// Write current row
 				bw.write(rowToWrite);
 				bw.newLine();
 			}
+			// Clear BufferedWriter after operation complete
 			bw.flush();
 			bw.close();
 		} catch (IOException ioe) {
