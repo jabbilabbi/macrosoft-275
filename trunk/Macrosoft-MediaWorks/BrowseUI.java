@@ -140,8 +140,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
                         int selectedCol = lsm.getMinSelectionIndex();
                         if (selectedCol == 3) {
                         	DescriptionUI description = new DescriptionUI(selectedRow);
+                        	System.out.println("khsfh");
                         	description.createAndShowGUI();
-                        	dispose();
                         }
                         System.out.println("Column " + selectedCol + " is now selected.");
                     }
@@ -219,7 +219,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		// Creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				BrowseUI3 ui = new BrowseUI3();
+				BrowseUI ui = new BrowseUI();
 				ui.createAndShowGUI();
 			}
 		});
