@@ -3,20 +3,11 @@
 // Macrosoft
 // Programmed by: Alex Androne
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BrowseUI2 extends JFrame implements ActionListener  {
 
@@ -26,7 +17,8 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	//private JComboBox combo;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private JButton backToMain;
+	private JButton backToMain, searchDB;
+	private JTextField searchTF;
 	
 	//	 Initalizes variables
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
@@ -142,7 +134,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
             });
         }
         
-		// Button
+		// Buttons
 		backToMain = new JButton("Back to Main");
 		insets = new Insets(20, 20, 20, 20);
 		backToMain.setMargin(insets);
@@ -150,16 +142,30 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
 		
+		searchDB = new JButton("Search");
+		insets = new Insets(20, 20, 20, 20);
+		searchDB.setMargin(insets);
+		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component
+		searchDB.setActionCommand("Search");
+		searchDB.addActionListener(this);
+		
+		// Text Field
+		searchTF = new JTextField(" ");
+		
 		// Add components to the pane
 		pane.add(browseLibrary);
 		//pane.add(combo);
 		pane.add(scrollPane);
 		pane.add(backToMain);
+		pane.add(searchDB);
+		pane.add(searchTF);
 		
 		// Screen positioning
 		backToMain.setBounds(350, 50, 100, 75);
+		searchDB.setBounds(350, 60, 100, 75);
 		scrollPane.setBounds(350, 250, 200, 200);
 		backToMain.setBounds(350, 500, 160, 75);
+		searchTF.setBounds(375, 60, 100, 75);
 		
 		return pane;
 	}
@@ -187,6 +193,10 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		if (b == backToMain) {
 			mainScreenUI.createAndShowGUI();
 			dispose();
+		}
+		if (b == searchDB){
+			ArrayList<String> newtable = controller.searchDB(searchTF.getText());
+			//update shown table 
 		}
 	}
 	
