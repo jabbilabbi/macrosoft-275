@@ -239,8 +239,8 @@ public class BrowseUI3 extends JFrame implements ActionListener  {
 		addComponentsToPane(getContentPane());
 		// Size and display the window
 		//Insets insets = getInsets();
-		setLocationRelativeTo(null);
 		setSize(720, 540);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
 		windowLookAndFeel();
