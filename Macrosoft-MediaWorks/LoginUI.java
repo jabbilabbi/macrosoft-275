@@ -310,8 +310,8 @@ public class LoginUI extends JFrame implements ActionListener {
 	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		// Creates an instance of the UI controller
-		controller = new ControllerClass(); 
-		
+		controller = new ControllerClass();
+
 		// Create and set up the window
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -330,59 +330,60 @@ public class LoginUI extends JFrame implements ActionListener {
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 		controller.loadLoginDatabase(); // Loads the Login DB
-		
+
 		Boolean fieldsComplete = true;
 		String usernameEntered = String.valueOf(usernameTB.getText());
 		String passwordEntered = String.valueOf(passwordTB.getPassword());
-		//Stores the current username
-		String tempUser = usernameTB.getText(); 
+		// Stores the current username
+		String tempUser = usernameTB.getText();
 		String secretAnswer = String.valueOf(secretAnswerTB.getText());
-		
-		int user_result = controller.checkLogin(usernameEntered, passwordEntered);
-		
+
+		int user_result = controller.checkLogin(usernameEntered,
+				passwordEntered);
+
 		// Case where button pressed was 'Forgot your Password'
 		if (e.getActionCommand().equals("Forgot your Password")) {
 			// Case where username is in DB
 			if (controller.checkIfUserExists(tempUser)) {
 				// Turns off error messages
-				dynamicLabel.setVisible(false); 
+				dynamicLabel.setVisible(false);
 				// Turns on forgot password panel
-				forgotPasswordPanel.setVisible(true); 
-				// Gets secret question from DB					
-				secretQuestionContentLabel
-						.setText(controller.getSecretInfo(tempUser)[0]);
+				forgotPasswordPanel.setVisible(true);
+				// Gets secret question from DB
+				secretQuestionContentLabel.setText(controller
+						.getSecretInfo(tempUser)[0]);
 			}
 			// Case where username is not in DB
-			else{
+			else {
 				dynamicText = "That username is not found, please enter a valid username";
 				dynamicLabel.setText(dynamicText);
 				// Shows relevant error
-				dynamicLabel.setVisible(true); 
+				dynamicLabel.setVisible(true);
 				forgotPasswordPanel.setVisible(false);
 			}
-			
+
 		}
-				// Case where Answer button was hit
-				if (e.getActionCommand().equals("Answer")) {
-					// Case where correct Answer is given					
-					if (controller.getSecretInfo(tempUser)[1].equals(secretAnswer)) {
-						// Turns off the forgot password panel
-						forgotPasswordPanel.setVisible(false);
-						// Password is printed for user
-						dynamicText = "Your password is: "
-								+ controller.getPassword(tempUser); 
-						// Password is set to label
-						dynamicLabel.setText(dynamicText); 
-						// Password is displayed for user
-						dynamicLabel.setVisible(true); 
-					}
-					// Case where correct Answer is not given
-					else {
-						// Error message for user
-						dynamicText = "Incorrect secret question answer, try again";
-						dynamicLabel.setText(dynamicText);
-						dynamicLabel.setVisible(true);
-					}
+		// Case where Answer button was hit
+		if (e.getActionCommand().equals("Answer")) {
+			// Case where correct Answer is given
+			if (controller.getSecretInfo(tempUser)[1].equals(secretAnswer)) {
+				// Turns off the forgot password panel
+				forgotPasswordPanel.setVisible(false);
+				// Password is printed for user
+				dynamicText = "Your password is: "
+						+ controller.getPassword(tempUser);
+				// Password is set to label
+				dynamicLabel.setText(dynamicText);
+				// Password is displayed for user
+				dynamicLabel.setVisible(true);
+			}
+			// Case where correct Answer is not given
+			else {
+				// Error message for user
+				dynamicText = "Incorrect secret question answer, try again";
+				dynamicLabel.setText(dynamicText);
+				dynamicLabel.setVisible(true);
+			}
 
 		}
 		// Case where button pressed was the Login button
@@ -422,7 +423,7 @@ public class LoginUI extends JFrame implements ActionListener {
 			if ((user_result == 1) && (fieldsComplete == true)) {
 				// Removes releavnt error
 				dynamicLabel.setVisible(false);
-				
+
 				controller.recordCurrentUser(usernameEntered);
 				controller.mainScreenFrame();
 				// Disposes of current frame
@@ -439,7 +440,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		// Case where button pressed was Create an Account
 		if (e.getActionCommand().equals("Create an Account")) {
 			// Load nwe frame for Create an Account
-			controller.createAccountFrame(); 
+			controller.createAccountFrame();
 			// Throws out current frame
 			dispose();
 		}
