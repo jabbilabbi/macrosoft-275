@@ -115,7 +115,6 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		
 		// Create and set up the window
 		windowLookAndFeel();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Media Works - Description");
 		setResizable(false);
 		add(componentSetup());

@@ -198,6 +198,13 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		controller.createUserDatabaseFile();
 		
+		// If backToMain button is pressed
+		if (e.getActionCommand().equals("Back to Main")) {
+			// Goes back to main screen
+			controller.mainScreenFrame();
+			dispose();
+		}
+		
 		int selected_index = (int) mediaTypeSelected.getSelectedIndex();
 
 			// If mediaTypeSelected is changed these actions occur
@@ -255,13 +262,6 @@ public class AddScreenUI extends JFrame implements ActionListener{
 					CDsSelected.genreField.setText("");
 					CDsSelected.descriptionTextArea.setText("");
 				}
-			}
-			
-			// If backToMain button is pressed
-			if (e.getActionCommand().equals("Back to Main")) {
-				// Goes back to main screen
-				controller.mainScreenFrame();
-				dispose();
 			}
 
 		}
