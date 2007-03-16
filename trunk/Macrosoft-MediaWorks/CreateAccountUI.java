@@ -160,10 +160,9 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.LINE_AXIS));
 		btnPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		btnPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-
-		btnPanel.add(createAccountBtn);
 		btnPanel.add(backToLoginBtn);
-		
+		btnPanel.add(createAccountBtn);
+	
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.PAGE_AXIS));
 		bodyPanel.setAlignmentX(Component.CENTER_ALIGNMENT);

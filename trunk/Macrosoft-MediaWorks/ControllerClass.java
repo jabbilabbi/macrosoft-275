@@ -28,7 +28,6 @@ public class ControllerClass implements Serializable{
 		this.html = new HTMLOutput();
 		this.sdb = new SecurityControl();
 		this.cdb = new DatabaseControl();
-		loadMediaDatabase();
 	}
 	
 	public void recordCurrentUser(String currentUser){
