@@ -23,15 +23,12 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	// Initalizes variables
 	private String artist, title, genre, description;
 	private Boolean check_add;
-
-	
 	private final String CDs = "CDs";
 	private final String UNSELECTED = "unselected";
-	
 	final private Dimension PANEL_SIZE = new Dimension(600,250);
-
 	private CDsPanel CDsSelected = new CDsPanel(PANEL_SIZE);
 	
+	// Initializes a ControllerClass instance
 	private ControllerClass controller;
 	
 	// Purpose: Add all components of the pane into the correct locations and with correct functions
@@ -131,9 +128,9 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	}	
 	
 	public void createAndShowGUI() {
-		controller = new ControllerClass(); // Creates an
-											// instance of the
-											// UI controller
+		// Creates an instance of the controller class
+		controller = new ControllerClass(); 
+
 		// Create and set up the window
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -177,7 +174,10 @@ public class AddScreenUI extends JFrame implements ActionListener{
 		description = CDsSelected.descriptionTextArea.getText();
 
 	}
-
+	
+	// PURPOSE:Changes the main panel of the add screen
+	// PRE: An int value from the combo box selected item
+	// POST: The card layout will show the desired panel selected from the combo boc
 	public void changePanel(int PanelID){
 		CardLayout cl = (CardLayout)(addSetup.getLayout());
 		switch(PanelID){

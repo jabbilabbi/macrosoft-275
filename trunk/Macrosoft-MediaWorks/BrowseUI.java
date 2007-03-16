@@ -130,8 +130,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
             ListSelectionModel colSM =
                 table.getColumnModel().getSelectionModel();
             colSM.addListSelectionListener(new ListSelectionListener() {
-            	
-            	
                 public void valueChanged(ListSelectionEvent e) {
                     // Ignore extra messages.
                     if (e.getValueIsAdjusting()) return;
@@ -141,7 +139,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     
                         if (selectedCol == 3) {
                         	description = new DescriptionUI(selectedRow);
-                   
                         }
                     }
                 
