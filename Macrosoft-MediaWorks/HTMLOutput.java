@@ -35,7 +35,7 @@ public class HTMLOutput {
 				"<td width=200 bgcolor=white><b><font size=4>Description</font></b></td></tr>";
 		
 		// Cycle through media library and create HTML rows as needed
-		for (int i = 0; i < controller.getRowsNeeded()/2; i++) {
+		for (int i = 0; i < controller.getRowsNeeded(); i++) {
 			// Get row information
 			String[] rowElements = controller.getLibraryRow(i);
 			// Start a table row
