@@ -155,6 +155,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		backToMain = new JButton("Back to Main");
 		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
+		backToMain.setPreferredSize(new Dimension(160, 75));
+		backToMain.setMaximumSize(new Dimension(160, 75));
 		c.gridx = 0; // Lays out component at grid x coordinate 0
 		c.gridy = 2; // Lays out component at grid y coordinate 0
 		c.gridwidth = 1;	// Number of coumns the component is spanning
@@ -164,8 +166,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
 							// placed within adjacent rows
 		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
-		insets = new Insets(20, 20, 20, 20);	//Padding around component
-		backToMain.setMargin(insets);
 		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		pane.add(backToMain, c);
 	}

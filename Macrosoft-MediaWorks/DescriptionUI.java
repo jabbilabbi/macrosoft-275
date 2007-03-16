@@ -69,13 +69,13 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		pane.add(Box.createRigidArea(new Dimension(0,25)));
 		pane.add(borderedPanel);
 		
-		closeBtn = new JButton("close");
+		closeBtn = new JButton("Close");
 		dim = closeBtn.getPreferredSize();
 		closeBtn.setMinimumSize(dim);
 		closeBtn.setMaximumSize(dim);
 		closeBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		closeBtn.setAlignmentY(Component.TOP_ALIGNMENT);
-		closeBtn.setActionCommand("close");
+		closeBtn.setActionCommand("Close");
 		closeBtn.addActionListener(this);
 		
 		
@@ -128,11 +128,11 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	// PRE: Valid action event as param
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("close")){
+		if(e.getActionCommand().equals("Close")){
 			dispose();
 		}
 
-		}
+	}
 	public JPanel labels(){
 		JPanel labels = new JPanel();
 		labels.setLayout(new BoxLayout(labels, BoxLayout.PAGE_AXIS));
