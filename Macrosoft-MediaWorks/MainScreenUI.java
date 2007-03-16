@@ -117,6 +117,9 @@ public class MainScreenUI extends JFrame implements ActionListener{
 
 	}
 	
+	// Purpose: Set the look and feel of the window
+	// PRE: None
+	// POST: Sets the window look and feel to the system look and feel
 	public static void windowLookAndFeel(){
 	    try{
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -125,10 +128,12 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	    }
 	}	
 	
+	
+	
 	public void createAndShowGUI() {
-		controller = new ControllerClass(); // Creates an
-											// instance of the
-											// UI controller
+		// Creates an instance of the UI controller
+		controller = new ControllerClass();
+
 		// Create and set up the window
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,17 +150,20 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	// PRE: Valid action event as param
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
-
+		
+		// Actions if Add Media button is pressed
 		if (e.getActionCommand().equals("Add Media")){
 			controller.addScreenFrame();
 			dispose();
 			
 		}
+		// Actions if Browse Media button is pressed
 		if (e.getActionCommand().equals("Browse Media")){
 			controller.browseFrame();
 			dispose();
 			
 		}
+		// Actions if Create HTML button is pressed
 		if (e.getActionCommand().equals("Create HTML")){
 			controller.createHTMLOutput();
 			createdHTMLLabel.setText("HTML successfully created");
