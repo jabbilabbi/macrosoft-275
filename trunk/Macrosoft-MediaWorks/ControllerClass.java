@@ -1,12 +1,6 @@
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.awt.*;
-import javax.swing.*;
 
-import java.awt.event.*;
-
-public class ControllerClass implements Serializable{
+public class ControllerClass{
 
 	private AddScreenUI addScreenUI;
 	private BrowseUI browseUI;
@@ -16,8 +10,8 @@ public class ControllerClass implements Serializable{
 	private SecurityControl sdb;
 	private DatabaseControl cdb;
 	private HTMLOutput html;
-	protected String user;
-	private Object[] UIs;
+	private static String currentUser;
+
 	
 	public ControllerClass(){
 		this.addScreenUI = new AddScreenUI();
@@ -106,7 +100,15 @@ public class ControllerClass implements Serializable{
 		mainScreenUI.createAndShowGUI();
 	}
 	
-	private static void main(String[] args) {
+	public void setCurrentUser(String currentUser){
+		this.currentUser = currentUser;
+	}
+	
+	public String getCurrentUser(){
+		return currentUser;
+	}
+	
+	public static void main(String[] args) {
 		ControllerClass control = new ControllerClass();
 		control.loginUI.createAndShowGUI();	
 	}
