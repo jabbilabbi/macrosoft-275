@@ -10,27 +10,20 @@ public class ControllerClass{
 	private SecurityControl sdb;
 	private DatabaseControl cdb;
 	private HTMLOutput html;
-	private static String currentUser;
+	public static String currentUser = "currentUser";
 
 	
 	public ControllerClass(){
-		this.addScreenUI = new AddScreenUI();
-		this.browseUI = new BrowseUI();
-		this.createAccountUI = new CreateAccountUI();
-		this.loginUI = new LoginUI();
-		this.mainScreenUI = new MainScreenUI();
-		this.html = new HTMLOutput();
-		this.sdb = new SecurityControl();
-		this.cdb = new DatabaseControl();
-	}
-	
-	public void recordCurrentUser(String currentUser){
-		sdb.recordCurrentUser(currentUser);
+		addScreenUI = new AddScreenUI();
+		browseUI = new BrowseUI();
+		createAccountUI = new CreateAccountUI();
+		loginUI = new LoginUI();
+		mainScreenUI = new MainScreenUI();
+		html = new HTMLOutput();
+		sdb = new SecurityControl();
+		cdb = new DatabaseControl();
 	}
 
-	public String retrieveCurrentUser(){
-		return sdb.retrieveCurrentUser();
-	}
 	public void loadMediaDatabase(){
 		cdb.loadMediaDatabase();
 	}
@@ -104,7 +97,7 @@ public class ControllerClass{
 		this.currentUser = currentUser;
 	}
 	
-	public String getCurrentUser(){
+	public static String getCurrentUser(){
 		return currentUser;
 	}
 	

@@ -19,62 +19,6 @@ public class SecurityControl {
 	// Storage for user account database
 	private String fname = "logins.txt";
 
-	// PURPOSE: Delete file containing the name of the current user
-	// PRE: None
-	// POST: current.txt is deleted
-
-	public void deleteCurrentUser() {
-		// Open file
-		File userFile = new File("current.txt");
-		// Perform deletion
-		userFile.delete();
-	}
-
-	// PURPOSE: Retrieve name of current user logged in to program
-	// PRE: None
-	// POST: A String is returned with the name of the currently logged in user
-
-	public String retrieveCurrentUser() {
-
-		// Temporary variable for username
-		String userLoggedIn = "";
-
-		try {
-			// Use a BufferedReader to check the current.txt file
-			BufferedReader in = new BufferedReader(
-					new FileReader("current.txt"));
-			// Read user name
-			userLoggedIn = in.readLine();
-			in.close();
-		} catch (IOException ioe) {
-		}
-		// Return result
-		return userLoggedIn;
-	}
-
-	// PURPOSE: Record name of currently logged in user to a file; allows
-	// username to be read by
-	// other classes
-	// PRE: A String containing the currently logged in user's name
-	// POST: A file named "current.txt" is written in the current directory
-	// containing the user's name
-
-	public void recordCurrentUser(String currentUser) {
-		try {
-			// Delete previous user
-			deleteCurrentUser();
-			BufferedWriter bw = null;
-			// Set up BufferedWriter to be used for writing
-			bw = new BufferedWriter(new FileWriter("current.txt", true));
-			// Write username to file
-			bw.write(currentUser);
-			// Clear BufferedWriter after writing is complete
-			bw.flush();
-			bw.close();
-		} catch (IOException ioe) {
-		}
-	}
-
 	// Constructor
 	public SecurityControl() {
 	}

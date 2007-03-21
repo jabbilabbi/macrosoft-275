@@ -133,7 +133,6 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	public void createAndShowGUI() {
 		// Creates an instance of the UI controller
 		controller = new ControllerClass();
-
 		// Create and set up the window
 		windowLookAndFeel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
