@@ -13,22 +13,16 @@ public class LoginUI extends JFrame implements ActionListener {
 	// Declarations of UI Elements
 	private JButton createAccountBtn, loginBtn, forgotPasswordBtn,
 			checkAnswerBtn;
-
 	private JTextField usernameTB, secretAnswerTB;
-
 	private JPasswordField passwordTB;
-
 	private JLabel usernameLabel, passwordLabel, loginLabel, dynamicLabel,
 			title, secretQuestionLabel, secretAnswerLabel,
 			secretQuestionContentLabel;
-
 	private String dynamicText;
-
 	private Dimension dim;
-
 	private JPanel forgotPasswordPanel;
-
 	private ControllerClass controller;
+	private String currentUser;
 
 	// Purpose: Add all components of the pane into the correct locations and
 	// with correct functions
@@ -423,8 +417,8 @@ public class LoginUI extends JFrame implements ActionListener {
 			if ((user_result == 1) && (fieldsComplete == true)) {
 				// Removes releavnt error
 				dynamicLabel.setVisible(false);
-
-				controller.recordCurrentUser(usernameEntered);
+				currentUser = usernameEntered;
+				controller.setCurrentUser(currentUser);
 				controller.mainScreenFrame();
 				// Disposes of current frame
 				dispose();

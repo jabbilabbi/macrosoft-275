@@ -17,7 +17,7 @@ public class HTMLOutput {
 		ControllerClass controller = new ControllerClass();
 		controller.loadMediaDatabase();
 		// Get current user
-		String currentUser = controller.retrieveCurrentUser();
+		String currentUser = controller.currentUser;
 		// Name of web page to be created; will have same name as current user
 		String pageToCreate = currentUser + ".htm";
 		

@@ -20,14 +20,14 @@ public class DatabaseControl {
 	private ArrayList<String> mediaItems = new ArrayList<String>();
 
 	// Allow access of retrieveCurrentUser function
-	private SecurityControl sdb = new SecurityControl();
+	private ControllerClass controller;
 
 	// Storage for media entry database
-	private String fname;
+	private static String fname;
 
-	// Used for testing
-	public String getFname() {
-		return fname;
+	// Constructor
+	public DatabaseControl() {
+		fname = controller.getCurrentUser() + ".txt";
 	}
 
 	// PURPOSE: Create a database file for a given user; used to store media
@@ -37,12 +37,11 @@ public class DatabaseControl {
 
 	public void createUserDatabaseFile() {
 		// Database file name will consist of user name and .txt
-		String userDatabaseToCreate = sdb.retrieveCurrentUser() + ".txt";
 
 		try {
 			BufferedWriter bw = null;
 			// Set up BufferedWriter to be used for writing
-			bw = new BufferedWriter(new FileWriter(userDatabaseToCreate, true));
+			bw = new BufferedWriter(new FileWriter(fname, true));
 			// Create an empty file
 			bw.write("");
 			// Clear BufferedWriter after appending is complete
@@ -52,26 +51,12 @@ public class DatabaseControl {
 		}
 	}
 
-	// Update file name based on user name
-	// PRE: None
-	// POST: fname is updated to reflect current user of the program
-	public void updateFileName() {
-		// A text file is used with the same name as the person logged in
-		fname = sdb.retrieveCurrentUser() + ".txt";
-	}
-
-	// Constructor
-	public DatabaseControl() {
-
-	}
-
 	// Load database of media entries into an HashSet, allowing them to be read
 	// when displaying
 	// user's media library
 	// PRE: The filename of the media database
 	// POST: The media database is loaded into an ArrayList
 	public void loadMediaDatabase() {
-		updateFileName();
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			// Read first line
@@ -115,8 +100,6 @@ public class DatabaseControl {
 			String description) {
 
 		BufferedWriter bw = null;
-		// Ensure file name is current
-		updateFileName();
 
 		// Join media data elements
 		String lineToSave = title + " ::: " + artist + " ::: " + genre
