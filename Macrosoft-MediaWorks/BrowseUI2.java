@@ -298,7 +298,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 //		Create and set up the content pane.
-        BrowseUI3 newContentPane = new BrowseUI3();
+        BrowseUI2 newContentPane = new BrowseUI2();
         //newContentPane.setOpaque(true); //content panes must be opaque
         setContentPane(newContentPane);
 		
