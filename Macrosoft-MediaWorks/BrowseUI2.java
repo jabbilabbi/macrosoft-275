@@ -300,7 +300,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 //		Create and set up the content pane.
         BrowseUI2 newContentPane = new BrowseUI2();
         //newContentPane.setOpaque(true); //content panes must be opaque
-        setContentPane(newContentPane);
+        //setContentPane(newContentPane);
 		
 		// Set up the content pane.
 		//addComponentsToPane(getContentPane());//OLD
