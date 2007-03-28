@@ -24,14 +24,14 @@ public class ControllerClass{
 		cdb = new DatabaseControl();
 	}
 
-	public void loadMediaDatabase(){
-		cdb.loadMediaDatabase();
+	public void loadMediaDatabase(ArrayList<String> dbType){
+		cdb.loadMediaDatabase(dbType);
 	}
-	public int getRowsNeeded(){
-		return cdb.getRowsNeeded();
+	public int getRowsNeeded(ArrayList<String> dbType){
+		return cdb.getRowsNeeded(dbType);
 	}
-	public String[] getLibraryRow(int i){
-		return cdb.getLibraryRow(i);
+	public String[] getLibraryRow(ArrayList<String> dbType, int i){
+		return cdb.getLibraryRow(dbType, i);
 	}
 	
 	public void createHTMLOutput(){
@@ -49,8 +49,8 @@ public class ControllerClass{
 		return sdb.checkLogin(username, password);
 	}
 	
-	public void appendMediaDatabase(String title, String artist, String genre, String description){
-		cdb.appendMediaDatabase(title, artist, genre, description);
+	public void appendMediaDatabase(ArrayList<String> dbType, String[] rowElements){
+		cdb.appendMediaDatabase(dbType, rowElements);
 	}
 	
 	public void createUserDatabaseFile(){
