@@ -28,18 +28,28 @@ public class CDsPanel extends JPanel{
 		setPreferredSize(PANEL_SIZE);
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		
+		JPanel leftPanelCombine = new JPanel();
+		leftPanelCombine.setAlignmentX(Component.LEFT_ALIGNMENT);
+		leftPanelCombine.setAlignmentY(Component.TOP_ALIGNMENT);
+		leftPanelCombine.setPreferredSize(PANEL_SIZE);
+		leftPanelCombine.setLayout(new BoxLayout(leftPanelCombine, BoxLayout.LINE_AXIS));
+		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		leftPanelCombine.add(labels());
+		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		leftPanelCombine.add(fields());
+		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		
+		JPanel leftPanel = new JPanel();
+		leftPanel.setPreferredSize(PANEL_SIZE);
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		leftPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		leftPanel.add(leftPanelCombine);
+	
 		JPanel combine = new JPanel();
 		combine.setPreferredSize(PANEL_SIZE);
 		combine.setLayout(new BoxLayout(combine, BoxLayout.LINE_AXIS));
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(labels());
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(fields());
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(errors());
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(ratings());
-		
+		combine.add(leftPanel);
+
 		add(combine);
 		
 	}
@@ -76,13 +86,12 @@ public class CDsPanel extends JPanel{
 		descriptionLabel.setSize(dim);	
 
 		// Adds labels to panel
-		labels.add(Box.createRigidArea(new Dimension(0,15)));
 		labels.add(titleLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,17)));
+		labels.add(Box.createRigidArea(new Dimension(0,27)));
 		labels.add(artistLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,19)));
+		labels.add(Box.createRigidArea(new Dimension(0,27)));
 		labels.add(genreLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,21)));
+		labels.add(Box.createRigidArea(new Dimension(0,27)));
 		labels.add(descriptionLabel);
 		labels.add(Box.createRigidArea(new Dimension(0,67)));
 		
@@ -104,16 +113,22 @@ public class CDsPanel extends JPanel{
 		titleField = new JTextField(20);
 		titleField.setMinimumSize(fieldSize);
 		titleField.setMaximumSize(fieldSize);
+		titleField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		titleField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		artistField = new JTextField(20);
 		artistField.setSize(artistField.getMinimumSize());
 		artistField.setMinimumSize(fieldSize);
 		artistField.setMaximumSize(fieldSize);
+		artistField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		artistField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		genreField = new JTextField(20);
 		genreField.setSize(genreField.getMinimumSize());
 		genreField.setMinimumSize(fieldSize);
 		genreField.setMaximumSize(fieldSize);
+		genreField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		genreField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		// Sets up a Label area
 		descriptionTextArea = new JTextArea(5, 20);
@@ -128,64 +143,45 @@ public class CDsPanel extends JPanel{
 		Dimension areaSize = new Dimension(180,80);
 		descriptionPane.setMinimumSize(areaSize);
 		descriptionPane.setMaximumSize(areaSize);
-		
+		descriptionPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		descriptionPane.setAlignmentY(Component.TOP_ALIGNMENT);
 
+		// Sets up the error labels
+		enterTitleLabel = new JLabel(" ");
+		enterTitleLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterTitleLabel.setForeground(Color.red);
+		enterTitleLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		enterTitleLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		enterArtistLabel = new JLabel(" ");
+		enterArtistLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterArtistLabel.setForeground(Color.red);
+		enterArtistLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		enterArtistLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		enterGenreLabel = new JLabel(" ");
+		enterGenreLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterGenreLabel.setForeground(Color.red);
+		enterGenreLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		enterGenreLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		
 		// Adds the Label fields to the panel
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
 		fields.add(titleField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
+		fields.add(enterTitleLabel);
+		fields.add(Box.createRigidArea(new Dimension(0,10)));
 		fields.add(artistField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
+		fields.add(enterArtistLabel);
+		fields.add(Box.createRigidArea(new Dimension(0,10)));
 		fields.add(genreField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
+		fields.add(enterGenreLabel);
+		fields.add(Box.createRigidArea(new Dimension(0,10)));
 		fields.add(descriptionPane);
 		fields.add(Box.createRigidArea(new Dimension(0,50)));
 		
 		return fields;
 	}
 	
-	// Purpose: Put all the error messages in one panel
-	// PRE: None
-	// POST: Returns a JPanel with error messages in it
-	public JPanel errors(){
-		// Sets up the panel
-		errors = new JPanel();
-		errors.setLayout(new BoxLayout(errors, BoxLayout.PAGE_AXIS));
-		errors.setAlignmentX(Component.LEFT_ALIGNMENT);
-		errors.setAlignmentY(Component.TOP_ALIGNMENT);
-
-		// Sets up the error labels
-		enterTitleLabel = new JLabel(" ");
-		enterTitleLabel.setMinimumSize(new Dimension(105, 10));
-		enterTitleLabel.setPreferredSize(new Dimension(105, 10));
-		enterTitleLabel.setMaximumSize(new Dimension(105, 10));
-		enterTitleLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterTitleLabel.setForeground(Color.red);
-		
-		enterArtistLabel = new JLabel(" ");
-		enterArtistLabel.setMinimumSize(new Dimension(105, 10));
-		enterArtistLabel.setPreferredSize(new Dimension(105, 10));
-		enterArtistLabel.setMaximumSize(new Dimension(105, 10));
-		enterArtistLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterArtistLabel.setForeground(Color.red);
-	
-		enterGenreLabel = new JLabel(" ");
-		enterGenreLabel.setMinimumSize(new Dimension(105, 10));
-		enterGenreLabel.setPreferredSize(new Dimension(105, 10));
-		enterGenreLabel.setMaximumSize(new Dimension(105, 10));
-		enterGenreLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterGenreLabel.setForeground(Color.red);
-		
-		// Adds the error labels to the panel
-		errors.add(Box.createRigidArea(new Dimension(0,21)));
-		errors.add(enterTitleLabel);
-		errors.add(Box.createRigidArea(new Dimension(0,25)));
-		errors.add(enterArtistLabel);
-		errors.add(Box.createRigidArea(new Dimension(0,25)));
-		errors.add(enterGenreLabel);
-		
-		return errors;
-	}
 	
 	// Purpose: Create a combo box with ratings from 1-5
 	// PRE: None
@@ -194,8 +190,7 @@ public class CDsPanel extends JPanel{
 		// Sets up the panel
 		rating = new JPanel();
 		rating.setLayout(new BoxLayout(rating, BoxLayout.LINE_AXIS));
-		rating.setAlignmentX(Component.LEFT_ALIGNMENT);
-		rating.setAlignmentY(Component.TOP_ALIGNMENT);
+
 
 		ratingLabel = new JLabel("Select a rating:");
 		ratingLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
@@ -265,7 +260,6 @@ public class CDsPanel extends JPanel{
 		enterTitleLabel.setText(" ");
 		enterArtistLabel.setText(" ");
 		enterGenreLabel.setText(" ");
-		ratings.setSelectedIndex(0);
 	}
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
