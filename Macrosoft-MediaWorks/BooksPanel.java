@@ -1,26 +1,26 @@
 import javax.swing.*;
 
 import java.awt.*;
-public class CDsPanel extends JPanel{
+public class BooksPanel extends JPanel{
 
 	// Initialize variables
 	public JTextField titleField, artistField, genreField;
 	public JTextArea descriptionTextArea;
 
-	private JLabel titleLabel, artistLabel, genreLabel, ratingLabel;
-	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
+	private JLabel titleLabel, authorLabel, genreLabel, ratingLabel;
+	protected JLabel enterTitleLabel, enterAuthorLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
 	public JPanel labels, fields, errors, rating, ratingSpacing;
 	public JComboBox ratings;
-	private Dimension dim;
 	protected Boolean checkAdd;
+	private Dimension dim;
 	
-	public CDsPanel(){}
+	public BooksPanel(){}
 	
 	// Purpose: Constructer to set up and view the panel
 	// PRE: Valid Dimension
 	// POST: Creates a panel
-	public CDsPanel(Dimension PANEL_SIZE){
+	public BooksPanel(Dimension PANEL_SIZE){
 		//Sets the look and Feel of the panel
 		panelLookAndFeel();
 		
@@ -60,10 +60,10 @@ public class CDsPanel extends JPanel{
 		dim = titleLabel.getPreferredSize();
 		titleLabel.setSize(dim);
 
-		artistLabel = new JLabel("Enter an artist:");
-		artistLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = artistLabel.getPreferredSize();
-		artistLabel.setSize(dim);
+		authorLabel = new JLabel("Enter an author:");
+		authorLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		dim = authorLabel.getPreferredSize();
+		authorLabel.setSize(dim);
 		
 		genreLabel = new JLabel("Enter a genre:");
 		genreLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
@@ -79,7 +79,7 @@ public class CDsPanel extends JPanel{
 		labels.add(Box.createRigidArea(new Dimension(0,15)));
 		labels.add(titleLabel);
 		labels.add(Box.createRigidArea(new Dimension(0,17)));
-		labels.add(artistLabel);
+		labels.add(authorLabel);
 		labels.add(Box.createRigidArea(new Dimension(0,19)));
 		labels.add(genreLabel);
 		labels.add(Box.createRigidArea(new Dimension(0,21)));
@@ -162,12 +162,12 @@ public class CDsPanel extends JPanel{
 		enterTitleLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		enterTitleLabel.setForeground(Color.red);
 		
-		enterArtistLabel = new JLabel(" ");
-		enterArtistLabel.setMinimumSize(new Dimension(105, 10));
-		enterArtistLabel.setPreferredSize(new Dimension(105, 10));
-		enterArtistLabel.setMaximumSize(new Dimension(105, 10));
-		enterArtistLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterArtistLabel.setForeground(Color.red);
+		enterAuthorLabel = new JLabel(" ");
+		enterAuthorLabel.setMinimumSize(new Dimension(105, 10));
+		enterAuthorLabel.setPreferredSize(new Dimension(105, 10));
+		enterAuthorLabel.setMaximumSize(new Dimension(105, 10));
+		enterAuthorLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterAuthorLabel.setForeground(Color.red);
 	
 		enterGenreLabel = new JLabel(" ");
 		enterGenreLabel.setMinimumSize(new Dimension(105, 10));
@@ -180,7 +180,7 @@ public class CDsPanel extends JPanel{
 		errors.add(Box.createRigidArea(new Dimension(0,21)));
 		errors.add(enterTitleLabel);
 		errors.add(Box.createRigidArea(new Dimension(0,25)));
-		errors.add(enterArtistLabel);
+		errors.add(enterAuthorLabel);
 		errors.add(Box.createRigidArea(new Dimension(0,25)));
 		errors.add(enterGenreLabel);
 		
@@ -232,7 +232,7 @@ public class CDsPanel extends JPanel{
 	// PRE: None
 	// POST: Sets the necessary JLabels to visible or not visible to notify the user
 	//		 which fields need to be completed
-	public Boolean checkCD() {
+	public Boolean checkBook() {
 		checkAdd = true;
 		if (titleField.getText().length() != 0) {
 			enterTitleLabel.setText(" ");
@@ -241,9 +241,9 @@ public class CDsPanel extends JPanel{
 			checkAdd = false;
 		}
 		if (artistField.getText().length() != 0) {
-			enterArtistLabel.setText(" ");
+			enterAuthorLabel.setText(" ");
 		} else {
-			enterArtistLabel.setText("Please enter an artist");
+			enterAuthorLabel.setText("Please enter an author");
 			checkAdd = false;
 		}
 		if (genreField.getText().length() != 0) {
@@ -257,13 +257,13 @@ public class CDsPanel extends JPanel{
 
 	}
 	
-	public void clearCDs(){
+	public void clearBooks(){
 		titleField.setText("");
 		artistField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
 		enterTitleLabel.setText(" ");
-		enterArtistLabel.setText(" ");
+		enterAuthorLabel.setText(" ");
 		enterGenreLabel.setText(" ");
 		ratings.setSelectedIndex(0);
 	}
