@@ -220,7 +220,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                     int selectedCol = lsm.getMinSelectionIndex();
                     
-                        if (selectedCol == 3) {
+                        if (selectedCol == 4) {
                         	description = new DescriptionUI(selectedRow);
                         }
                     }
@@ -230,7 +230,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         // Makes a scroll bar available if windows sized smaller than table size									
 		scrollPane = new JScrollPane(table); 				
-		scrollPane.setPreferredSize(new Dimension(600, 300));
+		scrollPane.setPreferredSize(new Dimension(655, 300));
 		// Add the scroll pane to this panel
 		pane.add(scrollPane, c); 
 		
@@ -276,7 +276,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		// Set up the content pane.
 		addComponentsToPane(getContentPane());
 		// Size and display the window
-		setSize(655, 575);
+		setSize(720, 585);
+		//setSize(655, 575);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
