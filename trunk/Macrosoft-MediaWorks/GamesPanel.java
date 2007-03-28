@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 import java.awt.*;
-public class CDsPanel extends JPanel{
+public class GamesPanel extends JPanel{
 
 	// Initialize variables
 	public JTextField titleField, artistField, genreField;
@@ -12,15 +12,15 @@ public class CDsPanel extends JPanel{
 	private JScrollPane descriptionPane;
 	public JPanel labels, fields, errors, rating, ratingSpacing;
 	public JComboBox ratings;
-	private Dimension dim;
 	protected Boolean checkAdd;
+	private Dimension dim;
 	
-	public CDsPanel(){}
+	public GamesPanel(){}
 	
 	// Purpose: Constructer to set up and view the panel
 	// PRE: Valid Dimension
 	// POST: Creates a panel
-	public CDsPanel(Dimension PANEL_SIZE){
+	public GamesPanel(Dimension PANEL_SIZE){
 		//Sets the look and Feel of the panel
 		panelLookAndFeel();
 		
@@ -228,11 +228,12 @@ public class CDsPanel extends JPanel{
 		return ratingSpacing;
 	}
 	
+	
 	// PURPOSE: To check if all the CD fields are complete
 	// PRE: None
 	// POST: Sets the necessary JLabels to visible or not visible to notify the user
 	//		 which fields need to be completed
-	public Boolean checkCD() {
+	public Boolean checkGame() {
 		checkAdd = true;
 		if (titleField.getText().length() != 0) {
 			enterTitleLabel.setText(" ");
@@ -257,7 +258,7 @@ public class CDsPanel extends JPanel{
 
 	}
 	
-	public void clearCDs(){
+	public void clearGames(){
 		titleField.setText("");
 		artistField.setText("");
 		genreField.setText("");
@@ -267,6 +268,7 @@ public class CDsPanel extends JPanel{
 		enterGenreLabel.setText(" ");
 		ratings.setSelectedIndex(0);
 	}
+	
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
 	// POST: Sets the panels look and feel to the system look and feel

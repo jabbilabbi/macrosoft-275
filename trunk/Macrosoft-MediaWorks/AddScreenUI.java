@@ -22,11 +22,20 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	
 	// Initalizes variables
 	private String artist, title, genre, description;
-	private Boolean check_add;
+	private int rating;
 	private final String CDs = "CDs";
+	private final String DVDs = "DVDs";
+	private final String Books = "Books";
+	private final String Games = "Games";
 	private final String UNSELECTED = "unselected";
+	private Boolean checkAdd;
 	final private Dimension PANEL_SIZE = new Dimension(600,250);
 	private CDsPanel CDsSelected = new CDsPanel(PANEL_SIZE);
+	private DVDsPanel DVDsSelected = new DVDsPanel(PANEL_SIZE);
+	private BooksPanel BooksSelected = new BooksPanel(PANEL_SIZE);
+	private GamesPanel GamesSelected = new GamesPanel(PANEL_SIZE);
+	
+	final private String[] MEDIA_COMBO_BOX = { "Choose here", "CD", "DVD", "Book", "Video Game" };
 	
 	// Initializes a ControllerClass instance
 	private ControllerClass controller;
@@ -39,13 +48,10 @@ public class AddScreenUI extends JFrame implements ActionListener{
 		JPanel pane = new JPanel();
 		// Absolute container positioning used
 		pane.setLayout(null);
-
-		// Variable declaration
-		String[] media_combo_box = { "Choose here", "CD" };
 		// declaration of pane components
 
 		// Combo boxes
-		mediaTypeSelected = new JComboBox(media_combo_box);
+		mediaTypeSelected = new JComboBox(MEDIA_COMBO_BOX);
 		mediaTypeSelected.setActionCommand("Media Select");
 		mediaTypeSelected.addActionListener(this);
 
@@ -81,7 +87,9 @@ public class AddScreenUI extends JFrame implements ActionListener{
 		addSetup.setPreferredSize(new Dimension(600, 250));
 		addSetup.add(new UnselectedPanel(PANEL_SIZE), UNSELECTED);
 		addSetup.add(CDsSelected, CDs);
-		
+		addSetup.add(DVDsSelected, DVDs);
+		addSetup.add(BooksSelected, Books);
+		addSetup.add(GamesSelected, Games);
 		
 		// Add components to the pane
 		pane.add(mediaTypeSelected);
@@ -142,39 +150,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-	
-
-	// PURPOSE: To check if all the CD fields are complete
-	// PRE: None
-	// POST: Sets the necessary JLabels to visible or not visible to notify the user
-	//		 which fields need to be completed
-	public void checkCD() {
-		if (CDsSelected.titleField.getText().length() != 0) {
-			title = CDsSelected.titleField.getText();
-			CDsSelected.enterTitleText.setText(" ");
-		} else {
-			CDsSelected.enterTitleText.setText("Please enter a title");
-			check_add = false;
-		}
-		if (CDsSelected.artistField.getText().length() != 0) {
-			artist = CDsSelected.artistField.getText();
-			CDsSelected.enterArtistText.setText(" ");
-		} else {
-			CDsSelected.enterArtistText.setText("Please enter an artist");
-			check_add = false;
-		}
-		if (CDsSelected.genreField.getText().length() != 0) {
-			genre = CDsSelected.genreField.getText();
-			CDsSelected.enterGenreText.setText(" ");
-		} else {
-			CDsSelected.enterGenreText.setText("Please enter a genre");
-			check_add = false;
-		}
-
-		description = CDsSelected.descriptionTextArea.getText();
-
-	}
-	
+		
 	// PURPOSE:Changes the main panel of the add screen
 	// PRE: An int value from the combo box selected item
 	// POST: The card layout will show the desired panel selected from the combo boc
@@ -187,6 +163,15 @@ public class AddScreenUI extends JFrame implements ActionListener{
 		case 1:
 			cl.show(addSetup, CDs);
 			break;
+		case 2:
+			cl.show(addSetup, DVDs);
+			break;
+		case 3:
+			cl.show(addSetup, Books);
+			break;
+		case 4:
+			cl.show(addSetup, Games);
+			break;
 		default:
 			break;
 		}
@@ -197,7 +182,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
 		controller.createUserDatabaseFile();
-		
+		checkAdd = false;
 		// If backToMain button is pressed
 		if (e.getActionCommand().equals("Back to Main")) {
 			// Goes back to main screen
@@ -219,13 +204,25 @@ public class AddScreenUI extends JFrame implements ActionListener{
 					changePanel(selected_index);
 					addedText.setVisible(false);
 					chooseMediaText.setVisible(false);
-					CDsSelected.titleField.setText("");
-					CDsSelected.artistField.setText("");
-					CDsSelected.genreField.setText("");
-					CDsSelected.descriptionTextArea.setText("");
-					CDsSelected.enterTitleText.setText(" ");
-					CDsSelected.enterArtistText.setText(" ");
-					CDsSelected.enterGenreText.setText(" ");
+					CDsSelected.clearCDs();
+					break;
+				case 2:
+					changePanel(selected_index);
+					addedText.setVisible(false);
+					chooseMediaText.setVisible(false);
+					DVDsSelected.clearDVDs();
+					break;
+				case 3:
+					changePanel(selected_index);
+					addedText.setVisible(false);
+					chooseMediaText.setVisible(false);
+					BooksSelected.clearBooks();
+					break;
+				case 4:
+					changePanel(selected_index);
+					addedText.setVisible(false);
+					chooseMediaText.setVisible(false);
+					GamesSelected.clearGames();
 					break;
 				default:
 					break;
@@ -235,8 +232,6 @@ public class AddScreenUI extends JFrame implements ActionListener{
 
 			// If add button is pressed
 			if (e.getActionCommand().equals("Add")) {
-				check_add = true;
-
 				// Checks which item is selected in the combo box and checks to make sure
 				// all the fields are filled in
 				switch (selected_index) {
@@ -245,22 +240,56 @@ public class AddScreenUI extends JFrame implements ActionListener{
 					chooseMediaText.setVisible(true);
 					break;
 				case 1:
-					checkCD();
+					if(CDsSelected.checkCD()){
+						title = CDsSelected.titleField.getText();
+						artist = CDsSelected.titleField.getText();
+						genre = CDsSelected.titleField.getText();
+						description = CDsSelected.titleField.getText();
+						rating = CDsSelected.ratings.getSelectedIndex();
+						checkAdd = true;
+					}
+					break;
+				case 2:
+					if(DVDsSelected.checkDVD()){
+						title = CDsSelected.titleField.getText();
+						artist = CDsSelected.titleField.getText();
+						genre = CDsSelected.titleField.getText();
+						description = CDsSelected.titleField.getText();
+						rating = CDsSelected.ratings.getSelectedIndex();
+						checkAdd = true;
+					}
+					break;
+				case 3:
+					if(BooksSelected.checkBook()){
+						title = CDsSelected.titleField.getText();
+						artist = CDsSelected.titleField.getText();
+						genre = CDsSelected.titleField.getText();
+						description = CDsSelected.titleField.getText();
+						rating = CDsSelected.ratings.getSelectedIndex();
+						checkAdd = true;
+					}
+					break;
+				case 4:
+					if(GamesSelected.checkGame()){
+						title = CDsSelected.titleField.getText();
+						artist = CDsSelected.titleField.getText();
+						genre = CDsSelected.titleField.getText();
+						description = CDsSelected.titleField.getText();
+						rating = CDsSelected.ratings.getSelectedIndex();
+						checkAdd = true;
+					}
 					break;
 				default:
 					break;
 				}
 
 
-				if ((check_add) && (selected_index != 0)) {
+				if ((checkAdd) && (selected_index != 0)) {
 					// Adds item to database and clears the text fields
 					controller.appendMediaDatabase(title, artist, genre, description);
 					addedText.setVisible(true);
 					mediaTypeSelected.setSelectedIndex(0);
-					CDsSelected.titleField.setText("");
-					CDsSelected.artistField.setText("");
-					CDsSelected.genreField.setText("");
-					CDsSelected.descriptionTextArea.setText("");
+					CDsSelected.clearCDs();
 				}
 			}
 
