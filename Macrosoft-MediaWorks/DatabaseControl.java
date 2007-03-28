@@ -17,19 +17,35 @@ import java.util.ArrayList;
 public class DatabaseControl {
 
 	// ArrayList to hold media database
-	private ArrayList<String> mediaItems = new ArrayList<String>();
+	private ArrayList<String> CDItems = new ArrayList<String>();
+	private ArrayList<String> DVDItems = new ArrayList<String>();
+	private ArrayList<String> BookItems = new ArrayList<String>();
+	private ArrayList<String> GameItems = new ArrayList<String>();
+	public static String currentUser = "currentUser";
 
 	// Allow access of retrieveCurrentUser function
-	private ControllerClass controller;
+	//private ControllerClass controller;
 
 	// Storage for media entry database
 	private static String fname;
 
 	// Constructor
 	public DatabaseControl() {
-		fname = controller.getCurrentUser() + ".txt";
+		updateFileName();
 	}
 
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	public void updateFileName() {
+		fname = currentUser + ".txt";
+	}
+	
+	public String getFileName() {
+		return this.fname;
+	}
+	
 	// PURPOSE: Create a database file for a given user; used to store media
 	// library entries
 	// PRE: None
@@ -51,12 +67,19 @@ public class DatabaseControl {
 		}
 	}
 
+	public void loadAllDatabases() {
+		loadMediaDatabase(CDItems);
+		loadMediaDatabase(DVDItems);
+		loadMediaDatabase(BookItems);
+		loadMediaDatabase(GameItems);
+	}
+	
 	// Load database of media entries into an HashSet, allowing them to be read
 	// when displaying
 	// user's media library
 	// PRE: The filename of the media database
 	// POST: The media database is loaded into an ArrayList
-	public void loadMediaDatabase() {
+	public void loadMediaDatabase(ArrayList<String> dbType) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			// Read first line
@@ -69,7 +92,7 @@ public class DatabaseControl {
 				mediaRowElements = mediaRow.split(" ::: ");
 				// Add items to ArrayList
 				for (int i = 0; i < mediaRowElements.length; i++) {
-					mediaItems.add(mediaRowElements[i]);
+					dbType.add(mediaRowElements[i]);
 				}
 				mediaRow = in.readLine();
 				// Continue reading database lines
@@ -86,25 +109,29 @@ public class DatabaseControl {
 	// PRE: None
 	// POST: Current ArrayList of media items is cleared and reloaded with
 	// entries in database file
-	public void reloadMediaDatabase() {
+	public void reloadMediaDatabase(ArrayList<String> dbType) {
 		// Clear current database
-		mediaItems.clear();
+		dbType.clear();
 		// Reload database from file
-		loadMediaDatabase();
+		loadMediaDatabase(dbType);
 	}
 
 	// Append media database with a new entry
 	// PRE: The filename of the media database, and the information to be added
 	// POST: Media database file is appended, and media database is reloaded
-	public void appendMediaDatabase(String title, String artist, String genre,
-			String description) {
+	public void appendMediaDatabase(ArrayList<String> dbType, String[] rowElements) {
 
 		BufferedWriter bw = null;
 
 		// Join media data elements
-		String lineToSave = title + " ::: " + artist + " ::: " + genre
-				+ " ::: " + description;
-
+		String lineToSave = "";
+		int i;
+		
+		for (i=0; i<rowElements.length-1; i++) {
+			lineToSave += rowElements[i] + " ::: ";
+		}
+		lineToSave += rowElements[i];
+		
 		try {
 			// Set up BufferedWriter to be used for appending
 			bw = new BufferedWriter(new FileWriter(fname, true));
@@ -120,24 +147,46 @@ public class DatabaseControl {
 		}
 
 		// Reload database in order to include appended media entry
-		reloadMediaDatabase();
+		reloadMediaDatabase(dbType);
 	}
 
+	public int getMediaIndex(ArrayList<String> dbType) {
+		int mediaIndex = 0;
+
+		System.out.println(this.CDItems);
+		if (dbType.get(0) == "CD") {
+			System.out.println("test");
+			mediaIndex = 4;
+		} else if (dbType.get(0) == "DVD"){
+			mediaIndex = 6;
+		} else if (dbType.get(0) == "Book") {
+			mediaIndex = 5;
+		} else if (dbType.get(0) == "Game") {
+			mediaIndex = 7;
+		}
+		System.out.println("yay");
+		return mediaIndex;
+	}
+	
 	// Return an array containing the four elements of the current database row
 	// PRE: The index (ArrayList position) of the current row
 	// POST: An array containing the elements of the current row is returned
 
-	public String[] getLibraryRow(int indexOfRow) {
+	public String[] getLibraryRow(ArrayList<String> dbType, int indexOfRow) {
 		// Determine index of current row; row 0 starts at index 0, row 1 starts
 		// at 4, row 2
 		// starts at 8, etc.
-		int currentIndex = indexOfRow + indexOfRow * 3;
+		int mediaIndex = getMediaIndex(dbType);
+		int currentIndex = 0;
+		
+		currentIndex = indexOfRow + indexOfRow * (mediaIndex - 1);
+		
 		// Create array to hold row elements
-		String mediaRowElements[] = new String[4];
+		String mediaRowElements[] = new String[mediaIndex];
 
 		// Fill array with name, artist, genre, and description of current row
-		for (int i = 0; i < 4; i++) {
-			mediaRowElements[i] = mediaItems.get(currentIndex + i);
+		for (int i = 0; i < mediaIndex; i++) {
+			mediaRowElements[i] = dbType.get(currentIndex + i);
 		}
 
 		// Return array containing row elements
@@ -148,9 +197,9 @@ public class DatabaseControl {
 	// PRE: None
 	// POST: Number of rows required is returned
 
-	public int getRowsNeeded() {
+	public int getRowsNeeded(ArrayList<String> dbType) {
 		// Number of rows needed is total items / items per row
-		int totalRows = mediaItems.size() / 4;
+		int totalRows = dbType.size() / getMediaIndex(dbType);
 		return totalRows;
 	}
 
@@ -170,7 +219,7 @@ public class DatabaseControl {
 	// POST: Media database file has last row deleted; media database is
 	// reloaded
 
-	public void deleteLastRow() {
+	public void deleteLastRow(ArrayList<String> dbType) {
 		try {
 			// Delete old database; will be remade with -1 rows
 			deleteDatabase();
@@ -179,12 +228,19 @@ public class DatabaseControl {
 			// Set up BufferedWriter
 			bw = new BufferedWriter(new FileWriter(fname, true));
 			// Cycle through already loaded media database
-			for (int i = 0; i < getRowsNeeded() - 1; i++) {
+			for (int i = 0; i < getRowsNeeded(dbType) - 1; i++) {
 				// Get current row
-				String[] currentRow = getLibraryRow(i);
+				String[] currentRow = getLibraryRow(dbType, i);
+				
 				// Join row elements
-				String rowToWrite = currentRow[0] + " ::: " + currentRow[1]
-						+ " ::: " + currentRow[2] + " ::: " + currentRow[3];
+				String rowToWrite = "";
+				int j;
+				
+				for (j=0; j<currentRow.length-2; j++) {
+					rowToWrite += currentRow[j] + " ::: ";
+				}
+				rowToWrite += currentRow[j+1];
+				
 				// Write current row
 				bw.write(rowToWrite);
 				bw.newLine();
