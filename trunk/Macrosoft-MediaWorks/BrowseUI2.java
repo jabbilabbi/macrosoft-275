@@ -47,7 +47,8 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
     DescriptionUI description;
     int selectedRow;
     Dimension windowSize = new Dimension(600, 500);
-    Dimension tableSize = new Dimension(600, 300);
+    int tableWidth = 600;
+    Dimension tableSize = new Dimension(tableWidth, 300);
     
 	// Purpose: To add and display components
 	// PRE: None
@@ -262,10 +263,10 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
       
         for (int i = 0; i < 7; i++) {
             column = table.getColumnModel().getColumn(i);
-            if (i == 2) {
-                column.setPreferredWidth(100); //sport column is bigger
+            if (( i == 0) || ( i == 6) ) {
+                column.setPreferredWidth(5); //sport column is bigger
             } else {
-                column.setPreferredWidth(50);
+                column.setPreferredWidth( (tableWidth-10)/5 );
             }
         }
     }
@@ -310,11 +311,11 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
           editor for each cell.  If we didn't implement this method,
           then the last column would contain text ("true"/"false"),
           rather than a check box.
-         
+         */
         public Class getColumnClass(int c) {
             return getValueAt(0, c).getClass();
         }
-        */
+        
         
         /*
          * Don't need to implement this method unless your table's
@@ -323,10 +324,10 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if (col < 2) {
-                return false;
-            } else {
+            if (col == 6) {
                 return true;
+            } else {
+                return false;
             }
         }
 
@@ -412,6 +413,13 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	}
 	
 	public void actionPerformed2(ActionEvent e) {
+		if (e.getActionCommand().equals("Search")) {
+			//controller. ;
+			//dispose();
+		}
+	}
+	
+	public void actionPerformed3(ActionEvent e) {
 		if (e.getActionCommand().equals("Delete")) {
 			//controller. ;
 			//dispose();
@@ -429,17 +437,3 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		});
 	}
 }
-
-/*
-import java.util.ArrayList;
-if (e.getSource().equals("Search Library")){
-	ArrayList<String> newtable = controller.searchDB(searchTF.getText());
-	// Update shown table 
-	for (int i = 0; i < newtable.size(); i++) {
-		String[] rowData = controller.getLibraryRow(i); // Holds a row of data from the database										
-		for (int j = 0; j < 4; j++)
-			// Assigns column data from a row to tableData
-			tableData[i][j] = rowData[j];
-	}
-}
-*/
