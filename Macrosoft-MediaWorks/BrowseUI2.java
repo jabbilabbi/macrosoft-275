@@ -94,7 +94,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridwidth = 3;	// Number of coumns the component is spanning
 		c.weightx = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent columns
 		c.weighty = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent rows
-		c.insets = new Insets(20, 243, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
+		c.insets = new Insets(20, 244, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
 		add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
 		
