@@ -20,11 +20,15 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+
+//import TableRenderDemo.MyTableModel;
 
 public class BrowseUI2 extends JFrame implements ActionListener  {
 
 	// Initalizes pane components
+	private static final long serialVersionUID = 1;
 	
 	private JLabel browseLibrary;
 	private JLabel displayLabel;
@@ -37,24 +41,18 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	private JScrollPane scrollPane;
 	private JButton backToMain;
 	
-	
 	// Initalizes variables
 	
-	// GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
-	final static boolean RIGHT_TO_LEFT = false; 
 	private boolean ALLOW_COLUMN_SELECTION = true;
     private boolean ALLOW_ROW_SELECTION = true;	
-    private boolean DEBUG = false;
+    private boolean DEBUG = true;
     private ControllerClass controller;
     private DescriptionUI description;
     private int selectedRow;
     
-    
-    
 	// Purpose: To add and display components
-	// PRE: Valid pane is given as a parameter
-	// POST: All necessary components for the Create Account screen will be added and displayed
-	//IS CONSTRUCTOR...
+	// PRE: None
+	// POST: All necessary components for the Browse screen will be added and displayed
     public BrowseUI2() {
 	
 		// Lays out frame with GridBagLayout
@@ -65,9 +63,9 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		
 		// Used for padding around components
 		Insets insets;
-		String[] mediaTypes = {"All", "CDs"};	//Items in the combo box
+		String[] mediaTypes = {"All", "CDs", "DVDs", "Games", "Books"};	//Items in the combo box
+		
 		/*
-		String[] columnNames = { "Name", "Artist", "Genre", "Description" };
 		DatabaseControl db = new DatabaseControl();
 		db.loadMediaDatabase();
 		// Holds table data	
@@ -83,25 +81,24 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 			tableData[i][3] = "Click";
 		}
 		*/
-		// Declaration of pane components
 		
-// Declaration of pane components
+		// Declaration of pane components
 		
 		// JLABEL: Browse Library
 		browseLibrary = new JLabel("Browse Library");
 		browseLibrary.setFont(new Font("Helvetica", Font.BOLD, 16));
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridwidth = 4;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(20, 0, 20, 0); 
-		c.anchor = GridBagConstraints.CENTER; 
-		add(browseLibrary, c);
+		c.gridx = 0;	// Lays out component at grid x coordinate 0
+		c.gridy = 0;	// Lays out component at grid y coordinate 0
+		c.gridwidth = 3;	// Number of coumns the component is spanning
+		c.weightx = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent columns
+		c.weighty = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent rows
+		c.insets = new Insets(20, 0, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
+		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
+		add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
 		
 		// JTEXTFIELD: Search Library
 		searchTF = new JTextField("", 17);
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
@@ -114,7 +111,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
 		searchDB.setActionCommand("Search Library");
 		searchDB.addActionListener(this);
-		c.gridx = 1;
+		c.gridx = 2;
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
@@ -129,49 +126,44 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		displayLabel.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridwidth = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(10, 0, 10, 10); 
-		//c.anchor = GridBagConstraints.CENTER; 
+		c.anchor = GridBagConstraints.LINE_START; 
 		add(displayLabel, c);
 		
 		// COMBO BOX: Display
-        displayCB = new JComboBox(mediaTypes);	//Passes mediaTypes to combo box
+        displayCB = new JComboBox(mediaTypes);
         displayCB.setSelectedIndex(0);	//Sets the default item from mediaTypes to appear in the combo box
         c.gridx = 1;
         c.gridy = 2;
         c.weightx = 0.0;
         c.weighty = 0.0;
-        c.insets = new Insets(10,0,10,0);  //padding
-        //c.anchor = GridBagConstraints.LINE_START;
+        c.insets = new Insets(10, 0, 10, 0); 
+        c.anchor = GridBagConstraints.CENTER;
         add(displayCB, c);
 		
-//		 JBUTTON: Back to Main
-		backToMain = new JButton("Back to Main");
-		backToMain.setActionCommand("Back to Main");
-		backToMain.addActionListener(this);
-		
-		c.gridx = 0; // Lays out component at grid x coordinate 0
-		c.gridy = 2; // Lays out component at grid y coordinate 0
-		c.gridwidth = 1;	// Number of coumns the component is spanning
-		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent columns
-		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent rows
-		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
-		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
-		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
-		add(backToMain, c);
+        // JBUTTON: Delete
+		delete = new JButton("Delete");
+		delete.setActionCommand("Delete");
+		delete.addActionListener(this);
+		c.gridx = 2; 
+		c.gridy = 2; 
+		c.weightx = 0.0; 
+		c.weighty = 0.0; 
+		c.insets = new Insets(20, 0, 20, 0); 
+		c.anchor = GridBagConstraints.LINE_END; 
+		delete.setToolTipText("Delete selected rows from your library"); // Displays text when cursor is hovered over component																		
+		add(delete, c);
 		
 		// JTABLE
 		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 1;
+		c.gridy = 3;
+		c.gridwidth = 3;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(0, 0, 0, 0);
-		
+		c.anchor = GridBagConstraints.CENTER;
 		
 		sorter = new TableSorter(new MyTableModel());
 		table = new JTable(sorter);
@@ -184,6 +176,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	    initColumnSizes(table);    
 	    
 		// DETECTS SELECTIONS FOR EACH CELL
+	    
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		// True by default
 		if (ALLOW_ROW_SELECTION) { 
@@ -223,7 +216,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                     int selectedCol = lsm.getMinSelectionIndex();
                     
-                        if (selectedCol == 3) {
+                        if (selectedCol == 6) {
                         	description = new DescriptionUI(selectedRow);
                         }
                     }
@@ -232,70 +225,66 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         }
 		
         // Makes a scroll bar available if windows sized smaller than table size	
-        
-		scrollPane = new JScrollPane(table); 				
-		scrollPane.setPreferredSize(new Dimension(600, 300));
-		// Add the scroll pane to this panel
+		scrollPane = new JScrollPane(table); 	
+		// Sets the size of the table
+		scrollPane.setPreferredSize(new Dimension(500, 300));
+		// Adds the scroll pane to the window
 		add(scrollPane, c); 
 		
-		// JBUTTON: Delete
-		backToMain = new JButton("Delete");
-		backToMain.setActionCommand("Delete");
+		// JBUTTON: Back to Main
+		backToMain = new JButton("Back to Main");
+		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
+		c.gridx = 0; 
+		c.gridy = 4; 
+		c.gridwidth = 3;	
+		c.weightx = 0.0; 					
+		c.weighty = 0.0; 							
+		c.insets = new Insets(20, 0, 20, 0); 
+		c.anchor = GridBagConstraints.CENTER; 
+		backToMain.setToolTipText("Close browse window and open Main window");
 		backToMain.setPreferredSize(new Dimension(160, 75));
 		backToMain.setMaximumSize(new Dimension(160, 75));
-		c.gridx = 0; // Lays out component at grid x coordinate 0
-		c.gridy = 2; // Lays out component at grid y coordinate 0
-		c.gridwidth = 1;	// Number of coumns the component is spanning
-		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent columns
-		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent rows
-		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
-		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
-		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
 		add(backToMain, c);
-	//}
+		
 	}
     
     /*
      * This method picks good column sizes.
      * If all column heads are wider than the column's cells'
      * contents, then you can just use column.sizeWidthToFit().
-     */
+    */
     private void initColumnSizes(JTable table) {
-
+        //MyTableModel model = (MyTableModel)table.getModel();
         TableColumn column = null;
-       
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             column = table.getColumnModel().getColumn(i);
-            if (i == 0) {
-                column.setPreferredWidth(0); //sport column is bigger
+            if (i == 2) {
+                column.setPreferredWidth(100); //sport column is bigger
             } else {
-                column.setPreferredWidth(150);
+                column.setPreferredWidth(50);
             }
         }
     }
-	
+    
 	//NEW CLASS
 	class MyTableModel extends AbstractTableModel {
         
-        private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Description" };
+		private static final long serialVersionUID = 1;
+		
+        private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
         
 		private Object[][] tableData = {
-			{"1", "Campione",
-			"Snowboarding", new Integer(5), new Boolean(false)},
-			{"2", "Huml",
-			"Rowing", new Integer(3), new Boolean(true)},
-			{"3", "Walrath",
-			"Knitting", new Integer(2), new Boolean(false)},
-			{"4", "Zakhour",
-			"Speed reading", new Integer(20), new Boolean(true)},
-			{"5", "Milne",
-			"Pool", new Integer(10), new Boolean(false)}
+			{"1.", "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
+			{"2.", "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
+			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
 
+		public final Object[] longValues = {"Sharon", "Campione",
+                "None of the above",
+                new Integer(20), Boolean.TRUE};
+		
         public int getColumnCount() {
             return columnNames1.length;
         }
@@ -392,16 +381,14 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		setTitle("Media Works - Browse Library");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//		Create and set up the content pane.
+		// Create and set up the content pane.
         BrowseUI2 newContentPane = new BrowseUI2();
         //newContentPane.setOpaque(true); //content panes must be opaque
         //setContentPane(newContentPane);
-		
-		// Set up the content pane.
 		//addComponentsToPane(getContentPane());//OLD
 		
         // Size and display the window
-		setSize(800, 600);
+		setSize(800, 700);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
@@ -415,6 +402,13 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		if (e.getActionCommand().equals("Back to Main")) {
 			controller.mainScreenFrame();
 			dispose();
+		}
+	}
+	
+	public void actionPerformed2(ActionEvent e) {
+		if (e.getActionCommand().equals("Delete")) {
+			//controller. ;
+			//dispose();
 		}
 	}
 
@@ -442,33 +436,4 @@ if (e.getSource().equals("Search Library")){
 			tableData[i][j] = rowData[j];
 	}
 }
-		import javax.swing.JTextField;
-		private JButton searchDB;
-		private JTextField searchTF;
-
-		// JTEXTFIELD: Search Library
-		searchTF = new JTextField("", 17);
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(10, 0, 10, 0); 
-		c.anchor = GridBagConstraints.CENTER; 
-		pane.add(searchTF, c);
-		
-		
-		// JBUTTON: Search Library
-		searchDB = new JButton("Search Library");
-		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
-		searchDB.setActionCommand("Search Library");
-		searchDB.addActionListener(this);
-		c.gridx = 1;
-		c.gridy = 1;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(10, 0, 10, 0); 		
-		c.anchor = GridBagConstraints.LINE_END;
-		insets = new Insets(0, 25, 0, 25);
-		searchDB.setMargin(insets);
-		pane.add(searchDB, c);
 */
