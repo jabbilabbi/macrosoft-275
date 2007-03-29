@@ -96,7 +96,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.gridwidth = 3;	// Number of coumns the component is spanning
 		c.weightx = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent columns
 		c.weighty = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent rows
-		c.insets = new Insets(20, 244, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
+		c.insets = new Insets(20, 247, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
 		add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
 		
@@ -106,7 +106,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 10); 
+		c.insets = new Insets(0, 0, 10, 7); 
 		c.anchor = GridBagConstraints.CENTER; 
 		add(searchTF, c);
 		
@@ -119,7 +119,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 97); 		
+		c.insets = new Insets(0, 0, 10, 130); 		
 		c.anchor = GridBagConstraints.LINE_END;
 		//insets = new Insets(0, 25, 0, 25);
 		//searchDB.setMargin(insets);
