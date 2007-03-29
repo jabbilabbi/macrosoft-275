@@ -46,7 +46,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
     ControllerClass controller;
     DescriptionUI description;
     int selectedRow;
-    Dimension windowSize = new Dimension(600, 500);
+    Dimension windowSize = new Dimension(800, 500);
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
     
@@ -62,7 +62,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		// Variable declaration
 		
 		// Used for padding around components
-		// Insets insets;
+		Insets insets;
 		// Items in the combo box
 		String[] mediaTypes = {"All", "CDs", "DVDs", "Games", "Books"};	
 		
@@ -94,7 +94,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridwidth = 3;	// Number of coumns the component is spanning
 		c.weightx = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent columns
 		c.weighty = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent rows
-		c.insets = new Insets(20, 0, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
+		c.insets = new Insets(20, 243, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
 		add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
 		
@@ -104,7 +104,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 0); 
+		c.insets = new Insets(0, 0, 10, 10); 
 		c.anchor = GridBagConstraints.CENTER; 
 		add(searchTF, c);
 		
@@ -117,7 +117,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 0); 		
+		c.insets = new Insets(0, 0, 10, 97); 		
 		c.anchor = GridBagConstraints.LINE_END;
 		//insets = new Insets(0, 25, 0, 25);
 		//searchDB.setMargin(insets);
@@ -130,7 +130,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridy = 2;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(10, 0, 10, 10); 
+		c.insets = new Insets(10, 10, 10, 5); 
 		c.anchor = GridBagConstraints.LINE_START; 
 		add(displayLabel, c);
 		
@@ -141,7 +141,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         c.gridy = 2;
         c.weightx = 0.0;
         c.weighty = 0.0;
-        c.insets = new Insets(10, 0, 10, 0); 
+        c.insets = new Insets(10, 0, 10, 405); 
         c.anchor = GridBagConstraints.CENTER;
         add(displayCB, c);
 		
@@ -153,18 +153,18 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridy = 2; 
 		c.weightx = 0.0; 
 		c.weighty = 0.0; 
-		c.insets = new Insets(20, 0, 20, 0); 
+		c.insets = new Insets(10, 0, 10, 10); 
 		c.anchor = GridBagConstraints.LINE_END; 
 		delete.setToolTipText("Delete selected rows from your library"); // Displays text when cursor is hovered over component																		
 		add(delete, c);
 		
 		// JTABLE
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 3;
 		c.gridwidth = 3;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 0, 0);
+		c.insets = new Insets(0, 10, 0, 10);
 		c.anchor = GridBagConstraints.CENTER;
 		
 		sorter = new TableSorter(new MyTableModel());
@@ -176,57 +176,8 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	    scrollPane = new JScrollPane(table);
 	    //Set up column sizes.
 	    initColumnSizes(table);    
-	    
-		// DETECTS SELECTIONS FOR EACH CELL
-	    
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		// True by default
-		if (ALLOW_ROW_SELECTION) { 
-            ListSelectionModel rowSM = table.getSelectionModel();
-            rowSM.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                    // Ignore extra messages.
-                    if (e.getValueIsAdjusting()) return;
-
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {
-                    	// No rows are selected
-                    } else {
-                        selectedRow = lsm.getMinSelectionIndex();
-                        // Row  selectedRow is now selected
-                    }
-                }
-            });
-        } else {
-            table.setRowSelectionAllowed(false);
-        }
-		
-        // False by default
-        if (ALLOW_COLUMN_SELECTION) { 
-        	// Allows individual cell selection
-            if (ALLOW_ROW_SELECTION) {
-                table.setCellSelectionEnabled(true);
-            }
-            table.setColumnSelectionAllowed(true);
-            ListSelectionModel colSM =
-                table.getColumnModel().getSelectionModel();
-            colSM.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                    // Ignore extra messages.
-                    if (e.getValueIsAdjusting()) return;
-                    
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    int selectedCol = lsm.getMinSelectionIndex();
-                    
-                        if (selectedCol == 6) {
-                        	description = new DescriptionUI(selectedRow);
-                        	System.out.println("Column 6 was clicked.");
-                        }
-                    }
-                
-            });
-        }
-		
+		// Detects selection of cells in the details column
+	    detectDetailsClick(table);
         // Makes a scroll bar available if windows sized smaller than table size	
 		scrollPane = new JScrollPane(table); 	
 		// Sets the size of the table
@@ -238,7 +189,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		backToMain = new JButton("Back to Main");
 		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
-		c.gridx = 0; 
+		c.gridx = 2; 
 		c.gridy = 4; 
 		c.gridwidth = 3;	
 		c.weightx = 0.0; 					
@@ -246,8 +197,10 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.insets = new Insets(20, 0, 20, 0); 
 		c.anchor = GridBagConstraints.CENTER; 
 		backToMain.setToolTipText("Close browse window and open Main window");
-		//backToMain.setPreferredSize(new Dimension(160, 75));
-		//backToMain.setMaximumSize(new Dimension(160, 75));
+		//insets = new Insets(0, 25, 0, 25);
+		//backToMain.setMargin(insets);
+		backToMain.setPreferredSize(new Dimension(160, 75));
+		backToMain.setMaximumSize(new Dimension(160, 75));
 		add(backToMain, c);
 		
 	}
@@ -366,6 +319,59 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
             System.out.println("--------------------------");
         }
     }
+	
+	// Purpose: Detects selection of cells in the details column
+	// PRE: The table
+	// POST: 
+	public void detectDetailsClick(JTable table) {
+
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		// True by default
+		if (ALLOW_ROW_SELECTION) { 
+            ListSelectionModel rowSM = table.getSelectionModel();
+            rowSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    // Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
+
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    if (lsm.isSelectionEmpty()) {
+                    	// No rows are selected
+                    } else {
+                        selectedRow = lsm.getMinSelectionIndex();
+                        // Row  selectedRow is now selected
+                    }
+                }
+            });
+        } else {
+            table.setRowSelectionAllowed(false);
+        }
+		
+        // False by default
+        if (ALLOW_COLUMN_SELECTION) { 
+        	// Allows individual cell selection
+            if (ALLOW_ROW_SELECTION) {
+                table.setCellSelectionEnabled(true);
+            }
+            table.setColumnSelectionAllowed(true);
+            ListSelectionModel colSM =
+                table.getColumnModel().getSelectionModel();
+            colSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    // Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
+                    
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    int selectedCol = lsm.getMinSelectionIndex();
+                    
+                        if (selectedCol == 4) {
+                        	description = new DescriptionUI(selectedRow);
+                        }
+                    }
+                
+            });
+        }
+	}
 	
 	// Purpose: To create and display the 'Create Account' UI
 	// PRE: None
