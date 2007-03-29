@@ -20,10 +20,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
-//import TableRenderDemo.MyTableModel;
 
 public class BrowseUI2 extends JFrame implements ActionListener  {
 
@@ -43,12 +40,14 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	
 	// Initalizes variables
 	
-	private boolean ALLOW_COLUMN_SELECTION = true;
-    private boolean ALLOW_ROW_SELECTION = true;	
-    private boolean DEBUG = true;
-    private ControllerClass controller;
-    private DescriptionUI description;
-    private int selectedRow;
+	boolean ALLOW_COLUMN_SELECTION = true;
+    boolean ALLOW_ROW_SELECTION = true;	
+    boolean DEBUG = true;
+    ControllerClass controller;
+    DescriptionUI description;
+    int selectedRow;
+    Dimension windowSize = new Dimension(600, 500);
+    Dimension tableSize = new Dimension(600, 300);
     
 	// Purpose: To add and display components
 	// PRE: None
@@ -62,8 +61,9 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		// Variable declaration
 		
 		// Used for padding around components
-		Insets insets;
-		String[] mediaTypes = {"All", "CDs", "DVDs", "Games", "Books"};	//Items in the combo box
+		// Insets insets;
+		// Items in the combo box
+		String[] mediaTypes = {"All", "CDs", "DVDs", "Games", "Books"};	
 		
 		/*
 		DatabaseControl db = new DatabaseControl();
@@ -87,6 +87,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		// JLABEL: Browse Library
 		browseLibrary = new JLabel("Browse Library");
 		browseLibrary.setFont(new Font("Helvetica", Font.BOLD, 16));
+		//browseLibrary.setHorizontalAlignment(arg0)
 		c.gridx = 0;	// Lays out component at grid x coordinate 0
 		c.gridy = 0;	// Lays out component at grid y coordinate 0
 		c.gridwidth = 3;	// Number of coumns the component is spanning
@@ -97,7 +98,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
 		
 		// JTEXTFIELD: Search Library
-		searchTF = new JTextField("", 17);
+		searchTF = new JTextField("", 15);
 		c.gridx = 1;
 		c.gridy = 1;
 		c.weightx = 0.0;
@@ -115,10 +116,10 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 92); 		
+		c.insets = new Insets(0, 0, 10, 0); 		
 		c.anchor = GridBagConstraints.LINE_END;
-		insets = new Insets(0, 25, 0, 25);
-		searchDB.setMargin(insets);
+		//insets = new Insets(0, 25, 0, 25);
+		//searchDB.setMargin(insets);
 		add(searchDB, c);
 		
 		// JLABEL: Display
@@ -218,6 +219,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
                     
                         if (selectedCol == 6) {
                         	description = new DescriptionUI(selectedRow);
+                        	System.out.println("Column 6 was clicked.");
                         }
                     }
                 
@@ -227,7 +229,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         // Makes a scroll bar available if windows sized smaller than table size	
 		scrollPane = new JScrollPane(table); 	
 		// Sets the size of the table
-		scrollPane.setPreferredSize(new Dimension(500, 300));
+		scrollPane.setPreferredSize(tableSize);
 		// Adds the scroll pane to the window
 		add(scrollPane, c); 
 		
@@ -243,8 +245,8 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.insets = new Insets(20, 0, 20, 0); 
 		c.anchor = GridBagConstraints.CENTER; 
 		backToMain.setToolTipText("Close browse window and open Main window");
-		backToMain.setPreferredSize(new Dimension(160, 75));
-		backToMain.setMaximumSize(new Dimension(160, 75));
+		//backToMain.setPreferredSize(new Dimension(160, 75));
+		//backToMain.setMaximumSize(new Dimension(160, 75));
 		add(backToMain, c);
 		
 	}
@@ -255,8 +257,9 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
      * contents, then you can just use column.sizeWidthToFit().
     */
     private void initColumnSizes(JTable table) {
-        //MyTableModel model = (MyTableModel)table.getModel();
+    	
         TableColumn column = null;
+      
         for (int i = 0; i < 7; i++) {
             column = table.getColumnModel().getColumn(i);
             if (i == 2) {
@@ -301,16 +304,18 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
             return tableData[row][col];
         }
 
+        
         /*
-         * JTable uses this method to determine the default renderer/
-         * editor for each cell.  If we didn't implement this method,
-         * then the last column would contain text ("true"/"false"),
-         * rather than a check box.
-         */
+          JTable uses this method to determine the default renderer/
+          editor for each cell.  If we didn't implement this method,
+          then the last column would contain text ("true"/"false"),
+          rather than a check box.
+         
         public Class getColumnClass(int c) {
             return getValueAt(0, c).getClass();
         }
-
+        */
+        
         /*
          * Don't need to implement this method unless your table's
          * editable.
@@ -382,14 +387,15 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create and set up the content pane.
-        BrowseUI2 newContentPane = new BrowseUI2();
+        //BrowseUI2 newContentPane = new BrowseUI2();
         //newContentPane.setOpaque(true); //content panes must be opaque
         //setContentPane(newContentPane);
 		//addComponentsToPane(getContentPane());//OLD
 		
         // Size and display the window
-		setSize(800, 700);
+		setSize(windowSize);
 		setLocationRelativeTo(null);
+		pack();
 		setVisible(true);
 		setResizable(false);
 		windowLookAndFeel();
