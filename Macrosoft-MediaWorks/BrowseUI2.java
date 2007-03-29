@@ -224,7 +224,9 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         }
     }
     
-	//NEW CLASS
+    // Purpose: Initializes table attributes
+	// PRE:
+	// POST: 
 	class MyTableModel extends AbstractTableModel {
         
 		private static final long serialVersionUID = 1;
@@ -238,10 +240,6 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
 
-		public final Object[] longValues = {"Sharon", "Campione",
-                "None of the above",
-                new Integer(20), Boolean.TRUE};
-		
         public int getColumnCount() {
             return columnNames1.length;
         }
