@@ -174,6 +174,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(0, 0, 0, 0);
+		
 		table = new JTable(tableData, columnNames1) {
 			private static final long serialVersionUID = 1;
 			public boolean isCellEditable(int rowIndex, int vColIndex) {
@@ -182,7 +183,38 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	        }
 		};
 		
-		// DETECTS SELECTIONS FOR EACH CELL
+		detectDetailsClick(table);
+		
+        // Makes a scroll bar available if windows sized smaller than table size									
+		scrollPane = new JScrollPane(table); 				
+		scrollPane.setPreferredSize(new Dimension(655, 300));
+		// Add the scroll pane to this panel
+		pane.add(scrollPane, c); 
+		
+		// JBUTTON: Back to Main
+		backToMain = new JButton("Back to Main");
+		backToMain.setActionCommand("Back to Main");
+		backToMain.addActionListener(this);
+		backToMain.setPreferredSize(new Dimension(160, 75));
+		backToMain.setMaximumSize(new Dimension(160, 75));
+		c.gridx = 0; // Lays out component at grid x coordinate 0
+		c.gridy = 4; // Lays out component at grid y coordinate 0
+		c.gridwidth = 4;	// Number of coumns the component is spanning
+		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
+							// placed within adjacent columns
+		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
+							// placed within adjacent rows
+		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
+		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
+		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
+		pane.add(backToMain, c);
+	}
+	
+	// Purpose: Detects selection of cells in the details column
+	// PRE: The table
+	// POST: 
+	public void detectDetailsClick(JTable table) {
+
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		// True by default
 		if (ALLOW_ROW_SELECTION) { 
@@ -229,30 +261,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
                 
             });
         }
-		
-        // Makes a scroll bar available if windows sized smaller than table size									
-		scrollPane = new JScrollPane(table); 				
-		scrollPane.setPreferredSize(new Dimension(655, 300));
-		// Add the scroll pane to this panel
-		pane.add(scrollPane, c); 
-		
-		// JBUTTON: Back to Main
-		backToMain = new JButton("Back to Main");
-		backToMain.setActionCommand("Back to Main");
-		backToMain.addActionListener(this);
-		backToMain.setPreferredSize(new Dimension(160, 75));
-		backToMain.setMaximumSize(new Dimension(160, 75));
-		c.gridx = 0; // Lays out component at grid x coordinate 0
-		c.gridy = 4; // Lays out component at grid y coordinate 0
-		c.gridwidth = 4;	// Number of coumns the component is spanning
-		c.weightx = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent columns
-		c.weighty = 0.0; // 0.0-1.0 Determines how much additional space is
-							// placed within adjacent rows
-		c.insets = new Insets(20, 0, 20, 0); // Top,Left,Bottom,Right Determines padding around component in pixels
-		c.anchor = GridBagConstraints.CENTER; // Aligns text to the right (LINE_END)
-		backToMain.setToolTipText("Close browse window and open Main window"); // Displays text when cursor is hovered over component																		
-		pane.add(backToMain, c);
 	}
 	
 	// Purpose: To create and display the 'Create Account' UI
