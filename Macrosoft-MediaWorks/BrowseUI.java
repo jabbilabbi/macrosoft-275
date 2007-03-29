@@ -23,6 +23,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 
 	// Initalizes pane components
 	
+	private static final long serialVersionUID = 1;
+	
 	private JLabel browseLibrary;
 	private JLabel displayLabel;
 	private JLabel sortByLabel;
@@ -38,12 +40,11 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	
 	// GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
 	final static boolean RIGHT_TO_LEFT = false; 
-	private boolean ALLOW_COLUMN_SELECTION = true;
-    private boolean ALLOW_ROW_SELECTION = true;	
-    private ControllerClass controller;
-    private DescriptionUI description;
-    
-    private int selectedRow;
+	boolean ALLOW_COLUMN_SELECTION = true;
+    boolean ALLOW_ROW_SELECTION = true;	
+    ControllerClass controller;
+    DescriptionUI description;
+    int selectedRow;
 
 	// Purpose: To add and display components
 	// PRE: Valid pane is given as a parameter
@@ -174,6 +175,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.weighty = 0.0;
 		c.insets = new Insets(0, 0, 0, 0);
 		table = new JTable(tableData, columnNames1) {
+			private static final long serialVersionUID = 1;
 			public boolean isCellEditable(int rowIndex, int vColIndex) {
 				// Turns off the ability to edit cells directly
 	            return false;	
