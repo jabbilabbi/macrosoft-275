@@ -22,7 +22,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	
 	// Initalizes variables
 	private String artist, title, genre, description;
-	private int rating;
+	private String[] addInfo;
 	private final String CDs = "CDs";
 	private final String DVDs = "DVDs";
 	private final String Books = "Books";
@@ -181,6 +181,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	// PRE: Valid action event as param
 	// POST: Button functionality with proper conditions and actions taken
 	public void actionPerformed(ActionEvent e) {
+		DatabaseControl db = new DatabaseControl();
 		controller.createUserDatabaseFile();
 		checkAdd = false;
 		// If backToMain button is pressed
@@ -241,41 +242,55 @@ public class AddScreenUI extends JFrame implements ActionListener{
 					break;
 				case 1:
 					if(CDsSelected.checkCD()){
-						title = CDsSelected.titleField.getText();
-						artist = CDsSelected.titleField.getText();
-						genre = CDsSelected.titleField.getText();
-						description = CDsSelected.titleField.getText();
-						rating = CDsSelected.ratings.getSelectedIndex();
+						addInfo = new String[5];
+						addInfo[0] = "CD";
+						addInfo[1] = CDsSelected.titleField.getText();
+						addInfo[2] = CDsSelected.artistField.getText();
+						addInfo[3] = CDsSelected.genreField.getText();
+						addInfo[4] = CDsSelected.descriptionTextArea.getText();
+						controller.appendMediaDatabase(controller.cdb.CDItems, addInfo);
 						checkAdd = true;
 					}
 					break;
 				case 2:
 					if(DVDsSelected.checkDVD()){
-						title = CDsSelected.titleField.getText();
-						artist = CDsSelected.titleField.getText();
-						genre = CDsSelected.titleField.getText();
-						description = CDsSelected.titleField.getText();
-						rating = CDsSelected.ratings.getSelectedIndex();
+						addInfo = new String[7];
+						addInfo[0] = "DVD";
+						addInfo[1] = DVDsSelected.titleField.getText();
+						addInfo[2] = DVDsSelected.artistField.getText();
+						addInfo[3] = DVDsSelected.genreField.getText();
+						addInfo[4] = DVDsSelected.descriptionTextArea.getText();
+						addInfo[5] = DVDsSelected.titleField.getText();
+						addInfo[6] = DVDsSelected.titleField.getText();
+						controller.appendMediaDatabase(controller.cdb.DVDItems, addInfo);
 						checkAdd = true;
 					}
 					break;
 				case 3:
 					if(BooksSelected.checkBook()){
-						title = CDsSelected.titleField.getText();
-						artist = CDsSelected.titleField.getText();
-						genre = CDsSelected.titleField.getText();
-						description = CDsSelected.titleField.getText();
-						rating = CDsSelected.ratings.getSelectedIndex();
+						addInfo = new String[6];
+						addInfo[0] = "Book";
+						addInfo[1] = BooksSelected.titleField.getText();
+						addInfo[2] = BooksSelected.authorField.getText();
+						addInfo[3] = BooksSelected.genreField.getText();
+						addInfo[4] = BooksSelected.descriptionTextArea.getText();
+						addInfo[5] = BooksSelected.titleField.getText();
+						controller.appendMediaDatabase(controller.cdb.BookItems, addInfo);
 						checkAdd = true;
 					}
 					break;
 				case 4:
 					if(GamesSelected.checkGame()){
-						title = CDsSelected.titleField.getText();
-						artist = CDsSelected.titleField.getText();
-						genre = CDsSelected.titleField.getText();
-						description = CDsSelected.titleField.getText();
-						rating = CDsSelected.ratings.getSelectedIndex();
+						addInfo = new String[8];
+						addInfo[0] = "Game";
+						addInfo[1] = GamesSelected.titleField.getText();
+						addInfo[2] = GamesSelected.artistField.getText();
+						addInfo[3] = GamesSelected.genreField.getText();
+						addInfo[4] = GamesSelected.descriptionTextArea.getText();
+						addInfo[5] = GamesSelected.titleField.getText();
+						addInfo[6] = GamesSelected.titleField.getText();
+						addInfo[7] = GamesSelected.titleField.getText();
+						controller.appendMediaDatabase(controller.cdb.GameItems, addInfo);
 						checkAdd = true;
 					}
 					break;
@@ -284,12 +299,14 @@ public class AddScreenUI extends JFrame implements ActionListener{
 				}
 
 
-				if ((checkAdd) && (selected_index != 0)) {
+				if (checkAdd){
 					// Adds item to database and clears the text fields
-					controller.appendMediaDatabase(title, artist, genre, description);
 					addedText.setVisible(true);
 					mediaTypeSelected.setSelectedIndex(0);
 					CDsSelected.clearCDs();
+					DVDsSelected.clearDVDs();
+					BooksSelected.clearBooks();
+					GamesSelected.clearGames();
 				}
 			}
 

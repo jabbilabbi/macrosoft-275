@@ -4,7 +4,7 @@ import java.awt.*;
 public class BooksPanel extends JPanel{
 
 	// Initialize variables
-	public JTextField titleField, artistField, genreField;
+	public JTextField titleField, authorField, genreField;
 	public JTextArea descriptionTextArea;
 
 	private JLabel titleLabel, authorLabel, genreLabel, ratingLabel;
@@ -105,10 +105,10 @@ public class BooksPanel extends JPanel{
 		titleField.setMinimumSize(fieldSize);
 		titleField.setMaximumSize(fieldSize);
 		
-		artistField = new JTextField(20);
-		artistField.setSize(artistField.getMinimumSize());
-		artistField.setMinimumSize(fieldSize);
-		artistField.setMaximumSize(fieldSize);
+		authorField = new JTextField(20);
+		authorField.setSize(authorField.getMinimumSize());
+		authorField.setMinimumSize(fieldSize);
+		authorField.setMaximumSize(fieldSize);
 		
 		genreField = new JTextField(20);
 		genreField.setSize(genreField.getMinimumSize());
@@ -134,7 +134,7 @@ public class BooksPanel extends JPanel{
 		fields.add(Box.createRigidArea(new Dimension(0,15)));
 		fields.add(titleField);
 		fields.add(Box.createRigidArea(new Dimension(0,15)));
-		fields.add(artistField);
+		fields.add(authorField);
 		fields.add(Box.createRigidArea(new Dimension(0,15)));
 		fields.add(genreField);
 		fields.add(Box.createRigidArea(new Dimension(0,15)));
@@ -240,7 +240,7 @@ public class BooksPanel extends JPanel{
 			enterTitleLabel.setText("Please enter a title");
 			checkAdd = false;
 		}
-		if (artistField.getText().length() != 0) {
+		if (authorField.getText().length() != 0) {
 			enterAuthorLabel.setText(" ");
 		} else {
 			enterAuthorLabel.setText("Please enter an author");
@@ -259,7 +259,7 @@ public class BooksPanel extends JPanel{
 	
 	public void clearBooks(){
 		titleField.setText("");
-		artistField.setText("");
+		authorField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
 		enterTitleLabel.setText(" ");
