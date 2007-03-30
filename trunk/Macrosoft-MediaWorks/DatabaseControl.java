@@ -19,8 +19,8 @@ public class DatabaseControl {
 	// ArrayList to hold media database
 	protected static ArrayList<String> CDItems = new ArrayList<String>();
 	protected static ArrayList<String> DVDItems = new ArrayList<String>();
-	private ArrayList<String> BookItems = new ArrayList<String>();
-	private ArrayList<String> GameItems = new ArrayList<String>();
+	protected static  ArrayList<String> BookItems = new ArrayList<String>();
+	protected static  ArrayList<String> GameItems = new ArrayList<String>();
 	public static String currentUser = "currentUser";
 
 	// Allow access of retrieveCurrentUser function

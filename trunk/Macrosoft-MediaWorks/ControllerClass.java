@@ -7,8 +7,8 @@ public class ControllerClass{
 	private CreateAccountUI createAccountUI;
 	private LoginUI loginUI;
 	private MainScreenUI mainScreenUI;
-	private SecurityControl sdb;
-	private DatabaseControl cdb;
+	protected SecurityControl sdb;
+	protected DatabaseControl cdb;
 	private HTMLOutput html;
 	public static String currentUser = "currentUser";
 
