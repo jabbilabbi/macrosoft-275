@@ -235,16 +235,16 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        //private Object[][] tableData = loadTableData();
+        private Object[][] tableData = loadTableData();
         
         
-        
+        /*
 		private Object[][] tableData = {
 			{"1.", "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{"2.", "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		
+		*/
       
         public int getColumnCount() {
             return columnNames1.length;
@@ -324,31 +324,31 @@ public class BrowseUI extends JFrame implements ActionListener  {
         }
     }
 
-	/*
+	
 	//NOT WORKING - CAUSING ERROR
 	public Object[][] loadTableData() {
 		
 		DatabaseControl db = new DatabaseControl();
-		db.loadMediaDatabase();
+		db.loadMediaDatabase(db.CDItems, "CD");
 		
 		// Holds table data	
-		Object[][] tableData = new Object[db.getRowsNeeded()][7]; 			
+		Object[][] tableData = new Object[db.getRowsNeeded(db.CDItems)][7]; 			
 		
 		// Assigns data from the database to tableData
-		for (int i = 0; i < db.getRowsNeeded(); i++) {
+		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
 			tableData[i][0] = i + ".";
 			// Holds a row of data from the database	
-			String[] rowData = db.getLibraryRow(i); 									
-			for (int j = 0; j < 3; j++)
+			String[] rowData = db.getLibraryRow(db.CDItems, i); 									
+			for (int j = 0; j < 4; j++)
 				// Assigns column data from a row to tableData
-				tableData[i][j] = rowData[j];
+				tableData[i][j+1] = rowData[j];
 			tableData[i][5] = "Click";
 			tableData[i][6] = new Boolean(false);
 		}
 		
 		return tableData;
 	}
-	*/
+	
 	
 	// Purpose: Detects selection of cells in the details column
 	// PRE: The table
