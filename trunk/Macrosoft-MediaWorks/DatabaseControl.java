@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class DatabaseControl {
 
 	// ArrayList to hold media database
-	private ArrayList<String> CDItems = new ArrayList<String>();
-	private ArrayList<String> DVDItems = new ArrayList<String>();
+	protected static ArrayList<String> CDItems = new ArrayList<String>();
+	protected static ArrayList<String> DVDItems = new ArrayList<String>();
 	private ArrayList<String> BookItems = new ArrayList<String>();
 	private ArrayList<String> GameItems = new ArrayList<String>();
 	public static String currentUser = "currentUser";
@@ -68,10 +68,10 @@ public class DatabaseControl {
 	}
 
 	public void loadAllDatabases() {
-		loadMediaDatabase(CDItems);
-		loadMediaDatabase(DVDItems);
-		loadMediaDatabase(BookItems);
-		loadMediaDatabase(GameItems);
+		loadMediaDatabase(CDItems, "CD");
+		loadMediaDatabase(DVDItems, "DVD");
+		loadMediaDatabase(BookItems, "Book");
+		loadMediaDatabase(GameItems, "Game");
 	}
 	
 	// Load database of media entries into an HashSet, allowing them to be read
@@ -79,7 +79,7 @@ public class DatabaseControl {
 	// user's media library
 	// PRE: The filename of the media database
 	// POST: The media database is loaded into an ArrayList
-	public void loadMediaDatabase(ArrayList<String> dbType) {
+	public void loadMediaDatabase(ArrayList<String> dbType, String typeToGet) {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			// Read first line
@@ -92,7 +92,9 @@ public class DatabaseControl {
 				mediaRowElements = mediaRow.split(" ::: ");
 				// Add items to ArrayList
 				for (int i = 0; i < mediaRowElements.length; i++) {
-					dbType.add(mediaRowElements[i]);
+					if (mediaRowElements[0].contains(typeToGet)) {
+						dbType.add(mediaRowElements[i]);
+					}
 				}
 				mediaRow = in.readLine();
 				// Continue reading database lines
@@ -109,11 +111,11 @@ public class DatabaseControl {
 	// PRE: None
 	// POST: Current ArrayList of media items is cleared and reloaded with
 	// entries in database file
-	public void reloadMediaDatabase(ArrayList<String> dbType) {
+	public void reloadMediaDatabase(ArrayList<String> dbType, String typeToReload) {
 		// Clear current database
 		dbType.clear();
 		// Reload database from file
-		loadMediaDatabase(dbType);
+		loadMediaDatabase(dbType, typeToReload);
 	}
 
 	// Append media database with a new entry
@@ -147,24 +149,22 @@ public class DatabaseControl {
 		}
 
 		// Reload database in order to include appended media entry
-		reloadMediaDatabase(dbType);
+		reloadMediaDatabase(dbType, rowElements[0]);
 	}
 
 	public int getMediaIndex(ArrayList<String> dbType) {
 		int mediaIndex = 0;
-
-		System.out.println(this.CDItems);
-		if (dbType.get(0) == "CD") {
-			System.out.println("test");
-			mediaIndex = 4;
-		} else if (dbType.get(0) == "DVD"){
-			mediaIndex = 6;
-		} else if (dbType.get(0) == "Book") {
+		String firstDBEntry = String.valueOf(dbType.get(0));
+		
+		if (firstDBEntry.contains("CD")) {
 			mediaIndex = 5;
-		} else if (dbType.get(0) == "Game") {
+		} else if (firstDBEntry.contains("DVD")){
 			mediaIndex = 7;
+		} else if (firstDBEntry.contains("Book")) {
+			mediaIndex = 6;
+		} else if (firstDBEntry.contains("Game")) {
+			mediaIndex = 8;
 		}
-		System.out.println("yay");
 		return mediaIndex;
 	}
 	
