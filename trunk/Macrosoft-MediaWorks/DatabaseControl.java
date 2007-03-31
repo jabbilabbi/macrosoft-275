@@ -219,6 +219,49 @@ public class DatabaseControl {
 	// POST: Media database file has last row deleted; media database is
 	// reloaded
 
+	public void deleteRow(ArrayList<String> dbType, String[] rowToDelete) {
+		try {
+			deleteDatabase();
+			
+			// Remove last row of current ArrayList
+//			int deletionOffset = getMediaIndex(dbType);
+//			int startPoint = dbType.size() - deletionOffset;
+//			for (int i = 0; i < deletionOffset; i++) {
+//				dbType.remove(startPoint + i);
+//			}
+			// Rewrite database with -1 lines
+			BufferedReader in = new BufferedReader(new FileReader(fname));
+			String dbText = "";
+			String mediaRow = in.readLine();
+			do {
+				dbText += mediaRow;
+				dbText += "\n";
+				mediaRow = in.readLine();
+			} while (mediaRow != null);
+			
+			in.close();
+			
+			String completeRowToDelete = "";
+			int j;
+			for (j=0; j < rowToDelete.length-1; j++) {
+				completeRowToDelete += rowToDelete[j] + " ::: ";
+			}
+			completeRowToDelete += rowToDelete[j] + "\n";
+			
+			dbText = dbText.replaceFirst(completeRowToDelete, "");
+
+			// Write
+			BufferedWriter bw = null;
+			// Set up BufferedWriter
+			bw = new BufferedWriter(new FileWriter(fname, true));
+			bw.write(dbText);
+			bw.flush();
+			bw.close();
+		} catch (IOException e) {
+			
+		}
+	}
+	
 	public void deleteLastRow(ArrayList<String> dbType) {
 		try {
 			// Delete old database; will be remade with -1 rows
@@ -236,10 +279,10 @@ public class DatabaseControl {
 				String rowToWrite = "";
 				int j;
 				
-				for (j=0; j<currentRow.length-2; j++) {
+				for (j=0; j<currentRow.length-1; j++) {
 					rowToWrite += currentRow[j] + " ::: ";
 				}
-				rowToWrite += currentRow[j+1];
+				rowToWrite += currentRow[j];
 				
 				// Write current row
 				bw.write(rowToWrite);
