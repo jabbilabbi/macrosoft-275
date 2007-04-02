@@ -213,9 +213,6 @@ public class CDsPanel extends JPanel{
 		artistField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
-		enterTitleLabel.setText(" ");
-		enterArtistLabel.setText(" ");
-		enterGenreLabel.setText(" ");
 	}
 	// Purpose: Set the look and feel of the panel
 	// PRE: None

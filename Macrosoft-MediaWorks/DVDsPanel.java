@@ -304,6 +304,8 @@ public class DVDsPanel extends JPanel{
 		artistField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
+		stars.setSelectedIndex(0);
+		ratings.setSelectedIndex(0);
 	}
 	
 	// Purpose: Set the look and feel of the panel
