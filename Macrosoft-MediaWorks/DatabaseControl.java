@@ -57,7 +57,6 @@ public class DatabaseControl {
 
 	public void createUserDatabaseFile() {
 		// Database file name will consist of user name and .txt
-
 		try {
 			BufferedWriter bw = null;
 			// Set up BufferedWriter to be used for writing
