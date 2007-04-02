@@ -314,9 +314,7 @@ public class GamesPanel extends JPanel{
 		artistField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
-		enterTitleLabel.setText(" ");
-		enterArtistLabel.setText(" ");
-		enterGenreLabel.setText(" ");
+		ESRBs.setSelectedIndex(0);
 	}
 	
 	// Purpose: Set the look and feel of the panel
