@@ -409,7 +409,7 @@ public class LoginUI extends JFrame implements ActionListener {
 					&& (usernameTB.getText().length() == 0)) {
 				dynamicText = "Please enter username";
 				dynamicLabel.setText(dynamicText);
-				// Shows relevatn error
+				// Shows relevant error
 				dynamicLabel.setVisible(true);
 			}
 

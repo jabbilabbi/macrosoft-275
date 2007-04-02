@@ -4,14 +4,14 @@ import java.awt.*;
 public class CDsPanel extends JPanel{
 
 	// Initialize variables
-	public JTextField titleField, artistField, genreField;
-	public JTextArea descriptionTextArea;
+	protected JTextField titleField, artistField, genreField;
+	protected JTextArea descriptionTextArea;
 
 	private JLabel titleLabel, artistLabel, genreLabel;
 	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
-	public JPanel labels, fields, errors, rating, ratingSpacing;
-	public JComboBox ratings;
+	protected JPanel labels, fields, errors, rating, ratingSpacing;
+	protected JComboBox ratings;
 	private Dimension dim;
 	protected Boolean checkAdd;
 	
