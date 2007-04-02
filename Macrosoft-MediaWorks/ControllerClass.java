@@ -14,14 +14,8 @@ public class ControllerClass{
 
 	
 	public ControllerClass(){
-		cdb = new DatabaseControl();
 		sdb = new SecurityControl();
-		addScreenUI = new AddScreenUI();
-		browseUI = new BrowseUI();
-		createAccountUI = new CreateAccountUI();
 		loginUI = new LoginUI();
-		mainScreenUI = new MainScreenUI();
-		html = new HTMLOutput();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
@@ -91,6 +85,12 @@ public class ControllerClass{
 	
 	public void mainScreenFrame(){
 		mainScreenUI.createAndShowGUI();
+		cdb = new DatabaseControl();
+		addScreenUI = new AddScreenUI();
+		browseUI = new BrowseUI();
+		createAccountUI = new CreateAccountUI();
+		mainScreenUI = new MainScreenUI();
+		html = new HTMLOutput();
 	}
 	
 	public void setCurrentUser(String currentUser){
