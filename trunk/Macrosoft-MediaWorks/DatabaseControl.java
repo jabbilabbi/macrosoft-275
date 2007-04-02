@@ -21,7 +21,7 @@ public class DatabaseControl {
 	protected static ArrayList<String> DVDItems = new ArrayList<String>();
 	protected static  ArrayList<String> BookItems = new ArrayList<String>();
 	protected static  ArrayList<String> GameItems = new ArrayList<String>();
-	private static String currentUser = "currentUser";
+	protected static String currentUser = "currentUser";
 
 	// Allow access of retrieveCurrentUser function
 	//private ControllerClass controller;

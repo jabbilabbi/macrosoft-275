@@ -10,7 +10,6 @@ public class ControllerClass{
 	protected SecurityControl sdb;
 	protected DatabaseControl cdb;
 	private HTMLOutput html;
-	public static String currentUser = "currentUser";
 
 	
 	public ControllerClass(){
@@ -94,11 +93,11 @@ public class ControllerClass{
 	}
 	
 	public void setCurrentUser(String currentUser){
-		this.currentUser = currentUser;
+		cdb.currentUser = currentUser;
 	}
 	
-	public static String getCurrentUser(){
-		return currentUser;
+	public String getCurrentUser(){
+		return cdb.currentUser;
 	}
 	
 	public static void main(String[] args) {
