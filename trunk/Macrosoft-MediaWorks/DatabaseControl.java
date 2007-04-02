@@ -219,10 +219,28 @@ public class DatabaseControl {
 	// POST: Media database file has last row deleted; media database is
 	// reloaded
 
-	public void deleteRow(ArrayList<String> dbType, String[] rowToDelete) {
+	public void deleteRow(ArrayList<String> dbType, String[] rowToDelete, String typeToReload) {
+		String[] editTo = {""};
+		editRow(dbType, rowToDelete, editTo, typeToReload);
+	}
+	
+	public String stringJoiner(String[] stringToJoin) {
+		if (stringToJoin.length == 1) {
+			System.out.println("bleh");
+			return "";
+		}
+		String joinedString = "";
+		int j;
+		for (j=0; j < stringToJoin.length-1; j++) {
+			joinedString += stringToJoin[j] + " ::: ";
+		}
+		joinedString += stringToJoin[j] + "\r\n";
+		return joinedString;
+		
+	}
+	
+	public void editRow(ArrayList<String> dbType, String[] rowToDelete, String[] editTo, String typeToReload) {
 		try {
-			deleteDatabase();
-			
 			// Remove last row of current ArrayList
 //			int deletionOffset = getMediaIndex(dbType);
 //			int startPoint = dbType.size() - deletionOffset;
@@ -235,20 +253,18 @@ public class DatabaseControl {
 			String mediaRow = in.readLine();
 			do {
 				dbText += mediaRow;
-				dbText += "\n";
+				dbText += "\r\n";
 				mediaRow = in.readLine();
 			} while (mediaRow != null);
 			
 			in.close();
 			
-			String completeRowToDelete = "";
-			int j;
-			for (j=0; j < rowToDelete.length-1; j++) {
-				completeRowToDelete += rowToDelete[j] + " ::: ";
-			}
-			completeRowToDelete += rowToDelete[j] + "\n";
+			deleteDatabase();
 			
-			dbText = dbText.replaceFirst(completeRowToDelete, "");
+			String completeRowToDelete = stringJoiner(rowToDelete);
+			String completeRowToEditTo = stringJoiner(editTo);
+			
+			dbText = dbText.replaceFirst(completeRowToDelete, completeRowToEditTo);
 
 			// Write
 			BufferedWriter bw = null;
@@ -257,41 +273,9 @@ public class DatabaseControl {
 			bw.write(dbText);
 			bw.flush();
 			bw.close();
-		} catch (IOException e) {
 			
-		}
-	}
-	
-	public void deleteLastRow(ArrayList<String> dbType) {
-		try {
-			// Delete old database; will be remade with -1 rows
-			deleteDatabase();
-
-			BufferedWriter bw = null;
-			// Set up BufferedWriter
-			bw = new BufferedWriter(new FileWriter(fname, true));
-			// Cycle through already loaded media database
-			for (int i = 0; i < getRowsNeeded(dbType) - 1; i++) {
-				// Get current row
-				String[] currentRow = getLibraryRow(dbType, i);
-				
-				// Join row elements
-				String rowToWrite = "";
-				int j;
-				
-				for (j=0; j<currentRow.length-1; j++) {
-					rowToWrite += currentRow[j] + " ::: ";
-				}
-				rowToWrite += currentRow[j];
-				
-				// Write current row
-				bw.write(rowToWrite);
-				bw.newLine();
-			}
-			// Clear BufferedWriter after operation complete
-			bw.flush();
-			bw.close();
-		} catch (IOException ioe) {
+			reloadMediaDatabase(dbType, typeToReload);
+		} catch (IOException e) {
 		}
 	}
 }
