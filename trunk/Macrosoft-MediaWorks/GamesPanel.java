@@ -4,14 +4,14 @@ import java.awt.*;
 public class GamesPanel extends JPanel{
 
 	// Initialize variables
-	public JTextField titleField, artistField, genreField;
+	public JTextField titleField, artistField, genreField, publisherField, platformField;
 	public JTextArea descriptionTextArea;
 
-	private JLabel titleLabel, artistLabel, genreLabel, ratingLabel;
+	private JLabel titleLabel, artistLabel, genreLabel, platformLabel, publisherLabel, ESRBLabel;
 	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
-	public JPanel labels, fields, errors, rating, ratingSpacing;
-	public JComboBox ratings;
+	public JPanel labels, fields, labels2, fields2;
+	public JComboBox ESRBs;
 	protected Boolean checkAdd;
 	private Dimension dim;
 	
@@ -25,20 +25,48 @@ public class GamesPanel extends JPanel{
 		panelLookAndFeel();
 		
 		// Sets up the panel
-		setPreferredSize(PANEL_SIZE);
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		
+		JPanel leftPanelCombine = new JPanel();
+		leftPanelCombine.setAlignmentX(Component.LEFT_ALIGNMENT);
+		leftPanelCombine.setAlignmentY(Component.TOP_ALIGNMENT);
+		leftPanelCombine.setLayout(new BoxLayout(leftPanelCombine, BoxLayout.LINE_AXIS));
+		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		leftPanelCombine.add(labels());
+		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		leftPanelCombine.add(fields());
+		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		
+		JPanel leftPanel = new JPanel();
+		leftPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		leftPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		leftPanel.add(leftPanelCombine);
+	
+		JPanel rightPanelCombine = new JPanel();
+		rightPanelCombine.setAlignmentX(Component.LEFT_ALIGNMENT);
+		rightPanelCombine.setAlignmentY(Component.TOP_ALIGNMENT);
+		rightPanelCombine.setLayout(new BoxLayout(rightPanelCombine, BoxLayout.LINE_AXIS));
+		rightPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		rightPanelCombine.add(labels2());
+		rightPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		rightPanelCombine.add(fields2());
+		rightPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
+		
+		JPanel rightPanel = new JPanel();
+		rightPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
+		rightPanel.add(Box.createRigidArea(new Dimension(0,15)));
+		rightPanel.add(rightPanelCombine);
+	
 		
 		JPanel combine = new JPanel();
 		combine.setPreferredSize(PANEL_SIZE);
 		combine.setLayout(new BoxLayout(combine, BoxLayout.LINE_AXIS));
+		combine.add(leftPanel);
 		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(labels());
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(fields());
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(errors());
-		combine.add(Box.createRigidArea(new Dimension(5,0)));
-		combine.add(ratings());
+		combine.add(rightPanel);
+
 		
 		add(combine);
 		
@@ -76,19 +104,21 @@ public class GamesPanel extends JPanel{
 		descriptionLabel.setSize(dim);	
 
 		// Adds labels to panel
-		labels.add(Box.createRigidArea(new Dimension(0,15)));
 		labels.add(titleLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,17)));
+		labels.add(Box.createRigidArea(new Dimension(0,27)));
 		labels.add(artistLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,19)));
+		labels.add(Box.createRigidArea(new Dimension(0,27)));
 		labels.add(genreLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,21)));
+		labels.add(Box.createRigidArea(new Dimension(0,27)));
 		labels.add(descriptionLabel);
 		labels.add(Box.createRigidArea(new Dimension(0,67)));
 		
 		return labels;
 	}
 	
+	// Purpose: Put all the Label fields in one panel
+	// PRE: None
+	// POST: Returns a JPanel with Label fields in it
 	// Purpose: Put all the Label fields in one panel
 	// PRE: None
 	// POST: Returns a JPanel with Label fields in it
@@ -104,16 +134,22 @@ public class GamesPanel extends JPanel{
 		titleField = new JTextField(20);
 		titleField.setMinimumSize(fieldSize);
 		titleField.setMaximumSize(fieldSize);
+		titleField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		titleField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		artistField = new JTextField(20);
 		artistField.setSize(artistField.getMinimumSize());
 		artistField.setMinimumSize(fieldSize);
 		artistField.setMaximumSize(fieldSize);
+		artistField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		artistField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		genreField = new JTextField(20);
 		genreField.setSize(genreField.getMinimumSize());
 		genreField.setMinimumSize(fieldSize);
 		genreField.setMaximumSize(fieldSize);
+		genreField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		genreField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		// Sets up a Label area
 		descriptionTextArea = new JTextArea(5, 20);
@@ -128,106 +164,121 @@ public class GamesPanel extends JPanel{
 		Dimension areaSize = new Dimension(180,80);
 		descriptionPane.setMinimumSize(areaSize);
 		descriptionPane.setMaximumSize(areaSize);
-		
+		descriptionPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		descriptionPane.setAlignmentY(Component.TOP_ALIGNMENT);
 
+		// Sets up the error labels
+		enterTitleLabel = new JLabel(" ");
+		enterTitleLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterTitleLabel.setForeground(Color.red);
+		enterTitleLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		enterTitleLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		enterArtistLabel = new JLabel(" ");
+		enterArtistLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterArtistLabel.setForeground(Color.red);
+		enterArtistLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		enterArtistLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		enterGenreLabel = new JLabel(" ");
+		enterGenreLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		enterGenreLabel.setForeground(Color.red);
+		enterGenreLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		enterGenreLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		
 		// Adds the Label fields to the panel
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
 		fields.add(titleField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
+		fields.add(enterTitleLabel);
+		fields.add(Box.createRigidArea(new Dimension(0,10)));
 		fields.add(artistField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
+		fields.add(enterArtistLabel);
+		fields.add(Box.createRigidArea(new Dimension(0,10)));
 		fields.add(genreField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
+		fields.add(enterGenreLabel);
+		fields.add(Box.createRigidArea(new Dimension(0,10)));
 		fields.add(descriptionPane);
 		fields.add(Box.createRigidArea(new Dimension(0,50)));
 		
 		return fields;
 	}
 	
-	// Purpose: Put all the error messages in one panel
-	// PRE: None
-	// POST: Returns a JPanel with error messages in it
-	public JPanel errors(){
-		// Sets up the panel
-		errors = new JPanel();
-		errors.setLayout(new BoxLayout(errors, BoxLayout.PAGE_AXIS));
-		errors.setAlignmentX(Component.LEFT_ALIGNMENT);
-		errors.setAlignmentY(Component.TOP_ALIGNMENT);
 
-		// Sets up the error labels
-		enterTitleLabel = new JLabel(" ");
-		enterTitleLabel.setMinimumSize(new Dimension(105, 10));
-		enterTitleLabel.setPreferredSize(new Dimension(105, 10));
-		enterTitleLabel.setMaximumSize(new Dimension(105, 10));
-		enterTitleLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterTitleLabel.setForeground(Color.red);
+	public JPanel labels2(){
+		//Sets up panel
+		labels2 = new JPanel();
+		labels2.setLayout(new BoxLayout(labels2, BoxLayout.PAGE_AXIS));
+		labels2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		labels2.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-		enterArtistLabel = new JLabel(" ");
-		enterArtistLabel.setMinimumSize(new Dimension(105, 10));
-		enterArtistLabel.setPreferredSize(new Dimension(105, 10));
-		enterArtistLabel.setMaximumSize(new Dimension(105, 10));
-		enterArtistLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterArtistLabel.setForeground(Color.red);
-	
-		enterGenreLabel = new JLabel(" ");
-		enterGenreLabel.setMinimumSize(new Dimension(105, 10));
-		enterGenreLabel.setPreferredSize(new Dimension(105, 10));
-		enterGenreLabel.setMaximumSize(new Dimension(105, 10));
-		enterGenreLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-		enterGenreLabel.setForeground(Color.red);
+		// Sets up the labels
+		publisherLabel = new JLabel("Enter a publisher:");
+		publisherLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		dim = publisherLabel.getPreferredSize();
+		publisherLabel.setSize(dim);
+
+		platformLabel = new JLabel("Enter a platform:");
+		platformLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		dim = platformLabel.getPreferredSize();
+		platformLabel.setSize(dim);
+
+		ESRBLabel = new JLabel("Select an ESRB:");
+		ESRBLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		dim = ESRBLabel.getPreferredSize();
+		ESRBLabel.setSize(dim);
+
+		// Adds labels to panel
+		labels2.add(publisherLabel);
+		labels2.add(Box.createRigidArea(new Dimension(0,27)));
+		labels2.add(platformLabel);
+		labels2.add(Box.createRigidArea(new Dimension(0,27)));
+		labels2.add(ESRBLabel);
 		
-		// Adds the error labels to the panel
-		errors.add(Box.createRigidArea(new Dimension(0,21)));
-		errors.add(enterTitleLabel);
-		errors.add(Box.createRigidArea(new Dimension(0,25)));
-		errors.add(enterArtistLabel);
-		errors.add(Box.createRigidArea(new Dimension(0,25)));
-		errors.add(enterGenreLabel);
-		
-		return errors;
+		return labels2;
 	}
 	
-	// Purpose: Create a combo box with ratings from 1-5
-	// PRE: None
-	// POST: Returns a JPanel with with the ratings combo box
-	public JPanel ratings(){
+	public JPanel fields2(){
 		// Sets up the panel
-		rating = new JPanel();
-		rating.setLayout(new BoxLayout(rating, BoxLayout.LINE_AXIS));
-		rating.setAlignmentX(Component.LEFT_ALIGNMENT);
-		rating.setAlignmentY(Component.TOP_ALIGNMENT);
-
-		ratingLabel = new JLabel("Select a rating:");
-		ratingLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = ratingLabel.getPreferredSize();
-		ratingLabel.setSize(dim);	
+		fields2 = new JPanel();
+		fields2.setLayout(new BoxLayout(fields2, BoxLayout.PAGE_AXIS));
+		fields2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		fields2.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		// Sets up the fields
+		Dimension fieldSize = new Dimension(180,20);		
+		publisherField = new JTextField(20);
+		publisherField.setMinimumSize(fieldSize);
+		publisherField.setMaximumSize(fieldSize);
+		publisherField.setAlignmentX(Component.LEFT_ALIGNMENT);
+		publisherField.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		platformField = new JTextField(20);
+		platformField.setMinimumSize(fieldSize);
+		platformField.setMaximumSize(fieldSize);
+		platformField.setAlignmentX(Component.LEFT_ALIGNMENT);
+		platformField.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		// Variable declaration
-		String[] ratingValues = { "Select a rating", "1", "2", "3", "4", "5" };
+		String[] ESRBValues = { "Select an ESRB", "EC", "E", "E10+", "T", "M", "AO" };
 		// declaration of pane components
 
 		// Combo boxes
-		ratings = new JComboBox(ratingValues);
-		ratings.setMinimumSize(ratings.getPreferredSize());
-		ratings.setPreferredSize(ratings.getPreferredSize());
-		ratings.setMaximumSize(ratings.getPreferredSize());
-	
-		rating.add(ratingLabel);
-		rating.add(Box.createRigidArea(new Dimension(5,0)));
-		rating.add(ratings);
+		ESRBs = new JComboBox(ESRBValues);
+		ESRBs.setAlignmentX(Component.LEFT_ALIGNMENT);
+		ESRBs.setAlignmentY(Component.TOP_ALIGNMENT);
+		ESRBs.setMinimumSize(ESRBs.getPreferredSize());
+		ESRBs.setPreferredSize(ESRBs.getPreferredSize());
+		ESRBs.setMaximumSize(ESRBs.getPreferredSize());
+
+		// Adds the Label fields to the panel
+		fields2.add(publisherField);
+		fields2.add(Box.createRigidArea(new Dimension(0,23)));
+		fields2.add(platformField);
+		fields2.add(Box.createRigidArea(new Dimension(0,20)));
+		fields2.add(ESRBs);
 		
-		ratingSpacing = new JPanel();
-		ratingSpacing.setLayout(new BoxLayout(ratingSpacing, BoxLayout.PAGE_AXIS));
-		ratingSpacing.setAlignmentX(Component.LEFT_ALIGNMENT);
-		ratingSpacing.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		ratingSpacing.add(Box.createRigidArea(new Dimension(0, 15)));
-		ratingSpacing.add(rating);
-		
-		
-		return ratingSpacing;
+		return fields2;
 	}
-	
 	
 	// PURPOSE: To check if all the CD fields are complete
 	// PRE: None
@@ -266,7 +317,6 @@ public class GamesPanel extends JPanel{
 		enterTitleLabel.setText(" ");
 		enterArtistLabel.setText(" ");
 		enterGenreLabel.setText(" ");
-		ratings.setSelectedIndex(0);
 	}
 	
 	// Purpose: Set the look and feel of the panel

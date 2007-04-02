@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class ControllerClass{
 
 	private AddScreenUI addScreenUI;
-	private BrowseUI browseUI;
+//	private BrowseUI browseUI;
 	private CreateAccountUI createAccountUI;
 	private LoginUI loginUI;
 	private MainScreenUI mainScreenUI;
@@ -15,7 +15,7 @@ public class ControllerClass{
 	
 	public ControllerClass(){
 		addScreenUI = new AddScreenUI();
-		browseUI = new BrowseUI();
+		//browseUI = new BrowseUI();
 		createAccountUI = new CreateAccountUI();
 		loginUI = new LoginUI();
 		mainScreenUI = new MainScreenUI();

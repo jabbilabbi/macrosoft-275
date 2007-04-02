@@ -7,7 +7,7 @@ public class CDsPanel extends JPanel{
 	public JTextField titleField, artistField, genreField;
 	public JTextArea descriptionTextArea;
 
-	private JLabel titleLabel, artistLabel, genreLabel, ratingLabel;
+	private JLabel titleLabel, artistLabel, genreLabel;
 	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
 	public JPanel labels, fields, errors, rating, ratingSpacing;
@@ -25,13 +25,11 @@ public class CDsPanel extends JPanel{
 		panelLookAndFeel();
 		
 		// Sets up the panel
-		setPreferredSize(PANEL_SIZE);
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		
 		JPanel leftPanelCombine = new JPanel();
 		leftPanelCombine.setAlignmentX(Component.LEFT_ALIGNMENT);
 		leftPanelCombine.setAlignmentY(Component.TOP_ALIGNMENT);
-		leftPanelCombine.setPreferredSize(PANEL_SIZE);
 		leftPanelCombine.setLayout(new BoxLayout(leftPanelCombine, BoxLayout.LINE_AXIS));
 		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
 		leftPanelCombine.add(labels());
@@ -40,7 +38,6 @@ public class CDsPanel extends JPanel{
 		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
 		
 		JPanel leftPanel = new JPanel();
-		leftPanel.setPreferredSize(PANEL_SIZE);
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
 		leftPanel.add(Box.createRigidArea(new Dimension(0,15)));
 		leftPanel.add(leftPanelCombine);
@@ -180,47 +177,6 @@ public class CDsPanel extends JPanel{
 		fields.add(Box.createRigidArea(new Dimension(0,50)));
 		
 		return fields;
-	}
-	
-	
-	// Purpose: Create a combo box with ratings from 1-5
-	// PRE: None
-	// POST: Returns a JPanel with with the ratings combo box
-	public JPanel ratings(){
-		// Sets up the panel
-		rating = new JPanel();
-		rating.setLayout(new BoxLayout(rating, BoxLayout.LINE_AXIS));
-
-
-		ratingLabel = new JLabel("Select a rating:");
-		ratingLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = ratingLabel.getPreferredSize();
-		ratingLabel.setSize(dim);	
-		
-		// Variable declaration
-		String[] ratingValues = { "Select a rating", "1", "2", "3", "4", "5" };
-		// declaration of pane components
-
-		// Combo boxes
-		ratings = new JComboBox(ratingValues);
-		ratings.setMinimumSize(ratings.getPreferredSize());
-		ratings.setPreferredSize(ratings.getPreferredSize());
-		ratings.setMaximumSize(ratings.getPreferredSize());
-	
-		rating.add(ratingLabel);
-		rating.add(Box.createRigidArea(new Dimension(5,0)));
-		rating.add(ratings);
-		
-		ratingSpacing = new JPanel();
-		ratingSpacing.setLayout(new BoxLayout(ratingSpacing, BoxLayout.PAGE_AXIS));
-		ratingSpacing.setAlignmentX(Component.LEFT_ALIGNMENT);
-		ratingSpacing.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		ratingSpacing.add(Box.createRigidArea(new Dimension(0, 15)));
-		ratingSpacing.add(rating);
-		
-		
-		return ratingSpacing;
 	}
 	
 	// PURPOSE: To check if all the CD fields are complete
