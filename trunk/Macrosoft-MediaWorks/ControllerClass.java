@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class ControllerClass{
 
 	private AddScreenUI addScreenUI;
-//	private BrowseUI browseUI;
+	private BrowseUI browseUI;
 	private CreateAccountUI createAccountUI;
 	private LoginUI loginUI;
 	private MainScreenUI mainScreenUI;
@@ -25,7 +25,7 @@ public class ControllerClass{
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
-		cdb.loadMediaDatabase(dbType);
+//		cdb.loadMediaDatabase(dbType);
 	}
 	public int getRowsNeeded(ArrayList<String> dbType){
 		return cdb.getRowsNeeded(dbType);

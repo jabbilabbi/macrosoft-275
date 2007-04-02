@@ -18,17 +18,28 @@ public class DescriptionUI extends JFrame implements ActionListener{
 
 //	 Initalizes pane components
 	
-	private JLabel detailsLabel, titleText, artistText, genreText, descriptionText;
+	private JLabel detailsLabel;
 	private Dimension dim;
 	private JButton closeBtn;
-	private JTextField titleField, artistField, genreField;
-	private JTextArea descriptionTextArea;
-	private JScrollPane descriptionPane;
+	
 	//	 Initalizes variables
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
     private String[] rowData;
 	private int selectedRow;
+	
+	private String typeSelected;
 
+	private final String CDs = "CDs";
+	private final String DVDs = "DVDs";
+	private final String Books = "Books";
+	private final String Games = "Games";
+	
+	private Dimension PANEL_SIZE;
+	private CDsPanel CDsSelected;
+	private DVDsPanel DVDsSelected;
+	private BooksPanel BooksSelected;
+	private GamesPanel GamesSelected;
+	
     DescriptionUI() {
     	//Nothing
     }
@@ -38,29 +49,39 @@ public class DescriptionUI extends JFrame implements ActionListener{
     	createAndShowGUI();
     }
 	
-	private ControllerClass controller;
-	
 	// Purpose: Add all components of the pane into the correct locations and with correct functions
 	// PRE: Valid pane is given as a parameter
 	// POST: All neceassray components for the Create Account screen will be
 	// added and displayed
 	public Component componentSetup() {
+		
+		JPanel borderedPanel = new JPanel();
+		borderedPanel = new JPanel();
+		borderedPanel.setBorder(BorderFactory.createEtchedBorder());
+		typeSelected = "DVD";
+		if(typeSelected == "CD"){
+			PANEL_SIZE = new Dimension(300,250);
+			CDsSelected = new CDsPanel(PANEL_SIZE);
+			borderedPanel.add(CDsSelected, CDs);
+		}else if (typeSelected == "DVD"){
+			PANEL_SIZE = new Dimension(525,250);
+			DVDsSelected = new DVDsPanel(PANEL_SIZE);
+			borderedPanel.add(DVDsSelected, DVDs);
+		}else if (typeSelected == "Book"){
+			PANEL_SIZE = new Dimension(525,250);
+			BooksSelected = new BooksPanel(PANEL_SIZE);
+			borderedPanel.add(BooksSelected, Books);
+		}else if (typeSelected == "Game"){
+			PANEL_SIZE = new Dimension(525,250);
+			GamesSelected = new GamesPanel(PANEL_SIZE);
+			borderedPanel.add(GamesSelected, Games);
+		}
+		
 		detailsLabel = new JLabel("Details:");
 		detailsLabel.setFont(new Font("Helvetica", Font.BOLD, 14));
 		detailsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		detailsLabel.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		JPanel borderedPanel = new JPanel();
-		borderedPanel.setBorder(BorderFactory.createEtchedBorder());
-		borderedPanel.setLayout(new BoxLayout(borderedPanel, BoxLayout.LINE_AXIS));
-		borderedPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		borderedPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		borderedPanel.add(Box.createRigidArea(new Dimension(10,0)));
-		borderedPanel.add(labels());
-		borderedPanel.add(Box.createRigidArea(new Dimension(5,0)));
-		borderedPanel.add(fields());
-		borderedPanel.add(Box.createRigidArea(new Dimension(10,0)));
-		
+
 		JPanel pane = new JPanel();
 		pane.setLayout(new BoxLayout(pane, BoxLayout.PAGE_AXIS));
 		pane.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -105,13 +126,10 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	}	
 	
 	public void createAndShowGUI() {
-		controller = new ControllerClass(); // Creates an
-											// instance of the
-											// UI controller
 		
 		DatabaseControl db = new DatabaseControl();
 		db.loadMediaDatabase();
-		rowData = db.getLibraryRow(selectedRow); // Holds a row of data from the database		
+		rowData = db.getLibraryRow(   ); // Holds a row of data from the database		
 		
 		// Create and set up the window
 		windowLookAndFeel();
@@ -133,104 +151,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		}
 
 	}
-	public JPanel labels(){
-		JPanel labels = new JPanel();
-		labels.setLayout(new BoxLayout(labels, BoxLayout.PAGE_AXIS));
-		labels.setAlignmentX(Component.LEFT_ALIGNMENT);
-		labels.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		
-		titleText = new JLabel("Enter a title:");
-		titleText.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = titleText.getPreferredSize();
-		titleText.setSize(dim);
 
-		artistText = new JLabel("Enter an artist:");
-		artistText.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = artistText.getPreferredSize();
-		artistText.setSize(dim);
-		
-		genreText = new JLabel("Enter a genre:");
-		genreText.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = genreText.getPreferredSize();
-		genreText.setSize(dim);
-		
-		descriptionText = new JLabel("Enter a description:");
-		descriptionText.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = descriptionText.getPreferredSize();
-		descriptionText.setSize(dim);	
-
-		labels.add(Box.createRigidArea(new Dimension(0,15)));
-		labels.add(titleText);
-		labels.add(Box.createRigidArea(new Dimension(0,17)));
-		labels.add(artistText);
-		labels.add(Box.createRigidArea(new Dimension(0,19)));
-		labels.add(genreText);
-		labels.add(Box.createRigidArea(new Dimension(0,21)));
-		labels.add(descriptionText);
-		labels.add(Box.createRigidArea(new Dimension(0,50))); 
-		
-		return labels;
-	}
-	public JPanel fields(){
-		JPanel fields = new JPanel();
-		fields.setLayout(new BoxLayout(fields, BoxLayout.PAGE_AXIS));
-		fields.setAlignmentX(Component.LEFT_ALIGNMENT);
-		fields.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		Dimension fieldSize = new Dimension(180,20);		
-		titleField = new JTextField(20);
-		titleField.setMinimumSize(fieldSize);
-		titleField.setMaximumSize(fieldSize);
-		titleField.setEditable(false);
-		titleField.setText(rowData[0]);
-		titleField.setBackground(Color.white);
-		
-		
-		artistField = new JTextField(20);
-		artistField.setSize(artistField.getMinimumSize());
-		artistField.setMinimumSize(fieldSize);
-		artistField.setMaximumSize(fieldSize);
-		artistField.setEditable(false);
-		artistField.setText(rowData[1]);
-		artistField.setBackground(Color.white);
-		
-		
-		genreField = new JTextField(20);
-		genreField.setSize(genreField.getMinimumSize());
-		genreField.setMinimumSize(fieldSize);
-		genreField.setMaximumSize(fieldSize);
-		genreField.setEditable(false);
-		genreField.setText(rowData[2]);
-		genreField.setBackground(Color.white);
-		
-		descriptionTextArea = new JTextArea(5, 20);
-		descriptionPane = new JScrollPane(descriptionTextArea,
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-		descriptionTextArea.setLineWrap(true);
-		descriptionTextArea.setWrapStyleWord(true);
-		descriptionPane.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		Dimension areaSize = new Dimension(180,80);
-		descriptionPane.setMinimumSize(areaSize);
-		descriptionPane.setMaximumSize(areaSize);
-		descriptionTextArea.setText(rowData[3]);
-		descriptionTextArea.setEditable(false);
-
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
-		fields.add(titleField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
-		fields.add(artistField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
-		fields.add(genreField);
-		fields.add(Box.createRigidArea(new Dimension(0,15)));
-		fields.add(descriptionPane);
-		fields.add(Box.createRigidArea(new Dimension(0,50)));
-		
-		return fields;
-	}
 	// Testing method
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
