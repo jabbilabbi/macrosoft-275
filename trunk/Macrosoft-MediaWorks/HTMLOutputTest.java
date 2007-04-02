@@ -9,10 +9,11 @@ public class HTMLOutputTest {
 		
 		// Create instance of HTMLOutput class
 		HTMLOutput ho = new HTMLOutput();
+		//DatabaseControl db = new DatabaseControl();
 		
 		// Test web page creation
-		ho.createHTMLOutput();
-
+		ho.createHTMLOutput(true, true, true, true);
+		
 		// System.out.println("Web page creation completed!");
 	}
 }
