@@ -15,7 +15,7 @@ public class ControllerClass{
 	
 	public ControllerClass(){
 		addScreenUI = new AddScreenUI();
-		//browseUI = new BrowseUI();
+		browseUI = new BrowseUI();
 		createAccountUI = new CreateAccountUI();
 		loginUI = new LoginUI();
 		mainScreenUI = new MainScreenUI();
