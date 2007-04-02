@@ -129,7 +129,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		
 		DatabaseControl db = new DatabaseControl();
 		db.loadAllDatabases();
-		rowData = db.getLibraryRow(selectedRow,); // Holds a row of data from the database		
+		rowData = db.getLibraryRow(selectedRow); // Holds a row of data from the database		
 		
 		// Create and set up the window
 		windowLookAndFeel();

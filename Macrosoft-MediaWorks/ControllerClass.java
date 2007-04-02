@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class ControllerClass{
 
+	
 	private AddScreenUI addScreenUI;
 	private BrowseUI browseUI;
 	private CreateAccountUI createAccountUI;
@@ -13,13 +14,14 @@ public class ControllerClass{
 
 	
 	public ControllerClass(){
+		cdb = new DatabaseControl();
+		sdb = new SecurityControl();
 		addScreenUI = new AddScreenUI();
 		browseUI = new BrowseUI();
 		createAccountUI = new CreateAccountUI();
 		loginUI = new LoginUI();
 		mainScreenUI = new MainScreenUI();
 		html = new HTMLOutput();
-		sdb = new SecurityControl();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
@@ -89,7 +91,6 @@ public class ControllerClass{
 	
 	public void mainScreenFrame(){
 		mainScreenUI.createAndShowGUI();
-		cdb = new DatabaseControl();
 	}
 	
 	public void setCurrentUser(String currentUser){

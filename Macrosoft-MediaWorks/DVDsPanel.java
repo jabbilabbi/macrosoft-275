@@ -4,14 +4,14 @@ import java.awt.*;
 public class DVDsPanel extends JPanel{
 
 	// Initialize variables
-	public JTextField titleField, artistField, genreField;
-	public JTextArea descriptionTextArea;
+	protected JTextField titleField, artistField, genreField;
+	protected JTextArea descriptionTextArea;
 
 	private JLabel titleLabel, artistLabel, genreLabel, starsLabel, ratingsLabel;
 	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
-	public JPanel labels, fields, labels2, fields2;
-	public JComboBox ratings, stars;
+	protected JPanel labels, fields, labels2, fields2;
+	protected JComboBox ratings, stars;
 	protected Boolean checkAdd;
 	private Dimension dim;
 	

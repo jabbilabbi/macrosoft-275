@@ -4,14 +4,14 @@ import java.awt.*;
 public class GamesPanel extends JPanel{
 
 	// Initialize variables
-	public JTextField titleField, artistField, genreField, publisherField, platformField;
-	public JTextArea descriptionTextArea;
+	protected JTextField titleField, artistField, genreField, publisherField, platformField;
+	protected JTextArea descriptionTextArea;
 
 	private JLabel titleLabel, artistLabel, genreLabel, platformLabel, publisherLabel, ESRBLabel;
 	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
-	public JPanel labels, fields, labels2, fields2;
-	public JComboBox ESRBs;
+	protected JPanel labels, fields, labels2, fields2;
+	protected JComboBox ESRBs;
 	protected Boolean checkAdd;
 	private Dimension dim;
 	

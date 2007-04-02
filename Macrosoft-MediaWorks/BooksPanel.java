@@ -4,14 +4,14 @@ import java.awt.*;
 public class BooksPanel extends JPanel{
 
 	// Initialize variables
-	public JTextField titleField, artistField, genreField, publisherField;
-	public JTextArea descriptionTextArea;
+	protected JTextField titleField, artistField, genreField, publisherField;
+	protected JTextArea descriptionTextArea;
 
 	private JLabel titleLabel, artistLabel, genreLabel, publisherLabel;
 	protected JLabel enterTitleLabel, enterArtistLabel, enterGenreLabel, descriptionLabel;
 	private JScrollPane descriptionPane;
-	public JPanel labels, fields, labels2, fields2;
-	public JComboBox ratings;
+	protected JPanel labels, fields, labels2, fields2;
+	protected JComboBox ratings;
 	protected Boolean checkAdd;
 	private Dimension dim;
 	

@@ -260,8 +260,8 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[2] = DVDsSelected.artistField.getText();
 						addInfo[3] = DVDsSelected.genreField.getText();
 						addInfo[4] = DVDsSelected.descriptionTextArea.getText();
-						addInfo[5] = DVDsSelected.titleField.getText();
-						addInfo[6] = DVDsSelected.titleField.getText();
+						addInfo[5] = (String) DVDsSelected.stars.getSelectedItem();
+						addInfo[6] = (String) DVDsSelected.ratings.getSelectedItem();
 						controller.appendMediaDatabase(controller.cdb.DVDItems, addInfo);
 						checkAdd = true;
 					}
@@ -274,7 +274,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[2] = BooksSelected.artistField.getText();
 						addInfo[3] = BooksSelected.genreField.getText();
 						addInfo[4] = BooksSelected.descriptionTextArea.getText();
-						addInfo[5] = BooksSelected.titleField.getText();
+						addInfo[5] = BooksSelected.publisherField.getText();
 						controller.appendMediaDatabase(controller.cdb.BookItems, addInfo);
 						checkAdd = true;
 					}
@@ -287,9 +287,9 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[2] = GamesSelected.artistField.getText();
 						addInfo[3] = GamesSelected.genreField.getText();
 						addInfo[4] = GamesSelected.descriptionTextArea.getText();
-						addInfo[5] = GamesSelected.titleField.getText();
-						addInfo[6] = GamesSelected.titleField.getText();
-						addInfo[7] = GamesSelected.titleField.getText();
+						addInfo[5] = GamesSelected.publisherField.getText();
+						addInfo[6] = GamesSelected.platformField.getText();
+						addInfo[7] = (String) GamesSelected.ESRBs.getSelectedItem();
 						controller.appendMediaDatabase(controller.cdb.GameItems, addInfo);
 						checkAdd = true;
 					}
