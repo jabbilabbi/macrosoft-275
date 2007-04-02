@@ -20,7 +20,6 @@ public class ControllerClass{
 		mainScreenUI = new MainScreenUI();
 		html = new HTMLOutput();
 		sdb = new SecurityControl();
-		cdb = new DatabaseControl();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
@@ -90,6 +89,7 @@ public class ControllerClass{
 	
 	public void mainScreenFrame(){
 		mainScreenUI.createAndShowGUI();
+		cdb = new DatabaseControl();
 	}
 	
 	public void setCurrentUser(String currentUser){
