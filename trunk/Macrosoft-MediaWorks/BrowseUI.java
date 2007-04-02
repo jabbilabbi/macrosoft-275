@@ -245,6 +245,10 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
 		*/
+        
+        public MyTableModel() {
+        	// Nothing
+        }
       
         public int getColumnCount() {
             return columnNames1.length;
@@ -261,7 +265,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
         public Object getValueAt(int row, int col) {
             return tableData[row][col];
         }
-
         
         /*
           JTable uses this method to determine the default renderer/
@@ -321,7 +324,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		// Assigns data from the database to tableData
     		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
-    			tableData[i][0] = i + ".";
+    			tableData[i][0] = i+1 + ".";
     			// Holds a row of data from the database	
     			String[] rowData = db.getLibraryRow(db.CDItems, i); 									
     			for (int j = 0; j < 4; j++)
@@ -333,7 +336,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		return tableData;
     	}
-    	
 
         private void printDebugData() {
             int numRows = getRowCount();
@@ -395,7 +397,12 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     int selectedCol = lsm.getMinSelectionIndex();
                     
                         if (selectedCol == 5) {
-                        	description = new DescriptionUI(selectedRow);
+                        	MyTableModel tableModel = new MyTableModel();
+                        	Object data = tableModel.getValueAt(selectedRow, 0);
+                        	
+                        	int realRowIndex = data;
+                        	//data = new Integer();
+                        	description = new DescriptionUI(realRowIndex);
                         }
                     }
                 
@@ -457,6 +464,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	
 	public void actionPerformed3(ActionEvent e) {
 		if (e.getActionCommand().equals("Delete")) {
+			
 			//controller. ;
 			//dispose();
 		}
