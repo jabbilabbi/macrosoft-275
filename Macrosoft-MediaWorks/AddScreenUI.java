@@ -271,7 +271,7 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo = new String[6];
 						addInfo[0] = "Book";
 						addInfo[1] = BooksSelected.titleField.getText();
-						addInfo[2] = BooksSelected.authorField.getText();
+						addInfo[2] = BooksSelected.artistField.getText();
 						addInfo[3] = BooksSelected.genreField.getText();
 						addInfo[4] = BooksSelected.descriptionTextArea.getText();
 						addInfo[5] = BooksSelected.titleField.getText();
