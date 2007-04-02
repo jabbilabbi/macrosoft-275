@@ -235,16 +235,16 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        //private Object[][] tableData = loadTableData();
+        private Object[][] tableData = loadTableData();
         
         
-        
+        /*
 		private Object[][] tableData = {
 			{"1.", "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{"2.", "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		
+		*/
       
         public int getColumnCount() {
             return columnNames1.length;
@@ -309,7 +309,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
             }
         }
         
-        /*
+        
         // NOT WORKING - CAUSING ERROR
     	public Object[][] loadTableData() {
     		
@@ -333,7 +333,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		return tableData;
     	}
-    	*/
+    	
 
         private void printDebugData() {
             int numRows = getRowCount();
