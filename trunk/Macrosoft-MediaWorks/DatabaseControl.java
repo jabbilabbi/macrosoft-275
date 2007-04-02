@@ -21,7 +21,7 @@ public class DatabaseControl {
 	protected static ArrayList<String> DVDItems = new ArrayList<String>();
 	protected static  ArrayList<String> BookItems = new ArrayList<String>();
 	protected static  ArrayList<String> GameItems = new ArrayList<String>();
-	public static String currentUser = "currentUser";
+	private static String currentUser = "currentUser";
 
 	// Allow access of retrieveCurrentUser function
 	//private ControllerClass controller;
@@ -36,6 +36,10 @@ public class DatabaseControl {
 
 	public void setCurrentUser(String currentUser) {
 		this.currentUser = currentUser;
+	}
+	
+	public String getCurrentUser() {
+		return this.currentUser;
 	}
 	
 	public void updateFileName() {
@@ -166,6 +170,22 @@ public class DatabaseControl {
 			mediaIndex = 8;
 		}
 		return mediaIndex;
+	}
+	
+	public String[] getLibraryRow(int indexOfRow, String currentDB) {
+		
+		String[] defaultReturn = {""};
+		if (currentDB == "CD") {
+			return getLibraryRow(CDItems, indexOfRow);
+		} else if (currentDB == "DVD") {
+			return getLibraryRow(DVDItems, indexOfRow);
+		} else if (currentDB == "Book") {
+			return getLibraryRow(BookItems, indexOfRow);
+		} else if (currentDB == "Game") {
+			return getLibraryRow(GameItems, indexOfRow);
+		} else {
+			return defaultReturn;
+		}
 	}
 	
 	// Return an array containing the four elements of the current database row
