@@ -128,8 +128,8 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	public void createAndShowGUI() {
 		
 		DatabaseControl db = new DatabaseControl();
-		db.loadMediaDatabase();
-		rowData = db.getLibraryRow(   ); // Holds a row of data from the database		
+		db.loadAllDatabases();
+		rowData = db.getLibraryRow(selectedRow,); // Holds a row of data from the database		
 		
 		// Create and set up the window
 		windowLookAndFeel();
