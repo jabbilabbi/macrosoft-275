@@ -21,6 +21,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	private JLabel detailsLabel;
 	private Dimension dim;
 	private JButton closeBtn, editBtn;
+	private DatabaseControl cdb = new DatabaseControl();
 	
 	//	 Initalizes variables
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
@@ -44,8 +45,9 @@ public class DescriptionUI extends JFrame implements ActionListener{
     	//Nothing
     }
     
-    DescriptionUI(int row) {
+    DescriptionUI(int row, String type) {
     	selectedRow = row;
+    	typeSelected = type;
     	createAndShowGUI();
     }
 	
@@ -58,23 +60,26 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		JPanel borderedPanel = new JPanel();
 		borderedPanel = new JPanel();
 		borderedPanel.setBorder(BorderFactory.createEtchedBorder());
-		typeSelected = "DVD";
 		if(typeSelected == "CD"){
 			PANEL_SIZE = new Dimension(300,250);
 			CDsSelected = new CDsPanel(PANEL_SIZE);
 			borderedPanel.add(CDsSelected, CDs);
+			CDsSelected.setCD(rowData);
 		}else if (typeSelected == "DVD"){
 			PANEL_SIZE = new Dimension(525,250);
 			DVDsSelected = new DVDsPanel(PANEL_SIZE);
 			borderedPanel.add(DVDsSelected, DVDs);
+			DVDsSelected.setDVD(rowData);
 		}else if (typeSelected == "Book"){
 			PANEL_SIZE = new Dimension(525,250);
 			BooksSelected = new BooksPanel(PANEL_SIZE);
 			borderedPanel.add(BooksSelected, Books);
+			BooksSelected.setBook(rowData);
 		}else if (typeSelected == "Game"){
 			PANEL_SIZE = new Dimension(525,250);
 			GamesSelected = new GamesPanel(PANEL_SIZE);
 			borderedPanel.add(GamesSelected, Games);
+			GamesSelected.setGame(rowData);
 		}
 		
 		detailsLabel = new JLabel("Details:");
@@ -142,10 +147,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	}	
 	
 	public void createAndShowGUI() {
-		
-		DatabaseControl db = new DatabaseControl();
-		db.loadAllDatabases();
-		//rowData = db.getLibraryRow(selectedRow); // Holds a row of data from the database		
+		rowData = cdb.getLibraryRow(selectedRow, typeSelected); // Holds a row of data from the database		
 		
 		// Create and set up the window
 		windowLookAndFeel();
@@ -167,7 +169,15 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		}
 
 		if(e.getActionCommand().equals("Edit")){
-			
+			if(typeSelected == "CD"){
+			cdb.editRow(cdb.CDItems, rowData, CDsSelected.returnCD(), CDsSelected.returnCD()[0]);
+			}else if (typeSelected == "DVD"){
+				cdb.editRow(cdb.DVDItems, rowData, DVDsSelected.returnDVD(), DVDsSelected.returnDVD()[0]);
+			}else if (typeSelected == "Book"){
+				cdb.editRow(cdb.BookItems, rowData, BooksSelected.returnBook(), BooksSelected.returnBook()[0]);
+			}else if (typeSelected == "Game"){
+				cdb.editRow(cdb.GameItems, rowData, GamesSelected.returnGame(), GamesSelected.returnGame()[0]);
+			}
 		}
 		
 	}

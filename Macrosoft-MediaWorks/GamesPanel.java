@@ -314,8 +314,34 @@ public class GamesPanel extends JPanel{
 		artistField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
+		publisherField.setText("");
+		platformField.setText("");
 		ESRBs.setSelectedIndex(0);
 	}
+	
+	public void setGame(String[] info){
+		titleField.setText(info[1]);
+		artistField.setText(info[2]);
+		genreField.setText(info[3]);
+		descriptionTextArea.setText(info[4]);
+		publisherField.setText(info[5]);
+		platformField.setText(info[6]);
+		ESRBs.setSelectedItem(info[7]);
+
+	}
+	
+	public String[] returnGame(){
+		String[] Game = {"Game",
+				titleField.getText(),
+				artistField.getText(),
+				genreField.getText(),
+				descriptionTextArea.getText(),
+				publisherField.getText(),
+				platformField.getText(),
+				ESRBs.getSelectedItem().toString()};
+		
+		return Game;
+		}	
 	
 	// Purpose: Set the look and feel of the panel
 	// PRE: None

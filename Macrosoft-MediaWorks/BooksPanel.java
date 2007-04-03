@@ -279,7 +279,28 @@ public class BooksPanel extends JPanel{
 		artistField.setText("");
 		genreField.setText("");
 		descriptionTextArea.setText("");
+		publisherField.setText("");
 	}
+	
+	public void setBook(String[] info){
+		titleField.setText(info[1]);
+		artistField.setText(info[2]);
+		genreField.setText(info[3]);
+		descriptionTextArea.setText(info[4]);
+		publisherField.setText(info[5]);
+	}
+	
+	public String[] returnBook(){
+		String[] Book = {"Book",
+				titleField.getText(),
+				artistField.getText(),
+				genreField.getText(),
+				descriptionTextArea.getText(),
+				publisherField.getText()};
+		
+		return Book;
+		}	
+	
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
 	// POST: Sets the panels look and feel to the system look and feel

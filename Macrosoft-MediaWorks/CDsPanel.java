@@ -214,6 +214,24 @@ public class CDsPanel extends JPanel{
 		genreField.setText("");
 		descriptionTextArea.setText("");
 	}
+	
+	public void setCD(String[] info){
+		titleField.setText(info[1]);
+		artistField.setText(info[2]);
+		genreField.setText(info[3]);
+		descriptionTextArea.setText(info[4]);
+	}
+	
+	public String[] returnCD(){
+		String[] CD = {"CD", 
+				titleField.getText(),
+				artistField.getText(),
+				genreField.getText(),
+				descriptionTextArea.getText()};
+		
+		return CD;
+		}	
+	
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
 	// POST: Sets the panels look and feel to the system look and feel

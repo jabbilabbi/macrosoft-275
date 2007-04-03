@@ -13,7 +13,6 @@ import java.awt.Container;
 import java.awt.Insets;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 import java.awt.event.*;
@@ -45,6 +44,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		
 		// Declaration of pane components
 		addMediaBtn = new JButton("Add New Media");
+		addMediaBtn.setFont(new Font("Helvetica", Font.BOLD, 11));
 		addMediaBtn.setMinimumSize(new Dimension(140, 75));
 		addMediaBtn.setPreferredSize(new Dimension(140, 75));
 		addMediaBtn.setMaximumSize(new Dimension(140, 75));
@@ -54,6 +54,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		addMediaBtn.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		browseBtn = new JButton("Browse");
+		browseBtn.setFont(new Font("Helvetica", Font.BOLD, 11));
 		browseBtn.setMinimumSize(new Dimension(140, 75));
 		browseBtn.setPreferredSize(new Dimension(140, 75));
 		browseBtn.setMaximumSize(new Dimension(140, 75));
@@ -63,6 +64,7 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		browseBtn.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		createHTMLBtn = new JButton("Create a Web Page");
+		createHTMLBtn.setFont(new Font("Helvetica", Font.BOLD, 11));
 		createHTMLBtn.setMinimumSize(new Dimension(140, 75));
 		createHTMLBtn.setPreferredSize(new Dimension(140, 75));
 		createHTMLBtn.setMaximumSize(new Dimension(140, 75));
@@ -94,7 +96,8 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		
 		HTMLPanel.add(createdHTMLLabel);
 		HTMLPanel.add(createHTMLBtn);
-		
+
+		buttonPanel.setBorder(BorderFactory.createEtchedBorder());
 		buttonPanel.add(addMediaBtn);
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		buttonPanel.add(browseBtn);
