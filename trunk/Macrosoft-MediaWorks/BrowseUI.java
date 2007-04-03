@@ -480,16 +480,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			controller.mainScreenFrame();
 			dispose();
 		}
-	}
-	
-	public void actionPerformed2(ActionEvent e) {
-		if (e.getActionCommand().equals("Search")) {
-			//controller. ;
-			//dispose();
-		}
-	}
-	
-	public void actionPerformed3(ActionEvent e) {
+		
 		if (e.getActionCommand().equals("Delete")) {
 			
 			System.out.println("Delete was pressed.");
@@ -525,7 +516,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			}
 		}
 	}
-
+	
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// Creating and showing this application's GUI.
