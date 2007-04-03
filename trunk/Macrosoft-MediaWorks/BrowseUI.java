@@ -494,6 +494,14 @@ public class BrowseUI extends JFrame implements ActionListener  {
             	String stringData = objectData.toString();
             	// it can be converted into an integer
             	int delete = Integer.parseInt(stringData);
+            	if(DEBUG) {
+                	//System.out.println("selectedRow: " + selectedRow);
+                	System.out.println("objectData: " + objectData);
+                	System.out.println("stringData: " + stringData);
+                	System.out.println("delete: " + delete);
+                	//System.out.println("realRowIndex: " + realRowIndex);
+                	System.out.println();
+            	}
 				if(delete == 1) {//Proceed to get the real index of the row
 					// Gets the int of the first column of the row that has been selected
 					objectData = sorter.getValueAt(selectedRow, 0);
