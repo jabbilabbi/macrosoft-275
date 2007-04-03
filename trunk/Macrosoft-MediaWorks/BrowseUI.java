@@ -489,22 +489,29 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			//Checks which rows are selected
 			for (int i=0 ; i<table.getRowCount() ; i++) {
 				// Gets the true/false value of the check box at the selected row
-				Object objectData = sorter.getValueAt(selectedRow, 6);
+				Object objectData = sorter.getValueAt(i, 6);
 				// Must be converted into a string so that
             	String stringData = objectData.toString();
-            	// it can be converted into an integer
-            	int delete = Integer.parseInt(stringData);
+            	stringData = stringData.toLowerCase();
+            
+            	boolean delete;
+            	if (stringData.equals("false"))
+                    delete = false;             
+            	else
+                    delete = true;
+                
+
             	if(DEBUG) {
-                	//System.out.println("selectedRow: " + selectedRow);
+                	
                 	System.out.println("objectData: " + objectData);
                 	System.out.println("stringData: " + stringData);
                 	System.out.println("delete: " + delete);
                 	//System.out.println("realRowIndex: " + realRowIndex);
                 	System.out.println();
             	}
-				if(delete == 1) {//Proceed to get the real index of the row
+				if(delete) {//Proceed to get the real index of the row
 					// Gets the int of the first column of the row that has been selected
-					objectData = sorter.getValueAt(selectedRow, 0);
+					objectData = sorter.getValueAt(i, 0);
 					// Must be converted to a string so that
 					stringData = objectData.toString();
 					// it can be converted to an int
