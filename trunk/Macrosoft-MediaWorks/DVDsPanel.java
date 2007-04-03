@@ -308,6 +308,27 @@ public class DVDsPanel extends JPanel{
 		ratings.setSelectedIndex(0);
 	}
 	
+	public void setDVD(String[] info){
+		titleField.setText(info[1]);
+		artistField.setText(info[2]);
+		genreField.setText(info[3]);
+		descriptionTextArea.setText(info[4]);
+		stars.setSelectedItem(info[5]);
+		ratings.setSelectedItem(info[6]);
+	}
+	
+	public String[] returnDVD(){
+		String[] DVD = {"DVD",
+				titleField.getText(),
+				artistField.getText(),
+				genreField.getText(),
+				descriptionTextArea.getText(),
+				stars.getSelectedItem().toString(),
+				ratings.getSelectedItem().toString()};
+		
+		return DVD;
+		}	
+	
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
 	// POST: Sets the panels look and feel to the system look and feel
