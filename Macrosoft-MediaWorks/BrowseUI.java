@@ -225,15 +225,15 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        //private Object[][] tableData = loadTableData();
+        private Object[][] tableData = loadTableData();
         
-        
+        /*
 		private Object[][] tableData = {
 			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		
+		*/
         
         public MyTableModel() {
         	// Nothing
