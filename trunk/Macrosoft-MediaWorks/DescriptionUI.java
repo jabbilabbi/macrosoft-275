@@ -20,7 +20,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	
 	private JLabel detailsLabel;
 	private Dimension dim;
-	private JButton closeBtn;
+	private JButton closeBtn, editBtn;
 	
 	//	 Initalizes variables
 	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
@@ -99,17 +99,33 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		closeBtn.setActionCommand("Close");
 		closeBtn.addActionListener(this);
 		
+		editBtn = new JButton("Save");
+		dim = editBtn.getPreferredSize();
+		editBtn.setMinimumSize(dim);
+		editBtn.setMaximumSize(dim);
+		editBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		editBtn.setAlignmentY(Component.TOP_ALIGNMENT);
+		editBtn.setActionCommand("Edit");
+		editBtn.addActionListener(this);
 		
 		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.PAGE_AXIS));
-		btnPanel.add(pane);
+		btnPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		btnPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.LINE_AXIS));
+		btnPanel.add(editBtn);
 		btnPanel.add(Box.createRigidArea(new Dimension(0,5)));
 		btnPanel.add(closeBtn);
+		
+		JPanel btnPanel2 = new JPanel();
+		btnPanel2.setLayout(new BoxLayout(btnPanel2, BoxLayout.PAGE_AXIS));
+		btnPanel2.add(pane);
+		btnPanel2.add(Box.createRigidArea(new Dimension(0,5)));
+		btnPanel2.add(btnPanel);
 		
 		JPanel primaryPanel = new JPanel();
 		primaryPanel.setLayout(new BoxLayout(primaryPanel, BoxLayout.LINE_AXIS));
 		primaryPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
-		primaryPanel.add(btnPanel);
+		primaryPanel.add(btnPanel2);
 		return primaryPanel;
 
 	}
@@ -129,7 +145,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		
 		DatabaseControl db = new DatabaseControl();
 		db.loadAllDatabases();
-		rowData = db.getLibraryRow(selectedRow); // Holds a row of data from the database		
+		//rowData = db.getLibraryRow(selectedRow); // Holds a row of data from the database		
 		
 		// Create and set up the window
 		windowLookAndFeel();
@@ -150,6 +166,10 @@ public class DescriptionUI extends JFrame implements ActionListener{
 			dispose();
 		}
 
+		if(e.getActionCommand().equals("Edit")){
+			
+		}
+		
 	}
 
 	// Testing method
