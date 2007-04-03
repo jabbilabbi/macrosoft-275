@@ -418,7 +418,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
                         	int realRowIndex = Integer.parseInt(stringData);
                         	// Because the numbers in columns are +1 of their real index values
                         	realRowIndex--;	
-                        	description = new DescriptionUI(realRowIndex, db.CDItems);
+                        	description = new DescriptionUI(realRowIndex, "CD");
                         	if(DEBUG) {
 	                        	System.out.println("selectedRow: " + selectedRow);
 	                        	System.out.println("objectData: " + objectData);
