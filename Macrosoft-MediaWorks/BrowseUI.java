@@ -23,8 +23,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
 public class BrowseUI extends JFrame implements ActionListener  {
-
-	// PROBLEM AT LINE 327
 	
 	// Initalizes pane components
 	private static final long serialVersionUID = 1;
@@ -312,8 +310,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
             }
         }
         
-        
-        // NOT WORKING - CAUSING ERROR
     	public Object[][] loadTableData() {
     		
     		DatabaseControl db = new DatabaseControl();
