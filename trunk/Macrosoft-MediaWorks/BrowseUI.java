@@ -320,7 +320,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		// Assigns data from the database to tableData
     		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
-    			tableData[i][0] = i+1 + ".";
+    			tableData[i][0] = new Integer(i+1) + ".";
     			// Holds a row of data from the database	
     			String[] rowData = db.getLibraryRow(db.CDItems, i); 									
     			for (int j = 0; j < 4; j++)
