@@ -50,6 +50,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
     Dimension windowSize = new Dimension(800, 500);
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
+    String[][] strTableData;
+    
     
 	// Purpose: To add and display components
 	// PRE: None
@@ -155,11 +157,14 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
 		sorter = new TableSorter(new MyTableModel());
 		table = new JTable(sorter);
+		
 		sorter.setTableHeader(table.getTableHeader());  
 	    //Set up tool tips for column headers.
 	    table.getTableHeader().setToolTipText("Click to specify sorting; Control-Click to specify secondary sorting");
 	    //Create the scroll pane and add the table to it.
 	    scrollPane = new JScrollPane(table);
+	    
+	    
 	    //Set up column sizes.
 	    initColumnSizes(table);    
 		// Detects selection of cells in the details column
@@ -219,15 +224,15 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        private Object[][] tableData = loadTableData();
+        //private Object[][] tableData = loadTableData();
         
-        /*
+        
 		private Object[][] tableData = {
 			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		*/
+		
         
         public MyTableModel() {
         	// Nothing
@@ -299,12 +304,14 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		DatabaseControl db = new DatabaseControl();
     		db.loadMediaDatabase(db.CDItems, "CD");
+    		final int rowsNeeded = db.getRowsNeeded(db.CDItems);
     		
     		// Holds table data	
-    		Object[][] tableData = new Object[db.getRowsNeeded(db.CDItems)][7]; 			
+    		Object[][] tableData = new Object[rowsNeeded][7]; 			
+    		strTableData = 	new String[rowsNeeded][7];
     		
     		// Assigns data from the database to tableData
-    		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
+    		for (int i = 0; i < rowsNeeded; i++) {
     			tableData[i][0] = new Integer(i+1);
     			// Holds a row of data from the database	
     			String[] rowData = db.getLibraryRow(db.CDItems, i); 
@@ -321,6 +328,14 @@ public class BrowseUI extends JFrame implements ActionListener  {
     			tableData[i][6] = new Boolean(false);
     		}
     		
+    		// Used for delete
+    		for (int i = 0; i < rowsNeeded; i++) {
+    			for (int j = 0; j < 5; j++) {
+    				String[] rowData = db.getLibraryRow(db.CDItems, i);
+    				strTableData[i][j] = rowData[j];
+    			}
+    		}
+    				
     		return tableData;
     	}
 
@@ -343,7 +358,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	// PRE: The table
 	// POST: 
 	public void detectDetailsClick(JTable table) {
-
+		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		// True by default
 		if (ALLOW_ROW_SELECTION) { 
@@ -462,9 +477,25 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	
 	public void actionPerformed3(ActionEvent e) {
 		if (e.getActionCommand().equals("Delete")) {
-			
-			//controller. ;
-			//dispose();
+			System.out.println("Delete was pressed.");
+			DatabaseControl db = new DatabaseControl();
+			//Checks which rows are selected
+			for (int i=0 ; i<table.getRowCount() ; i++) {
+				Object objectData = sorter.getValueAt(selectedRow, 6);
+            	String stringData = objectData.toString();
+            	int delete = Integer.parseInt(stringData);
+				if(delete == 1) {//Proceed to get real index of the row
+					objectData = sorter.getValueAt(selectedRow, 0);
+					stringData = objectData.toString();
+					int realRowIndex = Integer.parseInt(stringData);
+					realRowIndex--;
+					String[] rowToDelete = new String[5];
+					for(int j=0 ; j<5 ; j++)
+						rowToDelete[j] = strTableData[realRowIndex][j];
+					db.deleteRow(db.CDItems, rowToDelete, "CD");
+					sorter.fireTableDataChanged();
+				}
+			}
 		}
 	}
 
