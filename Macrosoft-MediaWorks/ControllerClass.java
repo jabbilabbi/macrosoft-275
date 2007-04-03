@@ -16,6 +16,12 @@ public class ControllerClass{
 	public ControllerClass(){
 		sdb = new SecurityControl();
 		loginUI = new LoginUI();
+		cdb = new DatabaseControl();
+		addScreenUI = new AddScreenUI();
+		browseUI = new BrowseUI();
+		createAccountUI = new CreateAccountUI();
+		mainScreenUI = new MainScreenUI();
+		html = new HTMLOutput();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
@@ -29,7 +35,7 @@ public class ControllerClass{
 	}
 	
 	public void createHTMLOutput(){
-		html.createHTMLOutput();
+	//	html.createHTMLOutput();
 	}
 	public boolean checkIfUserExists(String tempUser){
 		return sdb.checkIfUserExists(tempUser);
@@ -85,12 +91,6 @@ public class ControllerClass{
 	
 	public void mainScreenFrame(){
 		mainScreenUI.createAndShowGUI();
-		cdb = new DatabaseControl();
-		addScreenUI = new AddScreenUI();
-		browseUI = new BrowseUI();
-		createAccountUI = new CreateAccountUI();
-		mainScreenUI = new MainScreenUI();
-		html = new HTMLOutput();
 	}
 	
 	public void setCurrentUser(String currentUser){
