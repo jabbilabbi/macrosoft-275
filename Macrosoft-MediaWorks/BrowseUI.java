@@ -64,24 +64,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		// Used for padding around components
 		Insets insets;
 		// Items in the combo box
-		String[] mediaTypes = {"All", "CDs", "DVDs", "Games", "Books"};	
-		
-		/*
-		DatabaseControl db = new DatabaseControl();
-		db.loadMediaDatabase();
-		// Holds table data	
-		Object[][] tableData = new Object[db.getRowsNeeded()][4]; 			
-		
-		// Assigns data from the database to tableData
-		for (int i = 0; i < db.getRowsNeeded(); i++) {
-			// Holds a row of data from the database	
-			String[] rowData = db.getLibraryRow(i); 									
-			for (int j = 0; j < 3; j++)
-				// Assigns column data from a row to tableData
-				tableData[i][j] = rowData[j];
-			tableData[i][3] = "Click";
-		}
-		*/
+		String[] mediaTypes = {"CDs", "DVDs", "Games", "Books"};	
 		
 		// Declaration of pane components
 		
@@ -238,9 +221,9 @@ public class BrowseUI extends JFrame implements ActionListener  {
         
         
 		private Object[][] tableData = {
-			{"1.", "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
-			{"2.", "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
-			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
+			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
+			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
+			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
 		
         
@@ -320,7 +303,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		// Assigns data from the database to tableData
     		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
-    			tableData[i][0] = new Integer(i+1);
+    			tableData[i][0] = i+1;
     			// Holds a row of data from the database	
     			String[] rowData = db.getLibraryRow(db.CDItems, i); 									
     			for (int j = 0; j < 4; j++)
@@ -393,11 +376,18 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     int selectedCol = lsm.getMinSelectionIndex();
                     
                         if (selectedCol == 5) {
-                        	MyTableModel tableModel = new MyTableModel();
-                        	Object data = tableModel.getValueAt(selectedRow, 0);
-                        	int realRowIndex = (Integer)data;
+                        	Object objectData = sorter.getValueAt(selectedRow, 0);
+                        	String stringData = objectData.toString();
+                        	int realRowIndex = Integer.parseInt(stringData);
+                        	realRowIndex--;
                         	description = new DescriptionUI(realRowIndex);
-                        	System.out.println(realRowIndex);
+                        	if(DEBUG) {
+	                        	System.out.println("selectedRow: " + selectedRow);
+	                        	System.out.println("objectData: " + objectData);
+	                        	System.out.println("stringData: " + stringData);
+	                        	System.out.println("realRowIndex: " + realRowIndex);
+	                        	System.out.println();
+                        	}
                         }
                     }
                 
