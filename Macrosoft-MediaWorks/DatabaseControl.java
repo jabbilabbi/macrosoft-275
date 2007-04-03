@@ -245,7 +245,6 @@ public class DatabaseControl {
 	
 	public String stringJoiner(String[] stringToJoin) {
 		if (stringToJoin.length == 1) {
-			System.out.println("bleh");
 			return "";
 		}
 		String joinedString = "";
@@ -260,12 +259,6 @@ public class DatabaseControl {
 	
 	public void editRow(ArrayList<String> dbType, String[] rowToDelete, String[] editTo, String typeToReload) {
 		try {
-			// Remove last row of current ArrayList
-//			int deletionOffset = getMediaIndex(dbType);
-//			int startPoint = dbType.size() - deletionOffset;
-//			for (int i = 0; i < deletionOffset; i++) {
-//				dbType.remove(startPoint + i);
-//			}
 			// Rewrite database with -1 lines
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			String dbText = "";

@@ -11,6 +11,7 @@ public class ControllerClass{
 	protected SecurityControl sdb;
 	protected DatabaseControl cdb;
 	private HTMLOutput html;
+	private Security sec;
 
 	
 	public ControllerClass(){
@@ -22,10 +23,15 @@ public class ControllerClass{
 		createAccountUI = new CreateAccountUI();
 		mainScreenUI = new MainScreenUI();
 		html = new HTMLOutput();
+		sec = new Security();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
 //		cdb.loadMediaDatabase(dbType);
+	}
+	
+	public String encrypt(String text){
+		return sec.hashString(text);
 	}
 	public int getRowsNeeded(ArrayList<String> dbType){
 		return cdb.getRowsNeeded(dbType);

@@ -98,11 +98,13 @@ public class MainScreenUI extends JFrame implements ActionListener{
 		HTMLPanel.add(createHTMLBtn);
 
 		buttonPanel.setBorder(BorderFactory.createEtchedBorder());
+		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		buttonPanel.add(addMediaBtn);
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		buttonPanel.add(browseBtn);
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		buttonPanel.add(HTMLPanel);
+		buttonPanel.add(Box.createRigidArea(new Dimension(10,25)));
 		
 		mainScreen.add(Box.createRigidArea(new Dimension(0, 75)));
 		mainScreen.add(mainLabel);

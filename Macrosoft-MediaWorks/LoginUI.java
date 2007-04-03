@@ -327,10 +327,10 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		Boolean fieldsComplete = true;
 		String usernameEntered = String.valueOf(usernameTB.getText());
-		String passwordEntered = String.valueOf(passwordTB.getPassword());
+		String passwordEntered = controller.encrypt(String.valueOf(passwordTB.getPassword()));
 		// Stores the current username
 		String tempUser = usernameTB.getText();
-		String secretAnswer = String.valueOf(secretAnswerTB.getText());
+		String secretAnswer = controller.encrypt(String.valueOf(secretAnswerTB.getText()));
 
 		int user_result = controller.checkLogin(usernameEntered,
 				passwordEntered);
@@ -413,7 +413,7 @@ public class LoginUI extends JFrame implements ActionListener {
 				dynamicLabel.setVisible(true);
 			}
 
-			// Condition where the login entry was invalid
+			// Condition where the login entry was valid
 			if ((user_result == 1) && (fieldsComplete == true)) {
 				// Removes releavnt error
 				dynamicLabel.setVisible(false);
