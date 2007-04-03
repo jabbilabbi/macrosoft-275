@@ -218,11 +218,11 @@ public class CreateAccountUI extends JFrame implements ActionListener {
 
 		controller.loadLoginDatabase(); // Loads the Login DB
 		String username = String.valueOf(usernameTB.getText());
-		String password = String.valueOf(passwordTB.getPassword());
-		String confirmPassword = String.valueOf(passwordComfirmTB
-				.getPassword());
+		String password = controller.encrypt(String.valueOf(passwordTB.getPassword()));
+		String confirmPassword = controller.encrypt(String.valueOf(passwordComfirmTB
+				.getPassword()));
 		String secretQ = String.valueOf(secretQTB.getText());
-		String secretA = String.valueOf(secretATB.getText());
+		String secretA = controller.encrypt(String.valueOf(secretATB.getText()));
 		Boolean completeFields = true;
 		if (e.getActionCommand().equals("Create Account")) {
 		// Condition where some field(s) were left empty
