@@ -216,16 +216,16 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        //private Object[][] tableData = loadTableData();
+        private Object[][] tableData = loadTableData();
         
         
-        
+        /*
 		private Object[][] tableData = {
 			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		
+		*/
         
         public MyTableModel() {
         	// Nothing
@@ -305,10 +305,16 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
     			tableData[i][0] = i+1;
     			// Holds a row of data from the database	
-    			String[] rowData = db.getLibraryRow(db.CDItems, i); 									
+    			String[] rowData = db.getLibraryRow(db.CDItems, i); 
+    			tableData[i][1] = rowData[1];
+    			tableData[i][2] = rowData[2];
+    			tableData[i][3] = rowData[3];
+    			tableData[i][4] = rowData[0]; 
+    			/*
     			for (int j = 0; j < 4; j++)
     				// Assigns column data from a row to tableData
     				tableData[i][j+1] = rowData[j];
+    				*/
     			tableData[i][5] = "Click";
     			tableData[i][6] = new Boolean(false);
     		}
