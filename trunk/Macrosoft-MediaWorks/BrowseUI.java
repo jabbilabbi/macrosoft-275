@@ -233,16 +233,16 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        private Object[][] tableData = loadTableData();
+        //private Object[][] tableData = loadTableData();
         
         
-        /*
+        
 		private Object[][] tableData = {
 			{"1.", "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{"2.", "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{"3.", "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		*/
+		
         
         public MyTableModel() {
         	// Nothing
@@ -395,10 +395,9 @@ public class BrowseUI extends JFrame implements ActionListener  {
                         if (selectedCol == 5) {
                         	MyTableModel tableModel = new MyTableModel();
                         	Object data = tableModel.getValueAt(selectedRow, 0);
-                        	
                         	int realRowIndex = (Integer)data;
-                        	//data = new Integer();
                         	description = new DescriptionUI(realRowIndex);
+                        	System.out.println(realRowIndex);
                         }
                     }
                 
