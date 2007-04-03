@@ -117,7 +117,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 130); 		
+		c.insets = new Insets(0, 0, 10, 100); 		
 		c.anchor = GridBagConstraints.LINE_END;
 		//insets = new Insets(0, 25, 0, 25);
 		//searchDB.setMargin(insets);
@@ -320,7 +320,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
     		
     		// Assigns data from the database to tableData
     		for (int i = 0; i < db.getRowsNeeded(db.CDItems); i++) {
-    			tableData[i][0] = new Integer(i+1) + ".";
+    			tableData[i][0] = new Integer(i+1);
     			// Holds a row of data from the database	
     			String[] rowData = db.getLibraryRow(db.CDItems, i); 									
     			for (int j = 0; j < 4; j++)
@@ -396,7 +396,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
                         	MyTableModel tableModel = new MyTableModel();
                         	Object data = tableModel.getValueAt(selectedRow, 0);
                         	
-                        	int realRowIndex = data;
+                        	int realRowIndex = (Integer)data;
                         	//data = new Integer();
                         	description = new DescriptionUI(realRowIndex);
                         }
