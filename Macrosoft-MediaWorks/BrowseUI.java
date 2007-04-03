@@ -158,14 +158,11 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
 		sorter = new TableSorter(new MyTableModel());
 		table = new JTable(sorter);
-		
 		sorter.setTableHeader(table.getTableHeader());  
 	    //Set up tool tips for column headers.
-	    table.getTableHeader().setToolTipText("Click to specify sorting; Control-Click to specify secondary sorting");
+	    table.getTableHeader().setToolTipText("Click to sort in ascending order.\r\n Click again to sort in descending order. Click again to display contents in original order");
 	    //Create the scroll pane and add the table to it.
 	    scrollPane = new JScrollPane(table);
-	    
-	    
 	    //Set up column sizes.
 	    initColumnSizes(table);    
 		// Detects selection of cells in the details column
@@ -421,7 +418,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
                         	int realRowIndex = Integer.parseInt(stringData);
                         	// Because the numbers in columns are +1 of their real index values
                         	realRowIndex--;	
-                        	description = new DescriptionUI(realRowIndex);
+                        	description = new DescriptionUI(realRowIndex, db.CDItems);
                         	if(DEBUG) {
 	                        	System.out.println("selectedRow: " + selectedRow);
 	                        	System.out.println("objectData: " + objectData);
@@ -500,7 +497,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
             	else
                     delete = true;
                 
-
             	if(DEBUG) {
                 	
                 	System.out.println("objectData: " + objectData);
@@ -526,7 +522,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 					db.deleteRow(db.CDItems, rowToDelete, "CD");
 					updateStrTableData();
 					// Refreshes table?
-					sorter.fireTableDataChanged();
+					sorter.fireTableRowsDeleted(0, db.getRowsNeeded(db.CDItems));
+					
 				}
 			}
 		}
