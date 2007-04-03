@@ -120,6 +120,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
 		// COMBO BOX: Display
         displayCB = new JComboBox(mediaTypes);
+        displayCB.setActionCommand("Media Select");
+        displayCB.addActionListener(this);
         displayCB.setSelectedIndex(0);	//Sets the default item from mediaTypes to appear in the combo box
         c.gridx = 1;
         c.gridy = 2;
