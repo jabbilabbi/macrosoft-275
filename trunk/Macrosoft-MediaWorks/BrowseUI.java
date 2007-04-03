@@ -46,6 +46,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
     ControllerClass controller;
     DescriptionUI description;
     int selectedRow;
+    int selectedCol;
     Dimension windowSize = new Dimension(800, 500);
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
@@ -216,16 +217,16 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
-        private Object[][] tableData = loadTableData();
+        //private Object[][] tableData = loadTableData();
         
         
-        /*
+        
 		private Object[][] tableData = {
 			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
 			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
-		*/
+		
         
         public MyTableModel() {
         	// Nothing
@@ -356,7 +357,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     	// No rows are selected
                     } else {
                         selectedRow = lsm.getMinSelectionIndex();
-                        // Row  selectedRow is now selected
+                        // Row selectedRow is now selected
+                        
                     }
                 }
             });
@@ -379,14 +381,17 @@ public class BrowseUI extends JFrame implements ActionListener  {
                     if (e.getValueIsAdjusting()) return;
                     
                     ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    int selectedCol = lsm.getMinSelectionIndex();
-                    
+                    if (lsm.isSelectionEmpty()) {
+                        // No columns are selected
+                    } else {
+                        selectedCol = lsm.getMinSelectionIndex();
+                        // Column selectedColumn is now selected
                         if (selectedCol == 5) {
                         	Object objectData = sorter.getValueAt(selectedRow, 0);
                         	String stringData = objectData.toString();
                         	int realRowIndex = Integer.parseInt(stringData);
                         	realRowIndex--;
-                        	description = new DescriptionUI(realRowIndex);
+                        	//description = new DescriptionUI(realRowIndex);
                         	if(DEBUG) {
 	                        	System.out.println("selectedRow: " + selectedRow);
 	                        	System.out.println("objectData: " + objectData);
@@ -396,6 +401,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
                         	}
                         }
                     }
+                }
                 
             });
         }
