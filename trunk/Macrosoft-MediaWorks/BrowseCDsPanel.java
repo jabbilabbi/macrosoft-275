@@ -4,8 +4,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
-import BrowseUI2.MyTableModel;
-
 import java.awt.*;
 public class BrowseCDsPanel extends JPanel{
 
