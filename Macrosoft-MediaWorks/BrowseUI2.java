@@ -125,7 +125,6 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         displayCB = new JComboBox(mediaTypes);
         displayCB.setActionCommand("Media Select");
         displayCB.addActionListener(this);
-        displayCB.setSelectedIndex(0);	//Sets the default item from mediaTypes to appear in the combo box
         c.gridx = 1;
         c.gridy = 2;
         c.weightx = 0.0;
@@ -160,11 +159,18 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		// Adds the scroll pane to the window
 		addSetup = new JPanel();
 		addSetup.setLayout(new CardLayout()); 
+		try{
 		addSetup.add(new BrowseCDsPanel(), CDs);
+		}catch(Exception ea){}
+		try{
 		addSetup.add(new BrowseDVDsPanel(), DVDs);
+		}catch(Exception eb){}
+		try{
 		addSetup.add(new BrowseBooksPanel(), Books);
+		}catch(Exception ec){}
+		try{
 		addSetup.add(new BrowseGamesPanel(), Games);
-		
+		}catch(Exception ed){}
 		pane.add(addSetup, c); 
 		
 		// JBUTTON: Back to Main
@@ -243,16 +249,32 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 			CardLayout cl = (CardLayout)(addSetup.getLayout());
 			switch(PanelID){
 			case 0:
+				try{
 				cl.show(addSetup, CDs);
+				}
+				catch(Exception e1){
+				}
 				break;
 			case 1:
+				try{
 				cl.show(addSetup, DVDs);
+				}
+				catch(Exception e2){
+				}
 				break;
 			case 2:
-				cl.show(addSetup, Books);
+				try{
+					cl.show(addSetup, Games);
+					}
+					catch(Exception e4){
+					}
 				break;
 			case 3:
-				cl.show(addSetup, Games);
+				try{
+					cl.show(addSetup, Books);
+					}
+					catch(Exception e3){
+					}
 				break;
 			default:
 				break;
