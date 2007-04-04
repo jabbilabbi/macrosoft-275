@@ -4,6 +4,7 @@
 // Programmed by: Scott Fuoco
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -18,7 +19,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 
 //	 Initalizes pane components
 	
-	private JLabel detailsLabel;
+	private JLabel detailsLabel, successLabel;
 	private Dimension dim;
 	private JButton closeBtn, editBtn;
 	private DatabaseControl cdb = new DatabaseControl();
@@ -113,12 +114,21 @@ public class DescriptionUI extends JFrame implements ActionListener{
 		editBtn.setActionCommand("Edit");
 		editBtn.addActionListener(this);
 		
+		
+		successLabel = new JLabel(" ");
+		successLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		successLabel.setAlignmentY(Component.TOP_ALIGNMENT);
+		successLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
+		successLabel.setForeground(Color.red);
+		
 		JPanel btnPanel = new JPanel();
 		btnPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		btnPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.LINE_AXIS));
+		btnPanel.add(successLabel);
+		btnPanel.add(Box.createRigidArea(new Dimension(5,0)));
 		btnPanel.add(editBtn);
-		btnPanel.add(Box.createRigidArea(new Dimension(0,5)));
+		btnPanel.add(Box.createRigidArea(new Dimension(5,0)));
 		btnPanel.add(closeBtn);
 		
 		JPanel btnPanel2 = new JPanel();
@@ -178,6 +188,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 			}else if (typeSelected == "Game"){
 				cdb.editRow(cdb.GameItems, rowData, GamesSelected.returnGame(), GamesSelected.returnGame()[0]);
 			}
+			successLabel.setText("Edit successful");
 		}
 		
 	}

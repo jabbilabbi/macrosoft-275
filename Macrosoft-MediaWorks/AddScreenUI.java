@@ -248,6 +248,9 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[2] = CDsSelected.artistField.getText();
 						addInfo[3] = CDsSelected.genreField.getText();
 						addInfo[4] = CDsSelected.descriptionTextArea.getText();
+						if(addInfo[4].length() == 0){
+								addInfo[4] = " ";								
+						}
 						controller.appendMediaDatabase(controller.cdb.CDItems, addInfo);
 						checkAdd = true;
 					}
@@ -262,6 +265,15 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[4] = DVDsSelected.descriptionTextArea.getText();
 						addInfo[5] = (String) DVDsSelected.stars.getSelectedItem();
 						addInfo[6] = (String) DVDsSelected.ratings.getSelectedItem();
+						if(addInfo[4].length() == 0){
+							addInfo[4] = " ";								
+						}
+						if(addInfo[5].contains("stars")){
+							addInfo[5] = "N/A";								
+					}
+						if(addInfo[6].contains("rating")){
+							addInfo[6] = "N/A";								
+					}
 						controller.appendMediaDatabase(controller.cdb.DVDItems, addInfo);
 						checkAdd = true;
 					}
@@ -275,6 +287,12 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[3] = BooksSelected.genreField.getText();
 						addInfo[4] = BooksSelected.descriptionTextArea.getText();
 						addInfo[5] = BooksSelected.publisherField.getText();
+						if(addInfo[4].length() == 0){
+							addInfo[4] = " ";								
+						}
+						if(addInfo[5].length() == 0){
+							addInfo[5] = " ";								
+						}
 						controller.appendMediaDatabase(controller.cdb.BookItems, addInfo);
 						checkAdd = true;
 					}
@@ -290,6 +308,18 @@ public class AddScreenUI extends JFrame implements ActionListener{
 						addInfo[5] = GamesSelected.publisherField.getText();
 						addInfo[6] = GamesSelected.platformField.getText();
 						addInfo[7] = (String) GamesSelected.ESRBs.getSelectedItem();
+						if(addInfo[4].length() == 0){
+							addInfo[4] = " ";								
+						}
+						if(addInfo[5].length() == 0){
+							addInfo[5] = " ";								
+						}
+						if(addInfo[6].length() == 0){
+							addInfo[6] = " ";								
+						}
+						if(addInfo[7].contains("ESRB")){
+							addInfo[7] = "N/A";								
+					}
 						controller.appendMediaDatabase(controller.cdb.GameItems, addInfo);
 						checkAdd = true;
 					}
