@@ -48,7 +48,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
     boolean DEBUG = true;
     ControllerClass controller;
    
-    Dimension windowSize = new Dimension(800, 500);
+    Dimension windowSize = new Dimension(720, 540);
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
     
@@ -240,11 +240,10 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		}
 		
 		if (e.getActionCommand().equals("Delete")) {
-			
 			BrowseCDsPanel browseCD = new BrowseCDsPanel();
 			browseCD.delete();
-			dispose();
 			controller.browseFrame();
+			dispose();
 		}
 		
 		if (e.getActionCommand().equals("Media Select")) {
