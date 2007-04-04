@@ -231,10 +231,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
 		*/
-        
-        public MyTableModel() {
-        	// Nothing
-        }
       
         public int getColumnCount() {
             return columnNames1.length;
