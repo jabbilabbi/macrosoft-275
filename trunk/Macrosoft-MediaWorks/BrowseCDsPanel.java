@@ -5,17 +5,19 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
 import java.awt.*;
-public class BrowseCDsPanel extends JPanel{
+public class BrowseCDsPanel extends JPanel {
 
 	// Initialize variables
 	
+	private static final long serialVersionUID = 1;
+	
 	protected JPanel labels, fields, errors, rating, ratingSpacing;
 	
-	private Dimension dim;
-	protected Boolean checkAdd;
-	private JTable table;
-	private TableSorter sorter;
-	private JScrollPane scrollPane;
+	public Dimension dim;
+	public Boolean checkAdd;
+	public JTable table;
+	public TableSorter sorter;
+	public JScrollPane scrollPane;
 	
 	boolean ALLOW_COLUMN_SELECTION = true;
     boolean ALLOW_ROW_SELECTION = true;	
@@ -28,8 +30,6 @@ public class BrowseCDsPanel extends JPanel{
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
     String[][] strTableData;
-    
-    DatabaseControl db = new DatabaseControl();
 	
 	public BrowseCDsPanel(){}
 	
@@ -107,10 +107,6 @@ public class BrowseCDsPanel extends JPanel{
 			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
 		};
 		*/
-        
-        public MyTableModel() {
-        	// Nothing
-        }
       
         public int getColumnCount() {
             return columnNames1.length;
@@ -176,6 +172,7 @@ public class BrowseCDsPanel extends JPanel{
         
     	public Object[][] loadTableData() {
     		
+    		DatabaseControl db = new DatabaseControl();
     		db.loadMediaDatabase(db.CDItems, "CD");
     		int rowsNeeded = db.getRowsNeeded(db.CDItems);
     		
@@ -223,6 +220,7 @@ public class BrowseCDsPanel extends JPanel{
 	// Used for delete
 	public void updateStrTableData() {
 		
+		DatabaseControl db = new DatabaseControl();
 		db.loadMediaDatabase(db.CDItems, "CD");
 		int rowsNeeded2 = db.getRowsNeeded(db.CDItems);
 		
@@ -309,6 +307,56 @@ public class BrowseCDsPanel extends JPanel{
             });
         }
 	}
+	
+	public void delete() {
+		System.out.println("Delete was pressed.");
+		DatabaseControl db = new DatabaseControl();
+		
+//		Checks which rows are selected
+		for (int i=0 ; i<table.getRowCount() ; i++) {
+			// Gets the true/false value of the check box at the selected row
+			Object objectData = sorter.getValueAt(i, 6);
+			// Must be converted into a string so that
+        	String stringData = objectData.toString();
+        	stringData = stringData.toLowerCase();
+        
+        	boolean delete;
+        	if (stringData.equals("false"))
+                delete = false;             
+        	else
+                delete = true;
+            
+        	if(DEBUG) {
+            	
+            	System.out.println("objectData: " + objectData);
+            	System.out.println("stringData: " + stringData);
+            	System.out.println("delete: " + delete);
+            	//System.out.println("realRowIndex: " + realRowIndex);
+            	System.out.println();
+        	}
+			if(delete) {//Proceed to get the real index of the row
+				// Gets the int of the first column of the row that has been selected
+				objectData = sorter.getValueAt(i, 0);
+				// Must be converted to a string so that
+				stringData = objectData.toString();
+				// it can be converted to an int
+				int realRowIndex = Integer.parseInt(stringData);
+				// Because the numbers in the first column are +1 higher than their real index values
+				realRowIndex--;
+				String[] rowToDelete = new String[5];
+				// Puts the contents of the row that is selected into the
+				// row to be deleted
+				for(int j=0 ; j<5 ; j++)
+					rowToDelete[j] = strTableData[realRowIndex][j];
+				db.deleteRow(db.CDItems, rowToDelete, "CD");
+				updateStrTableData();
+				// Refreshes table?
+				sorter.fireTableRowsDeleted(0, db.getRowsNeeded(db.CDItems));
+				
+			}
+		}
+	}
+	
 	
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
