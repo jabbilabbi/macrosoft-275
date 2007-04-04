@@ -327,10 +327,10 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		Boolean fieldsComplete = true;
 		String usernameEntered = String.valueOf(usernameTB.getText());
-		String passwordEntered = controller.encrypt(String.valueOf(passwordTB.getPassword()));
+		String passwordEntered = String.valueOf(passwordTB.getPassword());
 		// Stores the current username
 		String tempUser = usernameTB.getText();
-		String secretAnswer = controller.encrypt(String.valueOf(secretAnswerTB.getText()));
+		String secretAnswer = String.valueOf(secretAnswerTB.getText());
 
 		int user_result = controller.checkLogin(usernameEntered,
 				passwordEntered);

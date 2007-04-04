@@ -41,6 +41,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	private DVDsPanel DVDsSelected;
 	private BooksPanel BooksSelected;
 	private GamesPanel GamesSelected;
+	private ControllerClass controller;
 	
     DescriptionUI() {
     	//Nothing
@@ -158,7 +159,7 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	
 	public void createAndShowGUI() {
 		rowData = cdb.getLibraryRow(selectedRow, typeSelected); // Holds a row of data from the database		
-		
+		controller = new ControllerClass();
 		// Create and set up the window
 		windowLookAndFeel();
 		setTitle("Media Works - Description");
