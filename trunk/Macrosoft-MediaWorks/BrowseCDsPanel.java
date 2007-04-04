@@ -31,15 +31,13 @@ public class BrowseCDsPanel extends JPanel {
     Dimension tableSize = new Dimension(tableWidth, 300);
     String[][] strTableData;
 	
-	public BrowseCDsPanel(){}
-	
 	// Purpose: Constructer to set up and view the panel
 	// PRE: Valid Dimension
 	// POST: Creates a panel
-	public BrowseCDsPanel(Dimension PANEL_SIZE){
+	public BrowseCDsPanel(){
 		//Sets the look and Feel of the panel
 		panelLookAndFeel();
-		
+
 		// Sets up the panel
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		
@@ -59,15 +57,9 @@ public class BrowseCDsPanel extends JPanel {
 		// Sets the size of the table
 		scrollPane.setPreferredSize(tableSize);
 		// Adds the scroll pane to the window
-		pane.add(scrollPane, c);
 	
-		JPanel combine = new JPanel();
-		combine.setPreferredSize(PANEL_SIZE);
-		combine.setLayout(new BoxLayout(combine, BoxLayout.LINE_AXIS));
-		combine.add(leftPanel);
-
-		add(combine);
 		
+		add(scrollPane);
 	}
 	
 	/*

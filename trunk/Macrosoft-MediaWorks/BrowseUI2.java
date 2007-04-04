@@ -38,6 +38,11 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 	private JButton backToMain;
 	private JPanel addSetup;
 	
+	private final String CDs = "CDs";
+	private final String DVDs = "DVDs";
+	private final String Books = "Books";
+	private final String Games = "Games";
+	
 	// Initalizes variables
 	
     boolean DEBUG = true;
@@ -153,7 +158,14 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		
 		
 		// Adds the scroll pane to the window
-		pane.add(, c); 
+		addSetup = new JPanel();
+		addSetup.setLayout(new CardLayout()); 
+		addSetup.add(new BrowseCDsPanel(), CDs);
+		addSetup.add(new BrowseDVDsPanel(), DVDs);
+		addSetup.add(new BrowseBooksPanel(), Books);
+		addSetup.add(new BrowseGamesPanel(), Games);
+		
+		pane.add(addSetup, c); 
 		
 		// JBUTTON: Back to Main
 		backToMain = new JButton("Back to Main");
@@ -225,6 +237,28 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 			BrowseCDsPanel browse = new BrowseCDsPanel();
 			browse.delete();
 		}
+		
+		if (e.getActionCommand().equals("Media Select")) {
+			int PanelID = displayCB.getSelectedIndex();
+			CardLayout cl = (CardLayout)(addSetup.getLayout());
+			switch(PanelID){
+			case 0:
+				cl.show(addSetup, CDs);
+				break;
+			case 1:
+				cl.show(addSetup, DVDs);
+				break;
+			case 2:
+				cl.show(addSetup, Books);
+				break;
+			case 3:
+				cl.show(addSetup, Games);
+				break;
+			default:
+				break;
+			}
+		}
+		
 	}
 	
 	public static void main(String[] args) {
