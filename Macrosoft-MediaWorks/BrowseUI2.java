@@ -240,8 +240,11 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		}
 		
 		if (e.getActionCommand().equals("Delete")) {
-			BrowseCDsPanel browse = new BrowseCDsPanel();
-			browse.delete();
+			
+			BrowseCDsPanel browseCD = new BrowseCDsPanel();
+				browseCD.delete();
+			dispose();
+			controller.browseFrame();
 		}
 		
 		if (e.getActionCommand().equals("Media Select")) {
@@ -266,14 +269,14 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 				try{
 					cl.show(addSetup, Games);
 					}
-					catch(Exception e4){
+					catch(Exception e3){
 					}
 				break;
 			case 3:
 				try{
 					cl.show(addSetup, Books);
 					}
-					catch(Exception e3){
+					catch(Exception e4){
 					}
 				break;
 			default:
