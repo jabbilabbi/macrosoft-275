@@ -73,7 +73,7 @@ public class GamesPanel extends JPanel{
 	}
 	
 	// Purpose: Put all the labels in one panel
-	// PRE: None
+	// PRE: None 
 	// POST: Returns a JPanel with labels in it
 	public JPanel labels(){
 		//Sets up panel
