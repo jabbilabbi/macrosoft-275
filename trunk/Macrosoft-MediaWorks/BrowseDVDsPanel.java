@@ -165,7 +165,7 @@ public class BrowseDVDsPanel extends JPanel {
     	public Object[][] loadTableData() {
     		
     		DatabaseControl db = new DatabaseControl();
-    		db.loadMediaDatabase(db.DVDItems, "CD");
+    		db.loadMediaDatabase(db.DVDItems, "DVD");
     		int rowsNeeded = db.getRowsNeeded(db.DVDItems);
     		
     		// Holds table data	
