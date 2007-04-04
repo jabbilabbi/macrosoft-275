@@ -5,10 +5,12 @@
 
 import java.awt.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,34 +35,32 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	private JButton delete;
 	private JTextField searchTF;
 	private JComboBox displayCB;
-	private JTable table;
-	private TableSorter sorter;
-	private JScrollPane scrollPane;
 	private JButton backToMain;
+	private JPanel addSetup;
+	
+	private final String CDs = "CDs";
+	private final String DVDs = "DVDs";
+	private final String Books = "Books";
+	private final String Games = "Games";
 	
 	// Initalizes variables
 	
-	boolean ALLOW_COLUMN_SELECTION = true;
-    boolean ALLOW_ROW_SELECTION = true;	
     boolean DEBUG = true;
     ControllerClass controller;
-    DescriptionUI description;
-    int selectedRow;
-    int selectedCol;
-    Dimension windowSize = new Dimension(800, 500);
+   
+    Dimension windowSize = new Dimension(720, 540);
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
-    String[][] strTableData;
+    
     
     DatabaseControl db = new DatabaseControl();
     
-	// Purpose: To add and display components
-	// PRE: None
-	// POST: All necessary components for the Browse screen will be added and displayed
-    public BrowseUI() {
-	
-		// Lays out frame with GridBagLayout
-		setLayout(new GridBagLayout());
+    public Component componentSetup() {
+		JPanel pane = new JPanel();
+		// Absolute container positioning used
+		
+//		 Lays out frame with GridBagLayout
+		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		// Variable declaration
@@ -83,8 +83,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.weighty = 0.0;	// 0.0-1.0 Determines how much additional space is placed between adjacent rows
 		c.insets = new Insets(20, 247, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
-		add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
-		
+		pane.add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
+		/*
 		// JTEXTFIELD: Search Library
 		searchTF = new JTextField("", 15);
 		c.gridx = 1;
@@ -93,7 +93,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.weighty = 0.0;
 		c.insets = new Insets(0, 0, 10, 7); 
 		c.anchor = GridBagConstraints.CENTER; 
-		add(searchTF, c);
+		pane.add(searchTF, c);
 		
 		// JBUTTON: Search Library
 		searchDB = new JButton("Search Library");
@@ -108,78 +108,77 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.anchor = GridBagConstraints.LINE_END;
 		//insets = new Insets(0, 25, 0, 25);
 		//searchDB.setMargin(insets);
-		add(searchDB, c);
-		
+		pane.add(searchDB, c);
+		*/
 		// JLABEL: Display
 		displayLabel = new JLabel("Display");
 		displayLabel.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(10, 10, 10, 5); 
 		c.anchor = GridBagConstraints.LINE_START; 
-		add(displayLabel, c);
+		pane.add(displayLabel, c);
 		
 		// COMBO BOX: Display
         displayCB = new JComboBox(mediaTypes);
         displayCB.setActionCommand("Media Select");
         displayCB.addActionListener(this);
-        displayCB.setSelectedIndex(0);	//Sets the default item from mediaTypes to appear in the combo box
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.weightx = 0.0;
         c.weighty = 0.0;
         c.insets = new Insets(10, 0, 10, 405); 
         c.anchor = GridBagConstraints.CENTER;
-        add(displayCB, c);
+        pane.add(displayCB, c);
 		
-        // JBUTTON: Delete
+/*        // JBUTTON: Delete
 		delete = new JButton("Delete");
 		delete.setActionCommand("Delete");
 		delete.addActionListener(this);
 		c.gridx = 2; 
-		c.gridy = 2; 
+		c.gridy = 1; 
 		c.weightx = 0.0; 
 		c.weighty = 0.0; 
 		c.insets = new Insets(10, 0, 10, 10); 
 		c.anchor = GridBagConstraints.LINE_END; 
 		delete.setToolTipText("Delete selected rows from your library"); // Displays text when cursor is hovered over component																		
-		add(delete, c);
+		pane.add(delete, c);*/
 		
 		// JTABLE
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 2;
 		c.gridwidth = 3;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(0, 10, 0, 10);
 		c.anchor = GridBagConstraints.CENTER;
 		
-		sorter = new TableSorter(new MyTableModel());
-		table = new JTable(sorter);
-		sorter.setTableHeader(table.getTableHeader());  
-	    //Set up tool tips for column headers.
-	    table.getTableHeader().setToolTipText("Click to sort in ascending order.\r\n Click again to sort in descending order. Click again to display contents in original order");
-	    //Create the scroll pane and add the table to it.
-	    scrollPane = new JScrollPane(table);
-	    //Set up column sizes.
-	    initColumnSizes(table);    
-		// Detects selection of cells in the details column
-	    detectDetailsClick(table);
-        // Makes a scroll bar available if windows sized smaller than table size	
-		scrollPane = new JScrollPane(table); 	
-		// Sets the size of the table
-		scrollPane.setPreferredSize(tableSize);
+		
 		// Adds the scroll pane to the window
-		add(scrollPane, c); 
+		addSetup = new JPanel();
+		addSetup.setLayout(new CardLayout()); 
+		try{
+		addSetup.add(new BrowseCDsPanel(), CDs);
+		}catch(Exception ea){}
+		try{
+		addSetup.add(new BrowseDVDsPanel(), DVDs);
+		}catch(Exception eb){}
+		try{
+		addSetup.add(new BrowseBooksPanel(), Books);
+		}catch(Exception ec){}
+		try{
+		addSetup.add(new BrowseGamesPanel(), Games);
+		}catch(Exception ed){}
+		pane.add(addSetup, c); 
 		
 		// JBUTTON: Back to Main
 		backToMain = new JButton("Back to Main");
 		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
 		c.gridx = 2; 
-		c.gridy = 4; 
+		c.gridy = 3; 
 		c.gridwidth = 3;	
 		c.weightx = 0.0; 					
 		c.weighty = 0.0; 							
@@ -190,244 +189,10 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		//backToMain.setMargin(insets);
 		backToMain.setPreferredSize(new Dimension(160, 75));
 		backToMain.setMaximumSize(new Dimension(160, 75));
-		add(backToMain, c);
-		
-	}
-    
-    /*
-     * This method picks good column sizes.
-     * If all column heads are wider than the column's cells'
-     * contents, then you can just use column.sizeWidthToFit().
-    */
-    private void initColumnSizes(JTable table) {
-    	
-        TableColumn column = null;
-      
-        for (int i = 0; i < 7; i++) {
-            column = table.getColumnModel().getColumn(i);
-            if (( i == 0) || ( i == 6) ) {
-                column.setPreferredWidth(5); //sport column is bigger
-            } else {
-                column.setPreferredWidth( (tableWidth-10)/5 );
-            }
-        }
-    }
-    
-    // Purpose: Initializes table attributes
-	// PRE:
-	// POST: 
-	class MyTableModel extends AbstractTableModel {
-        
-		private static final long serialVersionUID = 1;
-		
-        private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
-        
-        private Object[][] tableData = loadTableData();
-        
-        /*
-		private Object[][] tableData = {
-			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
-			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
-			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
-		};
-		*/
-      
-        public int getColumnCount() {
-            return columnNames1.length;
-        }
+		pane.add(backToMain, c);
 
-        public int getRowCount() {
-            return tableData.length;
-        }
+		return pane;
 
-        public String getColumnName(int col) {
-            return columnNames1[col];
-        }
-
-        public Object getValueAt(int row, int col) {
-            return tableData[row][col];
-        }
-        
-        /*
-          JTable uses this method to determine the default renderer/
-          editor for each cell.  If we didn't implement this method,
-          then the last column would contain text ("true"/"false"),
-          rather than a check box.
-         */
-        public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
-        }
-        
-        
-        /*
-         * Don't need to implement this method unless your table's
-         * editable.
-         */
-        public boolean isCellEditable(int row, int col) {
-            //Note that the data/cell address is constant,
-            //no matter where the cell appears onscreen.
-            if (col == 6) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        /*
-         * Don't need to implement this method unless your table's
-         * data can change.
-         */
-        public void setValueAt(Object value, int row, int col) {
-            if (DEBUG) {
-                System.out.println("Setting value at " + row + "," + col
-                                   + " to " + value
-                                   + " (an instance of "
-                                   + value.getClass() + ")");
-            }
-
-            tableData[row][col] = value;
-            fireTableCellUpdated(row, col);
-
-            if (DEBUG) {
-                System.out.println("New value of data:");
-                printDebugData();
-            }
-        }
-        
-    	public Object[][] loadTableData() {
-    		
-    		db.loadMediaDatabase(db.CDItems, "CD");
-    		final int rowsNeeded = db.getRowsNeeded(db.CDItems);
-    		
-    		// Holds table data	
-    		Object[][] tableData = new Object[rowsNeeded][7]; 			
-    		
-    		// Assigns data from the database to tableData
-    		for (int i = 0; i < rowsNeeded; i++) {
-    			tableData[i][0] = new Integer(i+1);
-    			// Holds a row of data from the database	
-    			String[] rowData = db.getLibraryRow(db.CDItems, i); 
-    			tableData[i][1] = rowData[1];
-    			tableData[i][2] = rowData[2];
-    			tableData[i][3] = rowData[3];
-    			tableData[i][4] = rowData[0]; 
-    			/*
-    			for (int j = 0; j < 4; j++)
-    				// Assigns column data from a row to tableData
-    				tableData[i][j+1] = rowData[j];
-    				*/
-    			tableData[i][5] = "Click";
-    			tableData[i][6] = new Boolean(false);
-    		}
-    		
-    		updateStrTableData();
-    			
-    		return tableData;
-    	}
-
-        private void printDebugData() {
-            int numRows = getRowCount();
-            int numCols = getColumnCount();
-
-            for (int i=0; i < numRows; i++) {
-                System.out.print("    row " + i + ":");
-                for (int j=0; j < numCols; j++) {
-                    System.out.print("  " + tableData[i][j]);
-                }
-                System.out.println();
-            }
-            System.out.println("--------------------------");
-        }
-	}
-	
-	// Used for delete
-	public void updateStrTableData() {
-		
-		db.loadMediaDatabase(db.CDItems, "CD");
-		final int rowsNeeded = db.getRowsNeeded(db.CDItems);
-		
-		strTableData = 	new String[rowsNeeded][5];
-		
-		for (int i = 0; i < rowsNeeded; i++) {
-			for (int j = 0; j < 5; j++) {
-				String[] rowData = db.getLibraryRow(db.CDItems, i);
-				strTableData[i][j] = rowData[j];
-			}
-		}
-	}
-	
-	// Purpose: Detects selection of cells in the details column
-	// PRE: The table
-	// POST: 
-	public void detectDetailsClick(JTable table) {
-		
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		// True by default
-		if (ALLOW_ROW_SELECTION) { 
-            ListSelectionModel rowSM = table.getSelectionModel();
-            rowSM.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                    // Ignore extra messages.
-                    if (e.getValueIsAdjusting()) return;
-
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {
-                    	// No rows are selected
-                    } else {
-                        selectedRow = lsm.getMinSelectionIndex();
-                        // Row selectedRow is now selected
-                        
-                    }
-                }
-            });
-        } else {
-            table.setRowSelectionAllowed(false);
-        }
-		
-        // False by default
-        if (ALLOW_COLUMN_SELECTION) { 
-        	// Allows individual cell selection
-            if (ALLOW_ROW_SELECTION) {
-                table.setCellSelectionEnabled(true);
-            }
-            table.setColumnSelectionAllowed(true);
-            ListSelectionModel colSM =
-                table.getColumnModel().getSelectionModel();
-            colSM.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                    // Ignore extra messages.
-                    if (e.getValueIsAdjusting()) return;
-                    
-                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-                    if (lsm.isSelectionEmpty()) {
-                        // No columns are selected
-                    } else {
-                        selectedCol = lsm.getMinSelectionIndex();
-                        // Column selectedColumn is now selected
-                        if (selectedCol == 5) {
-                        	// Gets the int of the first column of the row that has been selected
-                        	// Must use sorter not table
-                        	Object objectData = sorter.getValueAt(selectedRow, 0);	
-                        	// However, it is in the form of an object so it must first be converted to a string and
-                        	String stringData = objectData.toString();	
-                        	// then into an int
-                        	int realRowIndex = Integer.parseInt(stringData);
-                        	// Because the numbers in columns are +1 of their real index values
-                        	realRowIndex--;	
-                        	description = new DescriptionUI(realRowIndex, "CD");
-                        	if(DEBUG) {
-	                        	System.out.println("selectedRow: " + selectedRow);
-	                        	System.out.println("objectData: " + objectData);
-	                        	System.out.println("stringData: " + stringData);
-	                        	System.out.println("realRowIndex: " + realRowIndex);
-	                        	System.out.println();
-                        	}
-                        }
-                    }
-                }
-                
-            });
-        }
 	}
 	
 	// Purpose: To create and display the 'Create Account' UI
@@ -455,7 +220,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
         //newContentPane.setOpaque(true); //content panes must be opaque
         //setContentPane(newContentPane);
 		//addComponentsToPane(getContentPane());//OLD
-		
+		add(componentSetup());
         // Size and display the window
 		setSize(windowSize);
 		setLocationRelativeTo(null);
@@ -464,7 +229,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		setResizable(false);
 		windowLookAndFeel();
 	}
-
+	
 	// Purpose: To set action evemt for back to main button
 	// PRE: Valid action event
 	// POST: Sets up action event for back to main button
@@ -475,54 +240,47 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		}
 		
 		if (e.getActionCommand().equals("Delete")) {
-			
-			System.out.println("Delete was pressed.");
-			DatabaseControl db = new DatabaseControl();
-			
-			//Checks which rows are selected
-			for (int i=0 ; i<table.getRowCount() ; i++) {
-				// Gets the true/false value of the check box at the selected row
-				Object objectData = sorter.getValueAt(i, 6);
-				// Must be converted into a string so that
-            	String stringData = objectData.toString();
-            	stringData = stringData.toLowerCase();
-            
-            	boolean delete;
-            	if (stringData.equals("false"))
-                    delete = false;             
-            	else
-                    delete = true;
-                
-            	if(DEBUG) {
-                	
-                	System.out.println("objectData: " + objectData);
-                	System.out.println("stringData: " + stringData);
-                	System.out.println("delete: " + delete);
-                	//System.out.println("realRowIndex: " + realRowIndex);
-                	System.out.println();
-            	}
-				if(delete) {//Proceed to get the real index of the row
-					// Gets the int of the first column of the row that has been selected
-					objectData = sorter.getValueAt(i, 0);
-					// Must be converted to a string so that
-					stringData = objectData.toString();
-					// it can be converted to an int
-					int realRowIndex = Integer.parseInt(stringData);
-					// Because the numbers in the first column are +1 higher than their real index values
-					realRowIndex--;
-					String[] rowToDelete = new String[5];
-					// Puts the contents of the row that is selected into the
-					// row to be deleted
-					for(int j=0 ; j<5 ; j++)
-						rowToDelete[j] = strTableData[realRowIndex][j];
-					db.deleteRow(db.CDItems, rowToDelete, "CD");
-					updateStrTableData();
-					// Refreshes table?
-					sorter.fireTableRowsDeleted(0, db.getRowsNeeded(db.CDItems));
-					
+			BrowseCDsPanel browseCD = new BrowseCDsPanel();
+			browseCD.delete();
+		}
+		
+		if (e.getActionCommand().equals("Media Select")) {
+			int PanelID = displayCB.getSelectedIndex();
+			CardLayout cl = (CardLayout)(addSetup.getLayout());
+			switch(PanelID){
+			case 0:
+				try{
+				cl.show(addSetup, CDs);
 				}
+				catch(Exception e1){
+				}
+				break;
+			case 1:
+				try{
+				cl.show(addSetup, DVDs);
+				}
+				catch(Exception e2){
+				}
+				break;
+			case 2:
+				try{
+					cl.show(addSetup, Games);
+					}
+					catch(Exception e3){
+					}
+				break;
+			case 3:
+				try{
+					cl.show(addSetup, Books);
+					}
+					catch(Exception e4){
+					}
+				break;
+			default:
+				break;
 			}
 		}
+		
 	}
 	
 	public static void main(String[] args) {

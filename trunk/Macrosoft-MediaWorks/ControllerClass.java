@@ -4,14 +4,13 @@ public class ControllerClass{
 
 	
 	private AddScreenUI addScreenUI;
-	private BrowseUI2 browseUI;
+	private BrowseUI browseUI;
 	private CreateAccountUI createAccountUI;
 	private LoginUI loginUI;
 	private MainScreenUI mainScreenUI;
 	protected SecurityControl sdb;
 	protected DatabaseControl cdb;
 	private HTMLOutput html;
-	private Security sec;
 
 	
 	public ControllerClass(){
@@ -19,20 +18,16 @@ public class ControllerClass{
 		loginUI = new LoginUI();
 		cdb = new DatabaseControl();
 		addScreenUI = new AddScreenUI();
-		browseUI = new BrowseUI2();
+		browseUI = new BrowseUI();
 		createAccountUI = new CreateAccountUI();
 		mainScreenUI = new MainScreenUI();
 		html = new HTMLOutput();
-		sec = new Security();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
 //		cdb.loadMediaDatabase(dbType);
 	}
-	
-	public String encrypt(String text){
-		return sec.hashString(text);
-	}
+
 	public int getRowsNeeded(ArrayList<String> dbType){
 		return cdb.getRowsNeeded(dbType);
 	}
