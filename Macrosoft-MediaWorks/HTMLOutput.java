@@ -22,8 +22,6 @@ public class HTMLOutput {
 	
 	public void createHTMLOutput(boolean createCDTable, boolean createDVDTable, boolean createBookTable, boolean createGameTable) {
 		
-		db.setCurrentUser("Joe1");
-		
 		// Print out Joe1.txt
 		db.updateFileName();
 		

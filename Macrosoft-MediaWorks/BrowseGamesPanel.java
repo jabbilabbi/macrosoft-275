@@ -165,7 +165,7 @@ public class BrowseGamesPanel extends JPanel {
     	public Object[][] loadTableData() {
     		
     		DatabaseControl db = new DatabaseControl();
-    		db.loadMediaDatabase(db.GameItems, "Games");
+    		db.loadMediaDatabase(db.GameItems, "Game");
     		int rowsNeeded = db.getRowsNeeded(db.GameItems);
     		
     		// Holds table data	
@@ -213,7 +213,7 @@ public class BrowseGamesPanel extends JPanel {
 	public void updateStrTableData() {
 		
 		DatabaseControl db = new DatabaseControl();
-		db.loadMediaDatabase(db.GameItems, "Games");
+		db.loadMediaDatabase(db.GameItems, "Game");
 		int rowsNeeded2 = db.getRowsNeeded(db.GameItems);
 		
 		strTableData = 	new String[rowsNeeded2][5];
@@ -284,7 +284,7 @@ public class BrowseGamesPanel extends JPanel {
                         	int realRowIndex = Integer.parseInt(stringData);
                         	// Because the numbers in columns are +1 of their real index values
                         	realRowIndex--;	
-                        	description = new DescriptionUI(realRowIndex, "Games");
+                        	description = new DescriptionUI(realRowIndex, "Game");
                         	if(DEBUG) {
 	                        	System.out.println("selectedRow: " + selectedRow);
 	                        	System.out.println("objectData: " + objectData);
@@ -340,7 +340,7 @@ public class BrowseGamesPanel extends JPanel {
 				// row to be deleted
 				for(int j=0 ; j<5 ; j++)
 					rowToDelete[j] = strTableData[realRowIndex][j];
-				db.deleteRow(db.GameItems, rowToDelete, "Games");
+				db.deleteRow(db.GameItems, rowToDelete, "Game");
 				updateStrTableData();
 				// Refreshes table?
 				sorter.fireTableRowsDeleted(0, db.getRowsNeeded(db.GameItems));
