@@ -21,7 +21,6 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	private JPanel addSetup;
 	
 	// Initalizes variables
-	private String artist, title, genre, description;
 	private String[] addInfo;
 	private final String CDs = "CDs";
 	private final String DVDs = "DVDs";

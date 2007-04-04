@@ -41,7 +41,7 @@ public class ControllerClass{
 	}
 	
 	public void createHTMLOutput(){
-	//	html.createHTMLOutput();
+		html.createHTMLOutput(true, true, true, true);
 	}
 	public boolean checkIfUserExists(String tempUser){
 		return sdb.checkIfUserExists(tempUser);
