@@ -84,7 +84,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.insets = new Insets(20, 247, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
 		pane.add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
-		
+		/*
 		// JTEXTFIELD: Search Library
 		searchTF = new JTextField("", 15);
 		c.gridx = 1;
@@ -109,12 +109,12 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		//insets = new Insets(0, 25, 0, 25);
 		//searchDB.setMargin(insets);
 		pane.add(searchDB, c);
-		
+		*/
 		// JLABEL: Display
 		displayLabel = new JLabel("Display");
 		displayLabel.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 1;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
 		c.insets = new Insets(10, 10, 10, 5); 
@@ -126,7 +126,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         displayCB.setActionCommand("Media Select");
         displayCB.addActionListener(this);
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         c.weightx = 0.0;
         c.weighty = 0.0;
         c.insets = new Insets(10, 0, 10, 405); 
@@ -138,7 +138,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		delete.setActionCommand("Delete");
 		delete.addActionListener(this);
 		c.gridx = 2; 
-		c.gridy = 2; 
+		c.gridy = 1; 
 		c.weightx = 0.0; 
 		c.weighty = 0.0; 
 		c.insets = new Insets(10, 0, 10, 10); 
@@ -148,7 +148,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		
 		// JTABLE
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 2;
 		c.gridwidth = 3;
 		c.weightx = 0.0;
 		c.weighty = 0.0;
@@ -178,7 +178,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		backToMain.setActionCommand("Back to Main");
 		backToMain.addActionListener(this);
 		c.gridx = 2; 
-		c.gridy = 4; 
+		c.gridy = 3; 
 		c.gridwidth = 3;	
 		c.weightx = 0.0; 					
 		c.weighty = 0.0; 							
