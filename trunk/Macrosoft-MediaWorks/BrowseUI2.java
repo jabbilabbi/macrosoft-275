@@ -242,8 +242,6 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		if (e.getActionCommand().equals("Delete")) {
 			BrowseCDsPanel browseCD = new BrowseCDsPanel();
 			browseCD.delete();
-			controller.browseFrame();
-			dispose();
 		}
 		
 		if (e.getActionCommand().equals("Media Select")) {
