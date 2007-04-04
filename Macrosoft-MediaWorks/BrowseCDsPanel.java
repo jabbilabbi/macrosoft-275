@@ -1,4 +1,10 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
+
+import BrowseUI2.MyTableModel;
 
 import java.awt.*;
 public class BrowseCDsPanel extends JPanel{
@@ -9,6 +15,23 @@ public class BrowseCDsPanel extends JPanel{
 	
 	private Dimension dim;
 	protected Boolean checkAdd;
+	private JTable table;
+	private TableSorter sorter;
+	private JScrollPane scrollPane;
+	
+	boolean ALLOW_COLUMN_SELECTION = true;
+    boolean ALLOW_ROW_SELECTION = true;	
+    boolean DEBUG = true;
+    ControllerClass controller;
+    DescriptionUI description;
+    int selectedRow;
+    int selectedCol;
+    Dimension windowSize = new Dimension(800, 500);
+    int tableWidth = 600;
+    Dimension tableSize = new Dimension(tableWidth, 300);
+    String[][] strTableData;
+    
+    DatabaseControl db = new DatabaseControl();
 	
 	public BrowseCDsPanel(){}
 	
@@ -22,20 +45,23 @@ public class BrowseCDsPanel extends JPanel{
 		// Sets up the panel
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		
-		JPanel leftPanelCombine = new JPanel();
-		leftPanelCombine.setAlignmentX(Component.LEFT_ALIGNMENT);
-		leftPanelCombine.setAlignmentY(Component.TOP_ALIGNMENT);
-		leftPanelCombine.setLayout(new BoxLayout(leftPanelCombine, BoxLayout.LINE_AXIS));
-		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
-		leftPanelCombine.add(labels());
-		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
-		leftPanelCombine.add(fields());
-		leftPanelCombine.add(Box.createRigidArea(new Dimension(5,0)));
-		
-		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-		leftPanel.add(Box.createRigidArea(new Dimension(0,15)));
-		leftPanel.add(leftPanelCombine);
+		sorter = new TableSorter(new MyTableModel());
+		table = new JTable(sorter);
+		sorter.setTableHeader(table.getTableHeader());  
+	    //Set up tool tips for column headers.
+	    table.getTableHeader().setToolTipText("Click to sort in ascending order.\r\n Click again to sort in descending order. Click again to display contents in original order");
+	    //Create the scroll pane and add the table to it.
+	    scrollPane = new JScrollPane(table);
+	    //Set up column sizes.
+	    initColumnSizes(table);    
+		// Detects selection of cells in the details column
+	    detectDetailsClick(table);
+        // Makes a scroll bar available if windows sized smaller than table size	
+		scrollPane = new JScrollPane(table); 	
+		// Sets the size of the table
+		scrollPane.setPreferredSize(tableSize);
+		// Adds the scroll pane to the window
+		pane.add(scrollPane, c);
 	
 		JPanel combine = new JPanel();
 		combine.setPreferredSize(PANEL_SIZE);
@@ -46,139 +72,246 @@ public class BrowseCDsPanel extends JPanel{
 		
 	}
 	
-	// Purpose: Put all the labels in one panel
-	// PRE: None
-	// POST: Returns a JPanel with labels in it
-	public JPanel labels(){
-		//Sets up panel
-		labels = new JPanel();
-		labels.setLayout(new BoxLayout(labels, BoxLayout.PAGE_AXIS));
-		labels.setAlignmentX(Component.LEFT_ALIGNMENT);
-		labels.setAlignmentY(Component.TOP_ALIGNMENT);
+	/*
+     * This method picks good column sizes.
+     * If all column heads are wider than the column's cells'
+     * contents, then you can just use column.sizeWidthToFit().
+    */
+    private void initColumnSizes(JTable table) {
+    	
+        TableColumn column = null;
+      
+        for (int i = 0; i < 7; i++) {
+            column = table.getColumnModel().getColumn(i);
+            if (( i == 0) || ( i == 6) ) {
+                column.setPreferredWidth(5); //sport column is bigger
+            } else {
+                column.setPreferredWidth( (tableWidth-10)/5 );
+            }
+        }
+    }
+    
+    // Purpose: Initializes table attributes
+	// PRE:
+	// POST: 
+	class MyTableModel extends AbstractTableModel {
+        
+		private static final long serialVersionUID = 1;
 		
-		// Sets up the labels
-		titleLabel = new JLabel("Enter a title:");
-		titleLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = titleLabel.getPreferredSize();
-		titleLabel.setSize(dim);
+        private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
+        
+        private Object[][] tableData = loadTableData();
+        
+        /*
+		private Object[][] tableData = {
+			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
+			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
+			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
+		};
+		*/
+        
+        public MyTableModel() {
+        	// Nothing
+        }
+      
+        public int getColumnCount() {
+            return columnNames1.length;
+        }
 
-		artistLabel = new JLabel("Enter an artist:");
-		artistLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = artistLabel.getPreferredSize();
-		artistLabel.setSize(dim);
-		
-		genreLabel = new JLabel("Enter a genre:");
-		genreLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = genreLabel.getPreferredSize();
-		genreLabel.setSize(dim);
-		
-		descriptionLabel = new JLabel("Enter a description:");
-		descriptionLabel.setFont(new Font("Helvetica", Font.PLAIN, 12));
-		dim = descriptionLabel.getPreferredSize();
-		descriptionLabel.setSize(dim);	
+        public int getRowCount() {
+            return tableData.length;
+        }
 
-		// Adds labels to panel
-		labels.add(titleLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,27)));
-		labels.add(artistLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,27)));
-		labels.add(genreLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,27)));
-		labels.add(descriptionLabel);
-		labels.add(Box.createRigidArea(new Dimension(0,67)));
-		
-		return labels;
+        public String getColumnName(int col) {
+            return columnNames1[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+            return tableData[row][col];
+        }
+        
+        /*
+          JTable uses this method to determine the default renderer/
+          editor for each cell.  If we didn't implement this method,
+          then the last column would contain text ("true"/"false"),
+          rather than a check box.
+         */
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+        
+        
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+        public boolean isCellEditable(int row, int col) {
+            //Note that the data/cell address is constant,
+            //no matter where the cell appears onscreen.
+            if (col == 6) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * data can change.
+         */
+        public void setValueAt(Object value, int row, int col) {
+            if (DEBUG) {
+                System.out.println("Setting value at " + row + "," + col
+                                   + " to " + value
+                                   + " (an instance of "
+                                   + value.getClass() + ")");
+            }
+
+            tableData[row][col] = value;
+            fireTableCellUpdated(row, col);
+
+            if (DEBUG) {
+                System.out.println("New value of data:");
+                printDebugData();
+            }
+        }
+        
+    	public Object[][] loadTableData() {
+    		
+    		db.loadMediaDatabase(db.CDItems, "CD");
+    		int rowsNeeded = db.getRowsNeeded(db.CDItems);
+    		
+    		// Holds table data	
+    		Object[][] tableData = new Object[rowsNeeded][7]; 			
+    		System.out.println(rowsNeeded);
+    		// Assigns data from the database to tableData
+    		for (int i = 0; i < rowsNeeded; i++) {
+    			tableData[i][0] = new Integer(i+1);
+    			// Holds a row of data from the database	
+    			String[] rowData = db.getLibraryRow(db.CDItems, i); 
+    			tableData[i][1] = rowData[1];
+    			tableData[i][2] = rowData[2];
+    			tableData[i][3] = rowData[3];
+    			tableData[i][4] = rowData[0]; 
+    			/*
+    			for (int j = 0; j < 4; j++)
+    				// Assigns column data from a row to tableData
+    				tableData[i][j+1] = rowData[j];
+    				*/
+    			tableData[i][5] = "Click";
+    			tableData[i][6] = new Boolean(false);
+    		}
+    		
+    		updateStrTableData();
+    			
+    		return tableData;
+    	}
+
+        private void printDebugData() {
+            int numRows = getRowCount();
+            int numCols = getColumnCount();
+
+            for (int i=0; i < numRows; i++) {
+                System.out.print("    row " + i + ":");
+                for (int j=0; j < numCols; j++) {
+                    System.out.print("  " + tableData[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println("--------------------------");
+        }
 	}
 	
-	// Purpose: Put all the Label fields in one panel
-	// PRE: None
-	// POST: Returns a JPanel with Label fields in it
-	public JPanel fields(){
-		// Sets up the panel
-		fields = new JPanel();
-		fields.setLayout(new BoxLayout(fields, BoxLayout.PAGE_AXIS));
-		fields.setAlignmentX(Component.LEFT_ALIGNMENT);
-		fields.setAlignmentY(Component.TOP_ALIGNMENT);
+	// Used for delete
+	public void updateStrTableData() {
 		
-		// Sets up the Label fields
-		Dimension fieldSize = new Dimension(180,20);		
-		titleField = new JTextField(20);
-		titleField.setMinimumSize(fieldSize);
-		titleField.setMaximumSize(fieldSize);
-		titleField.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		titleField.setAlignmentY(Component.TOP_ALIGNMENT);
+		db.loadMediaDatabase(db.CDItems, "CD");
+		int rowsNeeded2 = db.getRowsNeeded(db.CDItems);
 		
-		artistField = new JTextField(20);
-		artistField.setSize(artistField.getMinimumSize());
-		artistField.setMinimumSize(fieldSize);
-		artistField.setMaximumSize(fieldSize);
-		artistField.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		artistField.setAlignmentY(Component.TOP_ALIGNMENT);
+		strTableData = 	new String[rowsNeeded2][5];
 		
-		genreField = new JTextField(20);
-		genreField.setSize(genreField.getMinimumSize());
-		genreField.setMinimumSize(fieldSize);
-		genreField.setMaximumSize(fieldSize);
-		genreField.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		genreField.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		// Sets up a Label area
-		
-
-		
-		
-		
-		// Adds the Label fields to the panel
-		fields.add(titleField);
-		fields.add(enterTitleLabel);
-		fields.add(Box.createRigidArea(new Dimension(0,10)));
-		fields.add(artistField);
-		fields.add(enterArtistLabel);
-		fields.add(Box.createRigidArea(new Dimension(0,10)));
-		fields.add(genreField);
-		fields.add(enterGenreLabel);
-		fields.add(Box.createRigidArea(new Dimension(0,10)));
-		fields.add(descriptionPane);
-		fields.add(Box.createRigidArea(new Dimension(0,50)));
-		
-		return fields;
+		for (int i = 0; i < rowsNeeded2; i++) {
+			for (int j = 0; j < 5; j++) {
+				String[] rowData = db.getLibraryRow(db.CDItems, i);
+				strTableData[i][j] = rowData[j];
+			}
+		}
 	}
 	
-	// PURPOSE: To check if all the CD fields are complete
-	// PRE: None
-	// POST: Sets the necessary JLabels to visible or not visible to notify the user
-	//		 which fields need to be completed
-	public Boolean checkCD() {
-		checkAdd = true;
-		if (titleField.getText().length() != 0) {
-			enterTitleLabel.setText(" ");
-		} else {
-			enterTitleLabel.setText("Please enter a title");
-			checkAdd = false;
-		}
-		if (artistField.getText().length() != 0) {
-			enterArtistLabel.setText(" ");
-		} else {
-			enterArtistLabel.setText("Please enter an artist");
-			checkAdd = false;
-		}
-		if (genreField.getText().length() != 0) {
-			enterGenreLabel.setText(" ");
-		} else {
-			enterGenreLabel.setText("Please enter a genre");
-			checkAdd = false;
-		}
+	// Purpose: Detects selection of cells in the details column
+	// PRE: The table
+	// POST: 
+	public void detectDetailsClick(JTable table) {
 		
-		return checkAdd;
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		// True by default
+		if (ALLOW_ROW_SELECTION) { 
+            ListSelectionModel rowSM = table.getSelectionModel();
+            rowSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    // Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
 
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    if (lsm.isSelectionEmpty()) {
+                    	// No rows are selected
+                    } else {
+                        selectedRow = lsm.getMinSelectionIndex();
+                        // Row selectedRow is now selected
+                        
+                    }
+                }
+            });
+        } else {
+            table.setRowSelectionAllowed(false);
+        }
+		
+        // False by default
+        if (ALLOW_COLUMN_SELECTION) { 
+        	// Allows individual cell selection
+            if (ALLOW_ROW_SELECTION) {
+                table.setCellSelectionEnabled(true);
+            }
+            table.setColumnSelectionAllowed(true);
+            ListSelectionModel colSM =
+                table.getColumnModel().getSelectionModel();
+            colSM.addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent e) {
+                    // Ignore extra messages.
+                    if (e.getValueIsAdjusting()) return;
+                    
+                    ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                    if (lsm.isSelectionEmpty()) {
+                        // No columns are selected
+                    } else {
+                        selectedCol = lsm.getMinSelectionIndex();
+                        // Column selectedColumn is now selected
+                        if (selectedCol == 5) {
+                        	// Gets the int of the first column of the row that has been selected
+                        	// Must use sorter not table
+                        	Object objectData = sorter.getValueAt(selectedRow, 0);	
+                        	// However, it is in the form of an object so it must first be converted to a string and
+                        	String stringData = objectData.toString();	
+                        	// then into an int
+                        	int realRowIndex = Integer.parseInt(stringData);
+                        	// Because the numbers in columns are +1 of their real index values
+                        	realRowIndex--;	
+                        	description = new DescriptionUI(realRowIndex, "CD");
+                        	if(DEBUG) {
+	                        	System.out.println("selectedRow: " + selectedRow);
+	                        	System.out.println("objectData: " + objectData);
+	                        	System.out.println("stringData: " + stringData);
+	                        	System.out.println("realRowIndex: " + realRowIndex);
+	                        	System.out.println();
+                        	}
+                        }
+                    }
+                }
+                
+            });
+        }
 	}
 	
-	public void clearCDs(){
-		titleField.setText("");
-		artistField.setText("");
-		genreField.setText("");
-		descriptionTextArea.setText("");
-	}
 	// Purpose: Set the look and feel of the panel
 	// PRE: None
 	// POST: Sets the panels look and feel to the system look and feel
