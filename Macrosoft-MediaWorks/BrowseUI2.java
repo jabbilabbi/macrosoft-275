@@ -133,7 +133,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
         c.anchor = GridBagConstraints.CENTER;
         pane.add(displayCB, c);
 		
-        // JBUTTON: Delete
+/*        // JBUTTON: Delete
 		delete = new JButton("Delete");
 		delete.setActionCommand("Delete");
 		delete.addActionListener(this);
@@ -144,7 +144,7 @@ public class BrowseUI2 extends JFrame implements ActionListener  {
 		c.insets = new Insets(10, 0, 10, 10); 
 		c.anchor = GridBagConstraints.LINE_END; 
 		delete.setToolTipText("Delete selected rows from your library"); // Displays text when cursor is hovered over component																		
-		pane.add(delete, c);
+		pane.add(delete, c);*/
 		
 		// JTABLE
 		c.gridx = 1;
