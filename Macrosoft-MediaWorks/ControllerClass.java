@@ -4,7 +4,7 @@ public class ControllerClass{
 
 	
 	private AddScreenUI addScreenUI;
-	private BrowseUI browseUI;
+	private BrowseUI2 browseUI;
 	private CreateAccountUI createAccountUI;
 	private LoginUI loginUI;
 	private MainScreenUI mainScreenUI;
@@ -19,7 +19,7 @@ public class ControllerClass{
 		loginUI = new LoginUI();
 		cdb = new DatabaseControl();
 		addScreenUI = new AddScreenUI();
-		browseUI = new BrowseUI();
+		browseUI = new BrowseUI2();
 		createAccountUI = new CreateAccountUI();
 		mainScreenUI = new MainScreenUI();
 		html = new HTMLOutput();
