@@ -39,16 +39,16 @@ public class HTMLOutput {
 				"Library</title></head><body><font face=Arial><h1>" + currentUser + "'s Media " +
 				"Library</h1><font font=Arial>";
 		
-		if (createCDTable) {
+		if (createCDTable == true && db.CDItems.size() > 0) {
 			textToWrite += createHTMLTable(db.CDItems, "CD");
 		}
-		if (createDVDTable) {
+		if (createDVDTable == true && db.DVDItems.size() > 0) {
 			textToWrite += createHTMLTable(db.DVDItems, "DVD");
 		}
-		if (createBookTable) {
+		if (createBookTable == true && db.BookItems.size() > 0) {
 			textToWrite += createHTMLTable(db.BookItems, "Book");
 		}
-		if (createGameTable) {
+		if (createGameTable == true && db.GameItems.size() > 0) {
 			textToWrite += createHTMLTable(db.GameItems, "Game");
 		}
 		
