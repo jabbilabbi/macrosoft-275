@@ -83,6 +83,7 @@ public class DatabaseControl {
 	// PRE: The filename of the media database
 	// POST: The media database is loaded into an ArrayList
 	public void loadMediaDatabase(ArrayList<String> dbType, String typeToGet) {
+		dbType.clear();
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(fname));
 			// Read first line
@@ -218,6 +219,8 @@ public class DatabaseControl {
 
 	public int getRowsNeeded(ArrayList<String> dbType) {
 		// Number of rows needed is total items / items per row
+		System.out.println(dbType.size());
+		System.out.println(getMediaIndex(dbType));
 		int totalRows = dbType.size() / getMediaIndex(dbType);
 		return totalRows;
 	}
