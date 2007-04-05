@@ -47,6 +47,6 @@ public class Security {
 		return decryptedText;
 	}
 	public static void main(String[] args) {
-		System.out.println(decrypt(encrypt("sean")));
+		System.out.println(decrypt(encrypt("test")));
 	}
 }
