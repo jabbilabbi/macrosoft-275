@@ -1,7 +1,7 @@
 // LoginUI.java
 // SFU CMPT 275 - Software Engineering
 // Macrosoft
-// Programmed by: Alex Antonio
+// Programmed by: Scott Fuoco
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

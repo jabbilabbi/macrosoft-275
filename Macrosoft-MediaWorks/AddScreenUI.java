@@ -133,7 +133,9 @@ public class AddScreenUI extends JFrame implements ActionListener{
 	        System.out.println("Look and Feel error: " + e);
 	    }
 	}	
-	
+	// Purpose: To create and display the 'Add Screen' UI
+	// PRE: None
+	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		// Creates an instance of the controller class
 		controller = new ControllerClass(); 

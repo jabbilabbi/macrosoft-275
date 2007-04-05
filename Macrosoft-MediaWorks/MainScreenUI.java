@@ -134,7 +134,9 @@ public class MainScreenUI extends JFrame implements ActionListener{
 	}	
 	
 	
-	
+	// Purpose: To create and display the 'Main Screen' UI
+	// PRE: None
+	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		// Creates an instance of the UI controller
 		controller = new ControllerClass();

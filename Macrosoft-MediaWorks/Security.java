@@ -1,6 +1,14 @@
-
+// AddScreenUI.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Scott Fuoco
 public class Security {
+	// Initalizes variable
 	private static boolean check;
+	
+	// Purpose: To do basic encryption on a String
+	// PRE: Requires a valid String
+	// POSTS: Encrypts a String
 	public static String encrypt(String text){
 		char[] encrypt = new char[text.length()];
 		for(int i = 0; i < text.length(); i++){
@@ -18,6 +26,9 @@ public class Security {
 		return encryptedText;
 	}
 	
+	// Purpose: To do basic decryption on a String
+	// PRE: Requires a valid String
+	// POSTS: Decrypts a String
 	public static String decrypt(String text){
 		char[] decrypt = new char[text.length()];
 		for(int i = 0; i < text.length(); i++){
@@ -36,6 +47,6 @@ public class Security {
 		return decryptedText;
 	}
 	public static void main(String[] args) {
-		System.out.println(decrypt(encrypt("a")));
+		System.out.println(decrypt(encrypt("sean")));
 	}
 }

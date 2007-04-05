@@ -1,7 +1,7 @@
 // CreateAccountUI.java
 // SFU CMPT 275 - Software Engineering
 // Macrosoft
-// Programmed by: Alex Antonio
+// Programmed by: Scott Fuoco
 
 import java.awt.Color;
 import java.awt.Component;

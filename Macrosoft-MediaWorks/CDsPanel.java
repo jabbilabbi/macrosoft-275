@@ -1,3 +1,7 @@
+// CDsPanel.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Scott Fuoco
 import javax.swing.*;
 
 import java.awt.*;
@@ -95,9 +99,9 @@ public class CDsPanel extends JPanel{
 		return labels;
 	}
 	
-	// Purpose: Put all the Label fields in one panel
+	// Purpose: Put all the error labels and Fields in one panel
 	// PRE: None
-	// POST: Returns a JPanel with Label fields in it
+	// POST: Returns a JPanel with the error labels and Fields
 	public JPanel fields(){
 		// Sets up the panel
 		fields = new JPanel();
@@ -208,6 +212,9 @@ public class CDsPanel extends JPanel{
 
 	}
 	
+	// Purpose: Clears all the text fields
+	// PRE: None
+	// POST:  Clears all the text fields
 	public void clearCDs(){
 		titleField.setText("");
 		artistField.setText("");
@@ -215,6 +222,9 @@ public class CDsPanel extends JPanel{
 		descriptionTextArea.setText("");
 	}
 	
+	// Purpose: Sets all the fields with the given info
+	// PRE: String array of atleast size 5
+	// POST:  Sets all the fields with the given info
 	public void setCD(String[] info){
 		titleField.setText(info[1]);
 		artistField.setText(info[2]);
@@ -222,6 +232,9 @@ public class CDsPanel extends JPanel{
 		descriptionTextArea.setText(info[4]);
 	}
 	
+	// Purpose: Returns all the information in the fields
+	// PRE: None
+	// POST: Returns all the information in the fields in a String array
 	public String[] returnCD(){
 		String[] CD = {"CD", 
 				titleField.getText(),
