@@ -18,6 +18,7 @@ public class SecurityControl {
 
 	// Storage for user account database
 	private String fname = "logins.txt";
+	// Encryption class
 	private Security sec = new Security();
 	// Constructor
 	public SecurityControl() {
@@ -43,6 +44,7 @@ public class SecurityControl {
 				loginRowElements = loginRow.split(" ::: ");
 				// Add items to ArrayList
 				for (int i = 0; i < loginRowElements.length; i++) {
+					// Decrypt entry before adding
 					loginItems.add(sec.decrypt(loginRowElements[i]));
 				}
 				loginRow = in.readLine();
