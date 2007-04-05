@@ -18,7 +18,7 @@ public class SecurityControl {
 
 	// Storage for user account database
 	private String fname = "logins.txt";
-
+	private Security sec = new Security();
 	// Constructor
 	public SecurityControl() {
 	}
@@ -43,7 +43,7 @@ public class SecurityControl {
 				loginRowElements = loginRow.split(" ::: ");
 				// Add items to ArrayList
 				for (int i = 0; i < loginRowElements.length; i++) {
-					loginItems.add(loginRowElements[i]);
+					loginItems.add(sec.decrypt(loginRowElements[i]));
 				}
 				loginRow = in.readLine();
 				// Continue reading database lines
@@ -97,10 +97,12 @@ public class SecurityControl {
 
 	public int checkLogin(String usernameEntered, String passwordEntered) {
 		// Determine if username exists in database
+
 		if (loginItems.contains(usernameEntered)) {
 			// Determine password associated with given username
 			String passwordRequired = loginItems.get(loginItems
 					.indexOf(usernameEntered) + 1);
+			System.out.println(passwordRequired);
 			// Determine equality of entered and required passwords
 			int checkIfEqual = passwordEntered.compareTo(passwordRequired);
 
@@ -111,10 +113,12 @@ public class SecurityControl {
 				// Incorrect password
 				return 0;
 			}
+			
 		} else {
 			// Username does not exist in database
 			return -1;
 		}
+		
 	}
 	
 	// Get password; used when retrieving password via secret question/answer
@@ -123,7 +127,9 @@ public class SecurityControl {
 	
 	public String getPassword(String usernameEntered) {
 		// Get and return password for given username
-		return loginItems.get(loginItems.indexOf(usernameEntered) + 1);
+		String password;
+		password =  loginItems.get(loginItems.indexOf(usernameEntered) + 1);
+		return password;
 	}
 	
 	// Get secret question and password for a given user
@@ -138,7 +144,6 @@ public class SecurityControl {
 		// Get secret question and answer
 		secretInfo[0] = loginItems.get(loginItems.indexOf(usernameEntered) + 2);
 		secretInfo[1] = loginItems.get(loginItems.indexOf(usernameEntered) + 3);
-		
 		// Return result
 		return secretInfo;
 	}

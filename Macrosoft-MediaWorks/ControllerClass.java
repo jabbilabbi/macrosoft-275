@@ -11,6 +11,7 @@ public class ControllerClass{
 	protected SecurityControl sdb;
 	protected DatabaseControl cdb;
 	private HTMLOutput html;
+	private Security sec;
 
 	
 	public ControllerClass(){
@@ -22,6 +23,7 @@ public class ControllerClass{
 		createAccountUI = new CreateAccountUI();
 		mainScreenUI = new MainScreenUI();
 		html = new HTMLOutput();
+		sec = new Security();
 	}
 
 	public void loadMediaDatabase(ArrayList<String> dbType){
@@ -58,6 +60,11 @@ public class ControllerClass{
 		cdb.createUserDatabaseFile();
 	}
 	public void appendLoginDatabase(String username, String password, String secretQ, String secretA){
+		username = sec.encrypt(username);
+		password = sec.encrypt(password);
+		secretQ = sec.encrypt(secretQ);
+		secretA = sec.encrypt(secretA);
+		
 		sdb.appendLoginDatabase(username, password, secretQ, secretA);
 	}
 	public ArrayList<String> getUserNames(){

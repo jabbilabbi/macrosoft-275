@@ -32,7 +32,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 	private JLabel browseLibrary;
 	private JLabel displayLabel;
 	private JButton searchDB;
-	private JButton delete;
+	private JButton refresh;
 	private JTextField searchTF;
 	private JComboBox displayCB;
 	private JButton backToMain;
@@ -133,18 +133,18 @@ public class BrowseUI extends JFrame implements ActionListener  {
         c.anchor = GridBagConstraints.CENTER;
         pane.add(displayCB, c);
 		
-/*        // JBUTTON: Delete
-		delete = new JButton("Delete");
-		delete.setActionCommand("Delete");
-		delete.addActionListener(this);
+        // JBUTTON: Delete
+		refresh = new JButton("Refresh");
+		refresh.setActionCommand("Refresh");
+		refresh.addActionListener(this);
 		c.gridx = 2; 
 		c.gridy = 1; 
 		c.weightx = 0.0; 
 		c.weighty = 0.0; 
 		c.insets = new Insets(10, 0, 10, 10); 
 		c.anchor = GridBagConstraints.LINE_END; 
-		delete.setToolTipText("Delete selected rows from your library"); // Displays text when cursor is hovered over component																		
-		pane.add(delete, c);*/
+		refresh.setToolTipText("Refresh library"); // Displays text when cursor is hovered over component																		
+		pane.add(refresh, c);
 		
 		// JTABLE
 		c.gridx = 1;
@@ -229,6 +229,11 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		setResizable(false);
 		windowLookAndFeel();
 	}
+	public void refresh(){
+		controller = new ControllerClass();
+		controller.browseFrame();
+		dispose();
+	}
 	
 	// Purpose: To set action evemt for back to main button
 	// PRE: Valid action event
@@ -239,9 +244,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			dispose();
 		}
 		
-		if (e.getActionCommand().equals("Delete")) {
-			BrowseCDsPanel browseCD = new BrowseCDsPanel();
-			browseCD.delete();
+		if (e.getActionCommand().equals("Refresh")) {
+			refresh();
 		}
 		
 		if (e.getActionCommand().equals("Media Select")) {
