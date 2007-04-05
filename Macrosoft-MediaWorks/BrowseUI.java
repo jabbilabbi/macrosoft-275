@@ -1,39 +1,29 @@
-// BrowseUI2.java
+// BrowseUI.java
 // SFU CMPT 275 - Software Engineering
 // Macrosoft
 // Programmed by: Alex Androne
 
 import java.awt.*;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableColumn;
 
 public class BrowseUI extends JFrame implements ActionListener  {
 	
 	// Initalizes pane components
+	// Required by Java for some reason
 	private static final long serialVersionUID = 1;
 	
 	private JLabel browseLibrary;
 	private JLabel displayLabel;
-	private JButton searchDB;
 	private JButton refresh;
-	private JTextField searchTF;
 	private JComboBox displayCB;
 	private JButton backToMain;
 	private JPanel addSetup;
@@ -52,21 +42,19 @@ public class BrowseUI extends JFrame implements ActionListener  {
     int tableWidth = 600;
     Dimension tableSize = new Dimension(tableWidth, 300);
     
-    
     DatabaseControl db = new DatabaseControl();
     
+    // Lays out the components
     public Component componentSetup() {
 		JPanel pane = new JPanel();
 		// Absolute container positioning used
 		
-//		 Lays out frame with GridBagLayout
+		// Lays out frame with GridBagLayout
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		// Variable declaration
 		
-		// Used for padding around components
-		Insets insets;
 		// Items in the combo box
 		String[] mediaTypes = {"CDs", "DVDs", "Games", "Books"};	
 		
@@ -75,7 +63,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		// JLABEL: Browse Library
 		browseLibrary = new JLabel("Browse Library");
 		browseLibrary.setFont(new Font("Helvetica", Font.BOLD, 16));
-		//browseLibrary.setHorizontalAlignment(arg0)
 		c.gridx = 0;	// Lays out component at grid x coordinate 0
 		c.gridy = 0;	// Lays out component at grid y coordinate 0
 		c.gridwidth = 3;	// Number of coumns the component is spanning
@@ -84,32 +71,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.insets = new Insets(20, 247, 20, 0);	// Top, Left, Bottom, Right Determines padding around component in pixels
 		c.anchor = GridBagConstraints.CENTER; // Aligns text absolute position relative to screen
 		pane.add(browseLibrary, c);	// Adds the component to the screen using grid bag layout constraints c
-		/*
-		// JTEXTFIELD: Search Library
-		searchTF = new JTextField("", 15);
-		c.gridx = 1;
-		c.gridy = 1;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 7); 
-		c.anchor = GridBagConstraints.CENTER; 
-		pane.add(searchTF, c);
 		
-		// JBUTTON: Search Library
-		searchDB = new JButton("Search Library");
-		searchDB.setToolTipText("Finds all entries with given words in given order"); // Displays text when cursor is hovered over component		
-		searchDB.setActionCommand("Search Library");
-		searchDB.addActionListener(this);
-		c.gridx = 2;
-		c.gridy = 1;
-		c.weightx = 0.0;
-		c.weighty = 0.0;
-		c.insets = new Insets(0, 0, 10, 100); 		
-		c.anchor = GridBagConstraints.LINE_END;
-		//insets = new Insets(0, 25, 0, 25);
-		//searchDB.setMargin(insets);
-		pane.add(searchDB, c);
-		*/
 		// JLABEL: Display
 		displayLabel = new JLabel("Display");
 		displayLabel.setFont(new Font("Helvetica", Font.PLAIN, 14));
@@ -155,7 +117,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.insets = new Insets(0, 10, 0, 10);
 		c.anchor = GridBagConstraints.CENTER;
 		
-		
 		// Adds the scroll pane to the window
 		addSetup = new JPanel();
 		addSetup.setLayout(new CardLayout()); 
@@ -185,8 +146,6 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		c.insets = new Insets(20, 0, 20, 0); 
 		c.anchor = GridBagConstraints.CENTER; 
 		backToMain.setToolTipText("Close browse window and open Main window");
-		//insets = new Insets(0, 25, 0, 25);
-		//backToMain.setMargin(insets);
 		backToMain.setPreferredSize(new Dimension(160, 75));
 		backToMain.setMaximumSize(new Dimension(160, 75));
 		pane.add(backToMain, c);
@@ -195,9 +154,9 @@ public class BrowseUI extends JFrame implements ActionListener  {
 
 	}
 	
-	// Purpose: To create and display the 'Create Account' UI
+	// Purpose: To make the window look like a standard windows winow
 	// PRE: None
-	// POST: A new frame is created, components added, frame displayed
+	// POST: Makes the window look like it's from windows
 	public static void windowLookAndFeel(){
 	    try{
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -214,13 +173,8 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		controller = new ControllerClass();
 		setTitle("Media Works - Browse Library");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Create and set up the content pane.
-        //BrowseUI2 newContentPane = new BrowseUI2();
-        //newContentPane.setOpaque(true); //content panes must be opaque
-        //setContentPane(newContentPane);
-		//addComponentsToPane(getContentPane());//OLD
 		add(componentSetup());
+		
         // Size and display the window
 		setSize(windowSize);
 		setLocationRelativeTo(null);
@@ -229,15 +183,19 @@ public class BrowseUI extends JFrame implements ActionListener  {
 		setResizable(false);
 		windowLookAndFeel();
 	}
+	
+	// Purpose: To refresh the window
+	// PRE: None
+	// POST: Refreshes the window
 	public void refresh(){
 		controller = new ControllerClass();
 		controller.browseFrame();
 		dispose();
 	}
 	
-	// Purpose: To set action evemt for back to main button
+	// Purpose: To set action events
 	// PRE: Valid action event
-	// POST: Sets up action event for back to main button
+	// POST: Sets up action event
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Back to Main")) {
 			controller.mainScreenFrame();
@@ -248,6 +206,7 @@ public class BrowseUI extends JFrame implements ActionListener  {
 			refresh();
 		}
 		
+		// Display appropriate panel depending on media selected in combo box
 		if (e.getActionCommand().equals("Media Select")) {
 			int PanelID = displayCB.getSelectedIndex();
 			CardLayout cl = (CardLayout)(addSetup.getLayout());
