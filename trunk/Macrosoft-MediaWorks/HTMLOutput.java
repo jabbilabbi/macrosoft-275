@@ -11,33 +11,42 @@ import java.util.ArrayList;
 
 public class HTMLOutput {
 	
-	// Used for database/current user information
+	//Used for database/current user information
 	//ControllerClass controller;
 	
 	DatabaseControl db = new DatabaseControl();
 	
+	// Get current program user
 	public String getCurrentUser() {
 		return db.getCurrentUser();
 	}
 	
+	// Create HTML output file of database information
+	// PRE: None
+	// POST: Web page file is created in program directory
+	
 	public void createHTMLOutput(boolean createCDTable, boolean createDVDTable, boolean createBookTable, boolean createGameTable) {
 		
-		// Print out Joe1.txt
+		// Ensure latest filename in use
 		db.updateFileName();
 		
+		// Load database information
 		db.loadAllDatabases();
 		
+		// Get current user
 		String currentUser = getCurrentUser();
+		// Web page filename; same as user
 		String pageToCreate = currentUser + ".htm";
 		
-
-	
 		// Begin HTML code for web page, including beginning of media library table
 		String textToWrite = "<html><head><title>" + currentUser + "'s Media " +
 				"Library</title></head><body><font face=Arial><h1>" + currentUser + "'s Media " +
 				"Library</h1><font font=Arial>";
 		
+		// Check databases; data is only output for a given database if the database is
+		// not empty
 		if (createCDTable == true && db.CDItems.size() > 0) {
+			// Add HTML data for current database to output string
 			textToWrite += createHTMLTable(db.CDItems, "CD");
 		}
 		if (createDVDTable == true && db.DVDItems.size() > 0) {
@@ -58,7 +67,7 @@ public class HTMLOutput {
 			BufferedWriter bw = null;
 			// Set up BufferedWriter to be used for writing
 			bw = new BufferedWriter(new FileWriter(pageToCreate, true));
-			// Write username to file
+			// Write HTML file
 			bw.write(textToWrite);
 			// Clear BufferedWriter after writing is complete
 			bw.flush();
@@ -67,15 +76,19 @@ public class HTMLOutput {
 		}
 	}
 	
+	// Get HTML code for a given database to be output in a web page file
+	// PRE: Current database is non-empty
+	// POST: String is returned containg HTML text for current database
+	
 	public String createHTMLTable(ArrayList<String> dbType, String tableTypeToCreate) {
-		//ControllerClass controller = new ControllerClass();
-		//controller.loadMediaDatabase(dbType);
 
+		// HTML separator; create space between tables
 		String tableOutput = "<br>";
+		// Variable for table background colour
 		String typeColour = "";
 		
+		// Check current table type, and set up table headings accordingly
 		if (tableTypeToCreate == "CD") {
-			
 			tableOutput += "<table width=700 bgcolor=black><tr>" +
 			"<td width=200 bgcolor=white><b><font size=4>Type</font></b></td>" +
 			"<td width=200 bgcolor=white><b><font size=4>Title</font></b></td>" +
@@ -115,6 +128,7 @@ public class HTMLOutput {
 			typeColour = "66cc33";
 		}
 
+		// Get current media index
 		int mediaIndex = db.getMediaIndex(dbType);
 		
 		// Cycle through media library and create HTML rows as needed
