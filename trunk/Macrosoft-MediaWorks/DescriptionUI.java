@@ -1,4 +1,4 @@
-// AddScreenUI.java
+// DescriptionUI.java
 // SFU CMPT 275 - Software Engineering
 // Macrosoft
 // Programmed by: Scott Fuoco
@@ -17,16 +17,14 @@ import java.awt.*;
 import java.awt.event.*;
 public class DescriptionUI extends JFrame implements ActionListener{
 
-//	 Initalizes pane components
+	//Initalizes pane components
 	
 	private JLabel detailsLabel, successLabel;
 	private Dimension dim;
 	private JButton closeBtn, editBtn;
-	private DatabaseControl cdb = new DatabaseControl();
 	
-	//	 Initalizes variables
-	final static boolean RIGHT_TO_LEFT = false; // GridBag layout manager will lay out components right to left if true and gridx/gridy components are not given
-    private String[] rowData;
+	// Initalizes variables
+	private String[] rowData;
 	private int selectedRow;
 	
 	private String typeSelected;
@@ -41,12 +39,16 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	private DVDsPanel DVDsSelected;
 	private BooksPanel BooksSelected;
 	private GamesPanel GamesSelected;
+	private DatabaseControl cdb = new DatabaseControl();
 	private ControllerClass controller;
-	
     DescriptionUI() {
     	//Nothing
     }
     
+	// Purpose: Constructor
+	// PRE: Requires a valid int and String
+	// POST: Sets up the lets the UI know what row was selected and what type was selected
+    //		 then creates the UI and fills in the fields
     DescriptionUI(int row, String type) {
     	selectedRow = row;
     	typeSelected = type;
@@ -156,7 +158,9 @@ public class DescriptionUI extends JFrame implements ActionListener{
 	        System.out.println("Look and Feel error: " + e);
 	    }
 	}	
-	
+	// Purpose: To create and display the 'Description' UI
+	// PRE: None
+	// POST: A new frame is created, components added, frame displayed
 	public void createAndShowGUI() {
 		rowData = cdb.getLibraryRow(selectedRow, typeSelected); // Holds a row of data from the database		
 		controller = new ControllerClass();

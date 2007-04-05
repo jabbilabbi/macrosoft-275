@@ -1,3 +1,7 @@
+// BooksPanel.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Scott Fuoco
 import javax.swing.*;
 
 import java.awt.*;
@@ -117,12 +121,9 @@ public class BooksPanel extends JPanel{
 		return labels;
 	}
 	
-	// Purpose: Put all the Label fields in one panel
+	// Purpose: Put all the error labels and Fields in one panel
 	// PRE: None
-	// POST: Returns a JPanel with Label fields in it
-	// Purpose: Put all the Label fields in one panel
-	// PRE: None
-	// POST: Returns a JPanel with Label fields in it
+	// POST: Returns a JPanel with the error labels and Fields
 	public JPanel fields(){
 		// Sets up the panel
 		fields = new JPanel();
@@ -204,7 +205,9 @@ public class BooksPanel extends JPanel{
 		return fields;
 	}
 	
-
+	// Purpose: Put all the labels in one panel
+	// PRE: None
+	// POST: Returns a JPanel with all the labels in it
 	public JPanel labels2(){
 		//Sets up panel
 		labels2 = new JPanel();
@@ -225,6 +228,9 @@ public class BooksPanel extends JPanel{
 		return labels2;
 	}
 	
+	// Purpose: Put all the error labels and Fields in one panel
+	// PRE: None
+	// POST: Returns a JPanel with the error labels and Fields
 	public JPanel fields2(){
 		// Sets up the panel
 		fields2 = new JPanel();
@@ -273,7 +279,9 @@ public class BooksPanel extends JPanel{
 		return checkAdd;
 
 	}
-	
+	// Purpose: Clears all the text fields
+	// PRE: None
+	// POST:  Clears all the text fields
 	public void clearBooks(){
 		titleField.setText("");
 		artistField.setText("");
@@ -282,6 +290,9 @@ public class BooksPanel extends JPanel{
 		publisherField.setText("");
 	}
 	
+	// Purpose: Sets all the fields with the given info
+	// PRE: String array of atleast size 6
+	// POST:  Sets all the fields with the given info
 	public void setBook(String[] info){
 		titleField.setText(info[1]);
 		artistField.setText(info[2]);
@@ -290,6 +301,9 @@ public class BooksPanel extends JPanel{
 		publisherField.setText(info[5]);
 	}
 	
+	// Purpose: Returns all the information in the fields
+	// PRE: None.
+	// POST: Returns all the information in the fields in a String array
 	public String[] returnBook(){
 		String[] Book = {"Book",
 				titleField.getText(),

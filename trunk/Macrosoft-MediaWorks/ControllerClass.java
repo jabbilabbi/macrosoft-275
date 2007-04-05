@@ -1,3 +1,7 @@
+// ControllerClass.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Scott Fuoco
 import java.util.ArrayList;
 
 public class ControllerClass{
@@ -25,11 +29,8 @@ public class ControllerClass{
 		html = new HTMLOutput();
 		sec = new Security();
 	}
-
-	public void loadMediaDatabase(ArrayList<String> dbType){
-//		cdb.loadMediaDatabase(dbType);
-	}
-
+// The functions in the controller class call the appropriate funtions of the other classes
+	
 	public int getRowsNeeded(ArrayList<String> dbType){
 		return cdb.getRowsNeeded(dbType);
 	}
@@ -78,9 +79,7 @@ public class ControllerClass{
 	public String[] getSecretInfo(String tempUser){
 		return sdb.getSecretInfo(tempUser);		
 	}
-//	public ArrayList<String> searchDB(String wordToFind){
-//		return cdb.searchDB(wordToFind);
-//	}
+
 	public void addScreenFrame(){
 		addScreenUI.createAndShowGUI();
 	}
