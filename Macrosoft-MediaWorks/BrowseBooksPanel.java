@@ -1,23 +1,27 @@
+// BrowseBooksPanel.java
+// SFU CMPT 275 - Software Engineering
+// Macrosoft
+// Programmed by: Alex Androne and Scott Fuoco
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
-
 import java.awt.*;
+
 public class BrowseBooksPanel extends JPanel {
 
 	// Initialize variables
 	
+	// Required by Java
 	private static final long serialVersionUID = 1;
 	
 	protected JPanel labels, fields, errors, rating, ratingSpacing;
 	
-	public Dimension dim;
-	public Boolean checkAdd;
-	public JTable table;
-	public TableSorter sorter;
-	public JScrollPane scrollPane;
+	private JTable table;
+	private TableSorter sorter;
+	private JScrollPane scrollPane;
 	
 	boolean ALLOW_COLUMN_SELECTION = true;
     boolean ALLOW_ROW_SELECTION = true;	
@@ -62,11 +66,9 @@ public class BrowseBooksPanel extends JPanel {
 		add(scrollPane);
 	}
 	
-	/*
-     * This method picks good column sizes.
-     * If all column heads are wider than the column's cells'
-     * contents, then you can just use column.sizeWidthToFit().
-    */
+	// Purpose: Sets up the width of the table columns
+	// PRE: The table and the width of the table
+	// POST: Sets the width of the columns
     private void initColumnSizes(JTable table) {
     	
         TableColumn column = null;
@@ -82,23 +84,16 @@ public class BrowseBooksPanel extends JPanel {
     }
     
     // Purpose: Initializes table attributes
-	// PRE:
-	// POST: 
+	// PRE: None
+	// POST: Table attributes are initialized
 	class MyTableModel extends AbstractTableModel {
         
+		// Required by Java
 		private static final long serialVersionUID = 1;
 		
         private String[] columnNames1 = { " ", "Title", "Artist", "Genre", "Type", "Description", " " };
         
         private Object[][] tableData = loadTableData();
-        
-        /*
-		private Object[][] tableData = {
-			{new Integer(1), "Mezzanine", "Massive Attack", "Electronica", "CD", "Click", new Boolean(false)},
-			{new Integer(2), "Gelb", "Neuroticfish", "Electronica", "CD", "Click", new Boolean(false)},
-			{new Integer(3), "Nirvana", "Nevermind", "Rock", "CD", "Click", new Boolean(false)}
-		};
-		*/
       
         public int getColumnCount() {
             return columnNames1.length;
@@ -116,21 +111,17 @@ public class BrowseBooksPanel extends JPanel {
             return tableData[row][col];
         }
         
-        /*
-          JTable uses this method to determine the default renderer/
-          editor for each cell.  If we didn't implement this method,
-          then the last column would contain text ("true"/"false"),
-          rather than a check box.
-         */
+        // Purpose: JTable uses this method to determine the default renderer/editor for each cell
+    	// If this method was not implemented, then the last column would contain text ("true"/"false"), rather than a check box
+        // PRE: Integer
+    	// POST: Respective class is returned
         public Class getColumnClass(int c) {
             return getValueAt(0, c).getClass();
         }
         
-        
-        /*
-         * Don't need to implement this method unless your table's
-         * editable.
-         */
+        // Purpose: To set whether the cells in each column are editable directly by double clicking a cell and typing text 
+        // PRE: Row and column index
+    	// POST: Sets cells as editable/not editable
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
@@ -141,10 +132,6 @@ public class BrowseBooksPanel extends JPanel {
             }
         }
 
-        /*
-         * Don't need to implement this method unless your table's
-         * data can change.
-         */
         public void setValueAt(Object value, int row, int col) {
             if (DEBUG) {
                 System.out.println("Setting value at " + row + "," + col
@@ -162,6 +149,9 @@ public class BrowseBooksPanel extends JPanel {
             }
         }
         
+        // Purpose: To load the 2D object array required by the table with data from the database
+        // PRE: None
+    	// POST: Returns 2D object array with entries from the database 
     	public Object[][] loadTableData() {
     		
     		DatabaseControl db = new DatabaseControl();
@@ -169,7 +159,8 @@ public class BrowseBooksPanel extends JPanel {
     		int rowsNeeded = db.getRowsNeeded(db.BookItems);
     		
     		// Holds table data	
-    		Object[][] tableData = new Object[rowsNeeded][7]; 			
+    		Object[][] tableData = new Object[rowsNeeded][7]; 	
+    		
     		// Assigns data from the database to tableData
     		for (int i = 0; i < rowsNeeded; i++) {
     			tableData[i][0] = new Integer(i+1);
@@ -179,15 +170,11 @@ public class BrowseBooksPanel extends JPanel {
     			tableData[i][2] = rowData[2];
     			tableData[i][3] = rowData[3];
     			tableData[i][4] = rowData[0]; 
-    			/*
-    			for (int j = 0; j < 4; j++)
-    				// Assigns column data from a row to tableData
-    				tableData[i][j+1] = rowData[j];
-    				*/
     			tableData[i][5] = "Click";
     			tableData[i][6] = new Boolean(false);
     		}
     		
+    		// Updates a similiar 2D string array with entries from the database. The array is needed for deletion purposes
     		updateStrTableData();
     			
     		return tableData;
@@ -208,7 +195,9 @@ public class BrowseBooksPanel extends JPanel {
         }
 	}
 	
-	// Used for delete
+    // Purpose: To update a 2D string array with items from the database after some entries were deleted
+    // PRE: None
+	// POST: 2D String array is updated
 	public void updateStrTableData() {
 		
 		DatabaseControl db = new DatabaseControl();
@@ -227,7 +216,8 @@ public class BrowseBooksPanel extends JPanel {
 	
 	// Purpose: Detects selection of cells in the details column
 	// PRE: The table
-	// POST: 
+	// POST: Detects a click on the a in the details column
+	// To detect a different consecutive selection, another cell must be clicked outside of the details column
 	public void detectDetailsClick(JTable table) {
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -299,18 +289,21 @@ public class BrowseBooksPanel extends JPanel {
         }
 	}
 	
+    // Purpose: To delete one or more media entries selected in the table
+    // PRE: None
+	// POST: Selected media entries are deleted
 	public void delete() {
 		System.out.println("Delete was pressed.");
 		DatabaseControl db = new DatabaseControl();
 		
-//		Checks which rows are selected
+		// Checks which rows are selected
 		for (int i=0 ; i<table.getRowCount() ; i++) {
 			// Gets the true/false value of the check box at the selected row
 			Object objectData = sorter.getValueAt(i, 6);
 			// Must be converted into a string so that
         	String stringData = objectData.toString();
         	stringData = stringData.toLowerCase();
-        
+        	// it can be converted to a boolean value
         	boolean delete;
         	if (stringData.equals("false"))
                 delete = false;             
@@ -318,14 +311,13 @@ public class BrowseBooksPanel extends JPanel {
                 delete = true;
             
         	if(DEBUG) {
-            	
             	System.out.println("objectData: " + objectData);
             	System.out.println("stringData: " + stringData);
             	System.out.println("delete: " + delete);
-            	//System.out.println("realRowIndex: " + realRowIndex);
             	System.out.println();
         	}
-			if(delete) {//Proceed to get the real index of the row
+        	// If the row i selection box is selected(true) then
+			if(delete) {//Proceed to get the real index of the row to be deleted
 				// Gets the int of the first column of the row that has been selected
 				objectData = sorter.getValueAt(i, 0);
 				// Must be converted to a string so that
@@ -335,15 +327,12 @@ public class BrowseBooksPanel extends JPanel {
 				// Because the numbers in the first column are +1 higher than their real index values
 				realRowIndex--;
 				String[] rowToDelete = new String[5];
-				// Puts the contents of the row that is selected into the
-				// row to be deleted
+				// Puts the contents of the row that is selected into the row to be deleted
 				for(int j=0 ; j<5 ; j++)
 					rowToDelete[j] = strTableData[realRowIndex][j];
 				db.deleteRow(db.BookItems, rowToDelete, "Book");
+				// Updates the 2D string array that was passed to the database deletion method with values excluding thos that were deleted
 				updateStrTableData();
-				// Refreshes table?
-				sorter.fireTableRowsDeleted(0, db.getRowsNeeded(db.BookItems));
-				
 			}
 		}
 	}
