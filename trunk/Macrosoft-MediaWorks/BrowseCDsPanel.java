@@ -170,7 +170,6 @@ public class BrowseCDsPanel extends JPanel {
     		
     		// Holds table data	
     		Object[][] tableData = new Object[rowsNeeded][7]; 			
-    		System.out.println(rowsNeeded);
     		// Assigns data from the database to tableData
     		for (int i = 0; i < rowsNeeded; i++) {
     			tableData[i][0] = new Integer(i+1);

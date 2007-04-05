@@ -329,11 +329,8 @@ public class LoginUI extends JFrame implements ActionListener {
 		String usernameEntered = String.valueOf(usernameTB.getText());
 		String passwordEntered = String.valueOf(passwordTB.getPassword());
 		// Stores the current username
-		String tempUser = usernameTB.getText();
+		String tempUser = usernameEntered;
 		String secretAnswer = String.valueOf(secretAnswerTB.getText());
-
-		int user_result = controller.checkLogin(usernameEntered,
-				passwordEntered);
 
 		// Case where button pressed was 'Forgot your Password'
 		if (e.getActionCommand().equals("Forgot your Password")) {
@@ -381,7 +378,10 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		}
 		// Case where button pressed was the Login button
-		if (e.getActionCommand().equals("Login")) {
+		if (e.getActionCommand().equals("Login")) 
+		{
+			int user_result = controller.checkLogin(usernameEntered,
+					passwordEntered);
 			// Checks if username wasn't completed
 			if (usernameTB.getText().length() == 0) {
 				// Fields are not complete

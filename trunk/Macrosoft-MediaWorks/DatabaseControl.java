@@ -22,6 +22,7 @@ public class DatabaseControl {
 	protected static  ArrayList<String> BookItems = new ArrayList<String>();
 	protected static  ArrayList<String> GameItems = new ArrayList<String>();
 	protected static String currentUser = "currentUser";
+	private Security sec = new Security();
 
 	// Allow access of retrieveCurrentUser function
 	//private ControllerClass controller;
@@ -132,6 +133,9 @@ public class DatabaseControl {
 		// Join media data elements
 		String lineToSave = "";
 		int i;
+		for(i = 0; i < rowElements.length; i++){
+			rowElements[i] = rowElements[i];
+		}
 		
 		for (i=0; i<rowElements.length-1; i++) {
 			lineToSave += rowElements[i] + " ::: ";
@@ -219,8 +223,6 @@ public class DatabaseControl {
 
 	public int getRowsNeeded(ArrayList<String> dbType) {
 		// Number of rows needed is total items / items per row
-		System.out.println(dbType.size());
-		System.out.println(getMediaIndex(dbType));
 		int totalRows = dbType.size() / getMediaIndex(dbType);
 		return totalRows;
 	}
