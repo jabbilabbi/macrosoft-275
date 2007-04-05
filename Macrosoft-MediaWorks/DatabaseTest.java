@@ -19,8 +19,10 @@ public class DatabaseTest {
 		// Print out Joe1.txt
 		db.updateFileName();
 		
+		// Load all databases
 		db.loadAllDatabases();
 		
+		// Check file name
 		System.out.println(db.getFileName());
 		
 		// Create a user database file; simply reloads the file here as it is called in
